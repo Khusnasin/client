@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
+import { MapContainer, TileLayer } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+
 import Room from "../components/Farmer";
 import Loader from "../components/Loader";
 import Error from '../components/Error';
@@ -58,7 +61,7 @@ function Homescreen() {
     return (
 
         <div className='container'>
-            <div className='row mt-5 bs'>
+            <div className='row mt-4 bs'>
                 <div className='col-md-5'>
                     <input type="text" className='form-control' placeholder='search farmers'
                         value={searchkey} onChange={(e) => { setsearchkey(e.target.value) }} onKeyUp={filterBySearch}
@@ -69,13 +72,30 @@ function Homescreen() {
                         <option value="all">All</option>
                         <option value="delux">Khanapara</option>
                         <option value="non-delux">Sonapur</option>
-                        <option value="non-delux">byrnihut </option>
-                        <option value="non-delux">jorabaat</option>
+                        <option value="non-delux">Byrnihut </option>
+                        <option value="non-delux">Jorabaat</option>
                     </select>
                 </div>
             </div>
+            <div className='row mt-10 bs'>
+                {loading ? (<Loader />) :
+                    <MapContainer
+                        center={[51.505, -0.09]}
+                        zoom={13}
+                        style={{ height: '400px', width: '100%', marginTop: '25px' }}
+                    >
+                        <TileLayer
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            attribution=""
+                        />
+                    </MapContainer>}
+
+            </div>
 
         </div>
+
+
+
 
     );
 }
