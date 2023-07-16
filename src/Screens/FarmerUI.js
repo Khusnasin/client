@@ -70,10 +70,12 @@ function FarmerUI() {
             {loading && (<Loader />)}
             {error && (<Error />)}
 
-            <div className="row justify-content-center mt-5">
-                <div className="col-md-5 mt-5">
-                    {success && (<Success message='Registration Successful!' />)}
-                    <div className="bs">
+            <div className="row mt-5">
+                {success && (<Success message='Registration Successful!' />)}
+                <div className="bs">
+                    <div className="col-md-5">
+
+
                         <h2>Register</h2>
                         <input type="text" className="form-control" placeholder="name"
                             value={name} onChange={(e) => { setname(e.target.value) }} />
@@ -83,6 +85,15 @@ function FarmerUI() {
                             value={age} onChange={(e) => { setage(e.target.value) }} />
                         <input type="text" className="form-control" placeholder="Phone Number"
                             value={phoneNumber} onChange={(e) => { setphoneNumber(e.target.value) }} />
+                        <input type="password" className="form-control" placeholder="password"
+                            value={password} onChange={(e) => { setpassword(e.target.value) }} />
+                        <input type="password" className="form-control" placeholder="confirm password"
+                            value={cpassword} onChange={(e) => { setcpassword(e.target.value) }} />
+                    </div>
+
+
+                    <div className="col-md-5" style={{ justifyContent: 'flex-end' }}>
+
                         <input type="number" className="form-control" placeholder="Number Of Cows"
                             value={numberOfCows} onChange={(e) => { setnumberOfCows(e.target.value) }} />
                         <input type="number" className="form-control" placeholder="Dung Produced (in kg)"
@@ -101,13 +112,12 @@ function FarmerUI() {
                         <input type='text' className='form-control' placeholder='description'
                             value={description} onChange={(e) => { setdescription(e.target.value) }}
                         />
-                        <input type="password" className="form-control" placeholder="password"
-                            value={password} onChange={(e) => { setpassword(e.target.value) }} />
-                        <input type="password" className="form-control" placeholder="confirm password"
-                            value={cpassword} onChange={(e) => { setcpassword(e.target.value) }} />
-
-                        <button className="btn btn-primary mt-3" onClick={register}>Register</button>
                     </div>
+                </div>
+                <div className='text-center'>
+
+
+                    <button className="btn btn-primary mt-3" onClick={register}>Register</button>
                 </div>
 
             </div>
