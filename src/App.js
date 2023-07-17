@@ -3,7 +3,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import { BrowserRouter , Route,Routes, Link} from 'react-router-dom';
 import Homescreen from './Screens/Homescreen';
-import FarmerUI from './Screens/FarmerUI';
+import Farmersregistratration from './Screens/Farmersregistration';
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path = "/home" exact Component = {Homescreen} />
-          <Route path = "/registerfarmer" exact Component = {FarmerUI} />
+          <Route path = "/registerfarmer" exact Component = {Farmersregistratration} />
         </Routes>
       </BrowserRouter>
     </div>

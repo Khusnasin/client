@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 code {
@@ -41,6 +42,8 @@ h1{
   margin-top: 20px !important;
   border-radius: 5px !important;
   padding: 20px !important;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 .bigimg{
   height:350px !important;
@@ -80,5 +83,14 @@ h2{
   color: black !important;
   margin-top: 20px;
 }
+
+.radio-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 100px;
+  margin-top: 25px;
+  margin-left: 100px;
+}
+
 
 
