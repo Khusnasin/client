@@ -8,6 +8,7 @@ import Loader from "../components/Loader";
 import Error from '../components/Error';
 
 import moment from 'moment';
+import Farmer from '../components/Farmer';
 
 
 function Homescreen() {
@@ -89,6 +90,14 @@ function Homescreen() {
                             attribution=""
                         />
                     </MapContainer>}
+
+            </div>
+            <div className="row justify-content-center mt-4">
+                {loading ? (<Loader />) : (farmers.map(farmer => {
+                    return <div className="col-md-9 mt-2">
+                        <Farmer farmer={farmer} />
+                    </div>;
+                }))}
 
             </div>
 
