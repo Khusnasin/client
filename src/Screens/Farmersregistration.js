@@ -136,7 +136,7 @@ function Farmersregistratration() {
             setamountOfMilk_inLitre(false);
         } else if (selectedOption === 'Cows') {
             setareaOfNapier(false);
-            setuseOfNapier('');
+            setuseOfNapier(false);
             setnumberOfCows(true);
             setdungProduced_inKg(true);
             setamountOfMilk_inLitre(true);
@@ -252,7 +252,7 @@ function Farmersregistratration() {
                                     type="radio"
                                     name="options"
                                     value="both"
-                                    checked={option === 'both'}
+                                 checked={option === 'both'}
                                     onChange={handleOptionChange}
                                 />
                                 Both

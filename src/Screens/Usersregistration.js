@@ -4,7 +4,7 @@ import Loader from "../components/Loader";
 import Error from "../components/Error";
 import Success from "../components/Success";
 
-function Registerscreen(){
+function Usersregistration(){
     const[name, setname] = useState('');
     const[email, setemail] = useState('');
     const[password, setpassword] = useState('');
@@ -25,7 +25,7 @@ function Registerscreen(){
             
             try{
                 setloading(true);
-                const result = await axios.post('/api/users/register' , user).data;
+                const result = await axios.post('/api/users/registeruser' , user).data;
                 setloading(false);
                 setsuccess(true);
 
@@ -56,7 +56,7 @@ function Registerscreen(){
                         <h2>Register</h2>
                         <input type="text" className="form-control" placeholder="name" 
                             value={name} onChange={(e)=>{setname(e.target.value)}}/>
-                        <input type="text" className="form-control" placeholder="email" 
+                        <input type="email" className="form-control" placeholder="email" 
                             value={email} onChange={(e)=>{setemail(e.target.value)}}/>
                         <input type="password" className="form-control" placeholder="password" 
                             value={password} onChange={(e)=>{setpassword(e.target.value)}}/>
@@ -72,4 +72,4 @@ function Registerscreen(){
     )
 }
 
-export default Registerscreen;
+export default Usersregistration;

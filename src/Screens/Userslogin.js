@@ -4,7 +4,7 @@ import Loader from "../components/Loader";
 import Error from "../components/Error";
 
 
-function Loginscreen() {
+function Userslogin() {
 
     const [email, setemail] = useState('');
     const [password, setpassword] = useState('');
@@ -25,7 +25,7 @@ function Loginscreen() {
         try {
 
             setloading(true);
-            const result = await axios.post('/api/users/login', user);
+            const result = await axios.post('/api/users/loginuser', user);
             setloading(false);
 
             localStorage.setItem('currentUser', JSON.stringify(result));
@@ -51,7 +51,7 @@ function Loginscreen() {
                     <div className="bs">
                         <h2>Login</h2>
 
-                        <input type="text" className="form-control" placeholder="email"
+                        <input type="email" className="form-control" placeholder="email"
                             value={email} onChange={(e) => { setemail(e.target.value) }} />
                         <input type="password" className="form-control" placeholder="password"
                             value={password} onChange={(e) => { setpassword(e.target.value) }} />
@@ -64,4 +64,4 @@ function Loginscreen() {
     )
 }
 
-export default Loginscreen;
+export default Userslogin;
