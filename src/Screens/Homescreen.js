@@ -43,7 +43,7 @@ function Homescreen() {
     }, []);
 
     function filterBySearch() {
-        const tempfarmers = duplicatefarmers.filter(farmer => farmer.name.toLowerCase().includes(searchkey.toLowerCase()));
+        const tempfarmers = duplicatefarmers.filter(farmer =>  farmer.Name.toLowerCase().includes(searchkey.toLowerCase()));
         setfarmers(tempfarmers);
     }
 
@@ -71,10 +71,10 @@ function Homescreen() {
                 <div className='col-md-3'>
                     <select className='form-control' value={location} onChange={(e) => { filterByLocation(e.target.value) }}>
                         <option value="all">All</option>
-                        <option value="delux">Khanapara</option>
-                        <option value="non-delux">Sonapur</option>
-                        <option value="non-delux">Byrnihut </option>
-                        <option value="non-delux">Jorabaat</option>
+                        <option value="khanapara">Khanapara</option>
+                        <option value="sonapur">Sonapur</option>
+                        <option value="byrnihut">Byrnihut </option>
+                        <option value="jorabaat">Jorabaat</option>
                     </select>
                 </div>
             </div>
@@ -92,7 +92,7 @@ function Homescreen() {
                     </MapContainer>}
 
             </div>
-            <div className="row justify-content-center mt-4">
+            <div className="row justify-content-center mt-10 bs3">
                 {loading ? (<Loader />) : (farmers.map(farmer => {
                     return <div className="col-md-9 mt-2">
                         <Farmer farmer={farmer} />
