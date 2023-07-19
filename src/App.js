@@ -6,7 +6,7 @@ import Homescreen from './Screens/Homescreen';
 import Farmersregistratration from './Screens/Farmersregistration';
 import Usersregistration from './Screens/Usersregistration';
 import Userslogin from './Screens/Userslogin';
-import Adminscreen from './Screens/Adminscreens';
+import Adminscreen from './Screens/Adminscreen';
 
 function App() {
   return (
