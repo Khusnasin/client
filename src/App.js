@@ -7,6 +7,7 @@ import Homescreen from './Screens/Homescreen';
 import Farmersregistratration from './Screens/Farmersregistration';
 import Usersregistration from './Screens/Usersregistration';
 import Userslogin from './Screens/Userslogin';
+import Adminscreen from './Screens/Adminscreens';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
           <Route path = "/registerfarmer" exact Component = {Farmersregistratration} />
           <Route path = "/registeruser" exact Component = {Usersregistration} />
           <Route path = "/loginuser" exact Component={Userslogin}/>
-          <Route path = "/admin" exact Component = {AdminPanel} />
+          <Route path = "/admin" exact Component = {Adminscreen} />
         </Routes>
       </BrowserRouter>
     </div>
