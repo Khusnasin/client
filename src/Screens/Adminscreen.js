@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import FarmersData from './components/FarmersData';
 import AddFarmers from './components/AddFarmers';
@@ -37,3 +37,4 @@ function AdminScreen() {
 }
 
 export default AdminScreen;
+*/

@@ -9,6 +9,8 @@ function Farmersregistratration() {
     const [Name, setname] = useState('');
     //const[email, setemail] = useState('');
     const [location, setlocation] = useState('');
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef(null);
 
     const [phoneNumber, setphoneNumber] = useState();
     const [option, setOption] = useState('');
@@ -32,6 +34,8 @@ function Farmersregistratration() {
     const [loading, setloading] = useState(false);
     const [error, seterror] = useState();
     const [success, setsuccess] = useState();
+
+    const dropdownOptions = ['Sonapur', 'Khanapara', 'Byrnihut', 'Jorabaat'];
 
     useEffect(() => {
         if (success) {
@@ -104,7 +108,7 @@ function Farmersregistratration() {
                 setdescription()
                 setchallenges()
                 setinterestInTraining()
-                
+
                 setpassword('')
                 setcpassword('')
 
@@ -158,6 +162,26 @@ function Farmersregistratration() {
             console.error('Error updating user:', error);
         }
     };
+    const handleInputChange = (e) => {
+        setlocation(e.target.value);
+        setIsDropdownOpen(true); // Open the dropdown when the user starts typing
+    };
+    const handleOptionSelect = (selectedOption) => {
+        setlocation(selectedOption);
+        setIsDropdownOpen(false); // Close the dropdown after selecting an option
+    };
+    useEffect(() => {
+        function handleClickOutside(event){
+            if(dropdownRef.current && !dropdownRef.current.contains(event.target)){
+                setIsDropdownOpen(false);
+            }
+        };
+    
+    document.addEventListener('mousedown' , handleClickOutside);
+    return() => {
+        document.removeEventListener('mousedown', handleClickOutside);
+    };
+},[]);
 
     return (
         <div>
@@ -177,7 +201,16 @@ function Farmersregistratration() {
                         <input type="text" className="form-control" placeholder="Name"
                             value={Name} onChange={(e) => { setname(e.target.value) }} />
                         <input type="text" className="form-control" placeholder="location"
-                            value={location} onChange={(e) => { setlocation(e.target.value) }} />
+                            value={location} onChange={handleInputChange} onClick={() => setIsDropdownOpen(true)} />
+                            {isDropdownOpen && (
+                                <ul ref={dropdownRef}>
+                                    {dropdownOptions.map((option) => (
+                                        <li key={option} onClick={() => handleOptionSelect(option)}>
+                                            {option}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                         <input type="text" className="form-control" placeholder="Phone Number"
                             value={phoneNumber} onChange={(e) => { setphoneNumber(e.target.value) }} />
                         <input type='text' className='form-control' placeholder='image URL 1'
@@ -252,7 +285,7 @@ function Farmersregistratration() {
                                     type="radio"
                                     name="options"
                                     value="both"
-                                 checked={option === 'both'}
+                                    checked={option === 'both'}
                                     onChange={handleOptionChange}
                                 />
                                 Both
