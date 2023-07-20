@@ -1,7 +1,7 @@
-import logo from './logo.svg'; 
+
 import './App.css';
 import Navbar from './components/Navbar';
-import { BrowserRouter , Route, Routes, Link} from 'react-router-dom';
+import { BrowserRouter , Route, Routes} from 'react-router-dom';
 import Homescreen from './Screens/Homescreen';
 import Farmersregistratration from './Screens/Farmersregistration';
 import Usersregistration from './Screens/Usersregistration';

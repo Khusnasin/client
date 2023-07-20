@@ -35,4 +35,4 @@ function Farmer({ farmer}) {
     )
 }
 
-export default Farmer
+export default Farmer;
