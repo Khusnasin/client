@@ -2,10 +2,10 @@ import React from 'react';
 
 
 function Navbar() {
-    const user = JSON.parse(localStorage.getItem('currentUser'));
+    const farmer = JSON.parse(localStorage.getItem('currentUser'));
     function logout() {
         localStorage.removeItem('currentUser');
-        window.location.href = '/login';
+        window.location.href = '/loginfarmer';
     }
     return (
         <div>
@@ -16,25 +16,25 @@ function Navbar() {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mr-5">
-                        {user ? (
+                        {farmer ? (
                             <>
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class='fa fa-user'></i>{user.data.name}
+                                        <i class='fa fa-user'></i>{farmer.data.Name}
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="/profile">Profile</a>
-                                        <a class="dropdown-item" href="#" onClick={logout}>Logout</a>
+                                        <a class="dropdown-item" href="/update-farmer-details">Profile</a>
+                                        <a class="dropdown-item" href="/home" onClick={logout}>Logout</a>
                                     </div>
                                 </div>
                             </>
                         ) : (
                             <>
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="/register">Register</a>
+                                    <a class="nav-link" href="/registerfarmer">Register</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/login">Login</a>
+                                    <a class="nav-link" href="/loginfarmer">Login</a>
                                 </li>
                             </>)}
 
