@@ -4,8 +4,8 @@ import Navbar from './components/Navbar';
 import { BrowserRouter , Route, Routes} from 'react-router-dom';
 import Homescreen from './Screens/Homescreen';
 import Farmersregistratration from './Screens/Farmersregistration';
-import Usersregistration from './Screens/Usersregistration';
-import Userslogin from './Screens/Userslogin';
+//import Usersregistration from './Screens/Usersregistration';
+import Farmerlogin from './Screens/Farmerlogin';
 import Adminscreen from './Screens/Adminscreen';
 
 function App() {
@@ -16,9 +16,9 @@ function App() {
         <Routes>
           <Route path = "/home" exact Component = {Homescreen} />
           <Route path = "/registerfarmer" exact Component = {Farmersregistratration} />
-          <Route path = "/registeruser" exact Component = {Usersregistration} />
-          <Route path = "/loginuser" exact Component={Userslogin}/>
-          <Route path = "/admin" exact Component = {Adminscreen} />
+          
+          <Route path = "/loginfarmer" exact Component={Farmerlogin}/>
+          <Route path="/admin" exact Component={Adminscreen} />
         </Routes>
       </BrowserRouter>
     </div>

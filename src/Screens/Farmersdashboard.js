@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+/*import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function FarmerDashboard() {
@@ -269,4 +269,4 @@ function FarmerDashboard() {
     );
 }
 
-export default FarmerDashboard;
+export default FarmerDashboard;*/
