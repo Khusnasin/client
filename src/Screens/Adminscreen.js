@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import Swal from 'sweetalert2';
 import { Tabs } from 'antd';
 import { TabPane } from 'react-bootstrap';
 
@@ -23,8 +24,8 @@ function Adminscreen() {
                 <TabPane tab='FarmersData' key='1'>
                     <FarmersData />
                 </TabPane>
-                <TabPane tab='AddFarmers' key='2'>
-                    <AddFarmers />
+                <TabPane tab='Addfarmers' key='2'>
+                    <Addfarmers />
                 </TabPane>
                 <TabPane tab='Users' key='3'>
                     <Users />
@@ -80,7 +81,8 @@ export function FarmersData() {
                             <th>Number Of Cows</th>
                             <th>Dung Produced in Kg</th>
                             <th>Amount Of Milk in Litre</th>
-                            <th>Image Urls</th>  
+                            <th>Image Urls</th> 
+                            <th>Description</th>
                             <th>Challenges</th>
                             <th>Interest In Training</th>
                             <th>Password</th>
@@ -91,7 +93,7 @@ export function FarmersData() {
                     <tbody>
                         {farmers.length && (farmers.map(farmer => {
                             return <tr>
-                                <td>{farmer.Name}</td>
+                                <td>{farmer.name}</td>
                                 <td>{farmer.location}</td>
                                 <td>{farmer.phoneNumber}</td>
                                 <td>{farmer.areaOfNapier}</td>
@@ -100,6 +102,7 @@ export function FarmersData() {
                                 <td>{farmer.dungProduced_inKg}</td>
                                 <td>{farmer.amountOfMilk_inLitre}</td>
                                 <td>{farmer.imageUrls}</td>
+                                <td>{farmer.description}</td>
                                 <td>{farmer.challenges}</td>
                                 <td>{farmer.interestInTraining}</td>
                                 <td>{farmer.password}</td>
@@ -117,84 +120,134 @@ export function FarmersData() {
 
 //add farmers components
 
-export function AddFarmers() {
+export function Addfarmers() {
 
-    const [farmers, setFarmers] = useState([]);
+    
     const [loading, setloading] = useState(true);
     const [error, seterror] = useState();
-    useEffect(() => {
-        fetchFarmers();
-      }, []);
+    
+    const[Name, setname] = useState('')
+    const[location, setlocation] = useState()
+    const[phoneNumber, setphoneNumber] = useState()
+    const[areaOfNapier, setareaOfNapier] = useState()
+    const[useOfNapier, setuseOfNapier] = useState()
+    const[numberOfCows, setnumberOfCows] = useState()
+    const[dungProduced_inKg, setdungProduced_inKg] = useState()
+    const[amountOfMilk_inLitre, setamountOfMilk_inLitre] = useState()
+    const[imageurl1, setimageurl] = useState()
+    const[imageurl2, setimageur2] = useState()
+    const[imageurl3, setimageur3] = useState()
+    const[description, setdescription] = useState()
+    const[challenges, setchallenges] = useState()
+    const[interestInTraining, setinterestInTraining] = useState()
+    const[password, setpassword] = useState()
+    
 
-    const fetchFarmers = async () => {
-        try {
-            const response = await axios.get('/api/farmers/getallfarmers');
-            const data = response.data;
-            setFarmers(data);
+    async function addFarmers(){
+
+        const newfarmers ={
+            Name,
+            location,
+            phoneNumber,
+            areaOfNapier,
+            useOfNapier,
+            numberOfCows,
+            dungProduced_inKg,
+            amountOfMilk_inLitre,
+            imageUrls : [imageurl1 , imageurl2 , imageurl3],
+            description,
+            challenges,
+            interestInTraining,
+            password
+        }
+
+        try{
+            setloading(true);
+            const response = await axios.post('/api/farmer/getallfarmers' , newfarmers)
+            const result = response.data;
+            console.log(result);
+            
             setloading(false);
+            Swal.fire('Congrats' , "Your new farmer is added successfully!" , 'success').then(result => {
+                window.location.href = '/home';
+            })
         } catch (error) {
             console.log(error);
             setloading(false);
             seterror(error);
+            Swal.fire('Oops' , "Something went wrong!" , 'error');
         }
     };
     
 
     return (
         <div className='row'>
-            <div className='col-md-12'>
-
-                <h1>Farmers Data</h1>
-                {loading && <Loader />}
-                {farmers.length && <p style={{ fontSize: '20px' }}><b>Total: {farmers.length} Farmer Data</b></p>}
-                <table className='table table-bordered table-dark'>
-                {error && (<Error />)}
-                    <thead className='bs'>
-                        <tr>
-                            <th>Name</th>
-                            <th>Location</th>
-                            <th>Phone Number</th>
-                            <th>Area Of Napier</th>
-                            <th>Use Of Napier</th>
-                            <th>Number Of Cows</th>
-                            <th>Dung Produced in Kg</th>
-                            <th>Amount Of Milk in Litre</th>
-                            <th>Image Urls</th>  
-                            <th>Challenges</th>
-                            <th>Interest In Training</th>
-                            <th>Password</th>
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-                        {farmers.length && (farmers.map(farmer => {
-                            return <tr>
-                                <td>{farmer.Name}</td>
-                                <td>{farmer.location}</td>
-                                <td>{farmer.phoneNumber}</td>
-                                <td>{farmer.areaOfNapier}</td>
-                                <td>{farmer.useOfNapier}</td>
-                                <td>{farmer.numberOfCows}</td>
-                                <td>{farmer.dungProduced_inKg}</td>
-                                <td>{farmer.amountOfMilk_inLitre}</td>
-                                <td>{farmer.imageUrls}</td>
-                                <td>{farmer.challenges}</td>
-                                <td>{farmer.interestInTraining}</td>
-                                <td>{farmer.password}</td>
-                                
-                            </tr>
-                        }))}
-                    </tbody>
-                </table>
-
+            
+            <div className='col-md-5'>
+            <h1>Add Farmers</h1>
+            {loading && <Loader />}
+            {error && (<Error />)}
+                <input type='text' classname='form-control' placeholder='farmer name' 
+                value={Name} onChange={(e) => {setname(e.target.value)}}
+                />
+                <input type='text' className='form-control' placeholder='location of farmer' 
+                value={location} onChange={(e) => {setlocation(e.target.value)}}
+                />
+                <input type='text' className='form-control' placeholder='phone number' 
+                value={phoneNumber} onChange={(e) => {setphoneNumber(e.target.value)}}
+                />
+                <input type='text' className='form-control' placeholder='area Of Napier' 
+                value={areaOfNapier} onChange={(e) => {setareaOfNapier(e.target.value)}}
+                />
+                <input type='text' className='form-control' placeholder='use Of Napier' 
+                value={useOfNapier} onChange={(e) => {setuseOfNapier(e.target.value)}}
+                />
+                <input type='text' className='form-control' placeholder='use Of Napier' 
+                value={numberOfCows} onChange={(e) => {setnumberOfCows(e.target.value)}}
+                />
+                <input type='text' className='form-control' placeholder='use Of Napier' 
+                value={dungProduced_inKg} onChange={(e) => {setdungProduced_inKg(e.target.value)}}
+                />
+                <input type='text' className='form-control' placeholder='type' 
+                value={amountOfMilk_inLitre} onChange={(e) => {setamountOfMilk_inLitre(e.target.value)}}
+                />
+                
 
             </div>
+
+            <div className='col-md-5'>
+            <input type='text' className='form-control' placeholder='type' 
+                value={description} onChange={(e) => {setdescription(e.target.value)}}
+                />
+                <input type='text' className='form-control' placeholder='image URL 1' 
+                value={imageurl1} onChange={(e) => {setimageurl(e.target.value)}}
+                />
+                <input type='text' className='form-control' placeholder='image URL 2' 
+                value={imageurl2} onChange={(e) => {setimageur2(e.target.value)}}
+                />
+                <input type='text' className='form-control' placeholder='image URL 3' 
+                value={imageurl3} onChange={(e) => {setimageur3(e.target.value)}}
+                />
+                <input type='text' className='form-control' placeholder='image URL 3' 
+                value={challenges} onChange={(e) => {setchallenges(e.target.value)}}
+                />
+                <input type='text' className='form-control' placeholder='image URL 3' 
+                value={interestInTraining} onChange={(e) => {setinterestInTraining(e.target.value)}}
+                />
+                <input type='text' className='form-control' placeholder='image URL 3' 
+                value={password} onChange={(e) => {setpassword(e.target.value)}}
+                />
+
+            <div className='text-right'>
+
+                <button className='btn btn-primary mt-2' onClick={addFarmers}>Add Farmers</button>
+
+            </div>
+            </div>
+
         </div>
     )
 }
-
-
     
 //users list components
 
