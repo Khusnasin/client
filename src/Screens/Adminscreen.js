@@ -69,6 +69,7 @@ export function FarmersData() {
                 {loading && <Loader />}
                 {farmers.length && <p style={{ fontSize: '20px' }}><b>Total: {farmers.length} Farmer Data</b></p>}
                 <table className='table table-bordered table-dark'>
+                {error && (<Error />)}
                     <thead className='bs'>
                         <tr>
                             <th>Name</th>
@@ -147,6 +148,7 @@ export function AddFarmers() {
                 {loading && <Loader />}
                 {farmers.length && <p style={{ fontSize: '20px' }}><b>Total: {farmers.length} Farmer Data</b></p>}
                 <table className='table table-bordered table-dark'>
+                {error && (<Error />)}
                     <thead className='bs'>
                         <tr>
                             <th>Name</th>
@@ -230,6 +232,7 @@ export function Users() {
                 {loading && <Loader />}
                 {users.length && <p style={{ fontSize: '20px' }}><b>Total: {users.length} Users</b></p>}
                 <table className='table table-bordered table-dark'>
+                {error && (<Error />)}
                     <thead className='bs'>
                         <tr>
                             
@@ -247,7 +250,7 @@ export function Users() {
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>{user.password}</td>
-                                <td>{user.isAdmin ? 'YES' : 'NO'}</td>
+                                <td>{user.isAdmin}</td>
                             </tr>
                         }))}
                     </tbody>
