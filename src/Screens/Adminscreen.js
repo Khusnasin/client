@@ -24,7 +24,7 @@ function Adminscreen() {
                 <TabPane tab='FarmersData' key='1'>
                     <FarmersData />
                 </TabPane>
-                <TabPane tab='Addfarmers' key='2'>
+                <TabPane tab='AddFarmers' key='2'>
                     <Addfarmers />
                 </TabPane>
                 <TabPane tab='Users' key='3'>
@@ -50,7 +50,7 @@ export function FarmersData() {
 
     const fetchFarmers = async () => {
         try {
-            const response = await axios.get('/api/farmers/getallfarmers');
+            const response = await axios.get('/api/farmer/getallfarmers');
             const data = response.data;
             setFarmers(data);
             setloading(false);
@@ -125,7 +125,6 @@ export function Addfarmers() {
     
     const [loading, setloading] = useState(true);
     const [error, seterror] = useState();
-    
     const[Name, setname] = useState('')
     const[location, setlocation] = useState()
     const[phoneNumber, setphoneNumber] = useState()
@@ -265,7 +264,7 @@ export function Users() {
     const fetchUsers = async () => {
         
         try {
-            const response = await axios.get('/api/users/getallusers');
+            const response = await axios.get('/api/user/getallusers');
             const data = response.data;
             setusers(data);
             setloading(false);
