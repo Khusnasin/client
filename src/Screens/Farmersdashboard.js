@@ -1,7 +1,11 @@
-/*import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Loader from "../components/Loader";
+import Error from "../components/Error";
+import Success from "../components/Success";
 
-function FarmerDashboard() {
+function Farmerdashboard() {
     const [farmersDetails, setfarmerDetails] = useState({
         Name: '',
         location: '',
@@ -21,21 +25,69 @@ function FarmerDashboard() {
         cpasword: ''
 
     });
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState();
-    const [success, setSuccess] = useState();
+    const formRef = useRef(null);
+    const [Name, setname] = useState('');
+    //const[email, setemail] = useState('');
+    const [location, setlocation] = useState('');
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef(null);
 
-    // Function to fetch user details from the server
+    const [phoneNumber, setphoneNumber] = useState();
+    const [option, setOption] = useState('');
+
+    const [areaOfNapier, setareaOfNapier] = useState(false);
+    const [useOfNapier, setuseOfNapier] = useState('');
+    const [numberOfCows, setnumberOfCows] = useState(false);
+    const [dungProduced_inKg, setdungProduced_inKg] = useState(false);
+    const [amountOfMilk_inLitre, setamountOfMilk_inLitre] = useState(false);
+
+    const [imageurl1, setimageurl1] = useState()
+    const [imageurl2, setimageurl2] = useState()
+    const [imageurl3, setimageurl3] = useState()
+    const [description, setdescription] = useState()
+    const [challenges, setchallenges] = useState()
+    const [interestInTraining, setinterestInTraining] = useState()
+
+    const [password, setpassword] = useState('');
+    const [cpassword, setcpassword] = useState('');
+
+    const [loading, setloading] = useState(false);
+    const [error, seterror] = useState();
+    const [success, setsuccess] = useState();
+
+    const dropdownOptions = ['Sonapur', 'Khanapara', 'Byrnihut', 'Jorabaat'];
+    const navigate = useNavigate();
+
+    const checkCurrentUser = () => {
+        const currentUser = localStorage.getItem('currentUser');
+        return currentUser ? JSON.parse(currentUser) : null;
+    };
+    useEffect(() => {
+        const delay = 2000;
+        fetchFarmerDetails();
+        const currentUser = checkCurrentUser();
+        if (currentUser) {
+            const redirectTimer = setTimeout(() => {
+                navigate('/update-farmer-details');
+            }, delay);
+            return () => clearTimeout(redirectTimer);
+        } else {
+            const redirectTimer = setTimeout(() => {
+                navigate('/home');
+            },delay);
+            return() => clearTimeout(redirectTimer);    
+        }
+    }, [navigate]);
     const fetchFarmerDetails = async () => {
         try {
-            setLoading(true);
-            const response = await axios.get('/api/getallfarmers');
+            setloading(true);
+            const response = await axios.get('/api/farmers/getallfarmers');
             setfarmerDetails(response.data);
-            setLoading(false);
+            setloading(false);
         } catch (error) {
             console.error('Error fetching registration details:', error);
-            setLoading(false);
-            setError('Failed to fetch registration details');
+            setloading(false);
+            seterror('Failed to fetch registration details');
         }
     };
 
@@ -43,10 +95,33 @@ function FarmerDashboard() {
         fetchFarmerDetails();
     }, []);
 
-    // Function to toggle edit mode
-    const toggleEditMode = () => {
-        setEditMode((prevEditMode) => !prevEditMode);
+    useEffect(() => {
+        if (success) {
+            resetForm();
+        }
+    }, [success]);
+
+    const resetForm = () => {
+        setname('')
+        setlocation('')
+        setphoneNumber('')
+        setareaOfNapier('')
+        setuseOfNapier('')
+        setnumberOfCows('')
+        setdungProduced_inKg('')
+        setamountOfMilk_inLitre('')
+        setimageurl1('')
+        setimageurl2('')
+        setimageurl3('')
+        setdescription('')
+        setchallenges('')
+        setinterestInTraining('')
+
+        setpassword('')
+        setcpassword('')
+
     };
+
 
     // Function to handle form input changes
     const handleInputChange = (e) => {
@@ -57,17 +132,17 @@ function FarmerDashboard() {
         }));
     };
 
-    // Function to handle form submission and update user details
+
     const handleFormSubmit = async () => {
         try {
-            setLoading(true);
-            await axios.put('/api/farmers/update-farmer-details', farmersDetails); // Replace with the actual API endpoint to update registration details
-            setLoading(false);
-            setSuccess(true);
+            setloading(true);
+            await axios.put('/api/farmers/update-farmer-details', farmersDetails);
+            setloading(false);
+            setsuccess(true);
         } catch (error) {
             console.error('Error updating registration details:', error);
-            setLoading(false);
-            setError('Failed to update registration details');
+            setloading(false);
+            seterror('Failed to update registration details');
         }
     };
     const handleReset = () => {
@@ -77,7 +152,7 @@ function FarmerDashboard() {
         const selectedOption = event.target.value;
         setOption(selectedOption);
 
-        // Enable/disable textboxes based on the selected option
+
         if (selectedOption === 'Napier Grass') {
             setareaOfNapier(true);
             setuseOfNapier('');
@@ -261,7 +336,7 @@ function FarmerDashboard() {
                 </div>
                 <div className='text-center'>
 
-                    <button type="submit">Update Registration</button>
+                    <button className="btn btn-primary" type="submit">Update Registration</button>
                     <button className="btn btn-primary mt-3" type="button" onClick={handleReset}>Reset</button>
                 </div>
             </form>
@@ -269,4 +344,4 @@ function FarmerDashboard() {
     );
 }
 
-export default FarmerDashboard;*/
+export default Farmerdashboard;
