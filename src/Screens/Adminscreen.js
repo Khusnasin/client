@@ -7,7 +7,8 @@ import { Tabs } from 'antd';
 import { TabPane } from 'react-bootstrap';
 
 function Adminscreen() {
-    const [isAdmin, setIsAdmin] = useState(false);
+  
+  const [isAdmin, setIsAdmin] = useState(false);
     useEffect(() => {
         const current_user = JSON.parse(localStorage.getItem('currentUser'));
 
