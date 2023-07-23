@@ -50,7 +50,7 @@ export function FarmersData() {
 
     const fetchFarmers = async () => {
         try {
-            const response = await axios.get('/getallfarmers');
+            const response = await axios.get('/api/farmers/getallfarmers');
             const data = response.data;
             setFarmers(data);
             setloading(false);
@@ -162,13 +162,13 @@ export function Addfarmers() {
 
         try{
             setloading(true);
-            const response = await axios.post('/getallfarmers' , newfarmers)
+            const response = await axios.post('/api/farmers/getallfarmers' , newfarmers)
             const result = response.data;
             console.log(result);
             
             setloading(false);
             Swal.fire('Congrats' , "Your new farmer is added successfully!" , 'success').then(result => {
-                window.location.href = '/home';
+                window.location.href = '/admin';
             })
         } catch (error) {
             console.log(error);
@@ -264,7 +264,7 @@ export function Users() {
     const fetchUsers = async () => {
         
         try {
-            const response = await axios.get('/getallusers');
+            const response = await axios.get('/api/users/getallusers');
             const data = response.data;
             setusers(data);
             setloading(false);
