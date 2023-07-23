@@ -98,7 +98,7 @@ export function FarmersData() {
                     <tbody>
                         {farmers.length && (farmers.map(farmer => {
                             return <tr>
-                                <td>{farmer.name}</td>
+                                <td>{farmer.Name}</td>
                                 <td>{farmer.location}</td>
                                 <td>{farmer.phoneNumber}</td>
                                 <td>{farmer.areaOfNapier}</td>
