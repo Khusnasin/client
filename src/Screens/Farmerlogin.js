@@ -29,9 +29,14 @@ function Farmerlogin() {
             setloading(true);
             const result = await axios.post('/api/farmers/loginfarmer', user);
             setloading(false);
+            setsuccess(true);
 
-            localStorage.setItem('currentUser', JSON.stringify(result));
-            window.location.href = '/update-farmer-details';
+            const delay = 2000;
+            setTimeout(() => {
+                localStorage.setItem('currentUser', JSON.stringify(result));
+                window.location.href = '/update-farmer-details';
+            },delay);
+            
             console.log(result)
 
  
@@ -43,13 +48,15 @@ function Farmerlogin() {
         console.log(user)
     }
 
+    
+
     return (
         <div>
             {loading && (<Loader />)}
             <div className="row justify-content-center mt-5">
                 <div className="col-md-5 mt-5">
                     {error && (<Error message='Invalid Credentials!' />)}
-                    {success && (<Success message='Login Successful!' />)}
+                    {success && (<Success message='Login Successful! .....redirecting' />)}
                     <div className="bs">
                         <h2>Login</h2>
 
