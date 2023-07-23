@@ -7,35 +7,40 @@ import { Tabs } from 'antd';
 import { TabPane } from 'react-bootstrap';
 
 function Adminscreen() {
-
+    const [isAdmin, setIsAdmin] = useState(false);
     useEffect(() => {
         const current_user = JSON.parse(localStorage.getItem('currentUser'));
 
-        console.log(current_user);
-        if (current_user.isAdmin) {
+        if (current_user && current_user.isAdmin) {
+            setIsAdmin(true);
+          } else {
             window.location.href = '/admin';
-        }
+          }
+        }, []);
 
-    }, []);
     return (
         <div className='mt-3 ml-3 mr-3 bs'>
             <h1 style={{ fontSize: '30px' }}><b>Admin Panel</b></h1>
-            <Tabs defaultActiveKeys='1'>
-                <TabPane tab='FarmersData' key='1'>
-                    <FarmersData />
-                </TabPane>
-                <TabPane tab='AddFarmers' key='2'>
-                    <Addfarmers />
-                </TabPane>
-                <TabPane tab='Users' key='3'>
-                    <Users />
-                </TabPane>
-            </Tabs>
+            {isAdmin ? (
+                <Tabs defaultActiveKeys='1'>
+                    <TabPane tab='FarmersData' key='1'>
+                        <FarmersData />
+                    </TabPane>
+                    <TabPane tab='AddFarmers' key='2'>
+                        <Addfarmers />
+                    </TabPane>
+                    <TabPane tab='Users' key='3'>
+                        <Users />
+                    </TabPane>
+                </Tabs>
+            ) : (
+                <p>You are not authorized to view this page.</p>
+              )}
         </div>
     )
 }
 
-export default Adminscreen;
+
 
 //farmer data components
 
@@ -250,67 +255,71 @@ export function Addfarmers() {
     
 //users list components
 
+
 export function Users() {
-
-    const [users, setusers] = useState([]);
-    const [loading, setloading] = useState(true);
-    const [error, seterror] = useState();
-    
+    const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+  
     useEffect(() => {
-        fetchUsers();
-      }, []);
-
-
+      fetchUsers();
+    }, []);
+  
     const fetchUsers = async () => {
-        
-        try {
-            const response = await axios.get('/api/users/getallusers');
-            const data = response.data;
-            setusers(data);
-            setloading(false);
-        } catch (error) {
-            console.log(error);
-            setloading(false);
-            seterror(error);
-        }
+      try {
+        const response = await axios.get('/api/users/getallusers');
+        const data = response.data;
+        setUsers(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+        setLoading(false);
+        setError(error);
+      }
     };
-    
-
+    const isAdmin = () => {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        return currentUser && currentUser.isAdmin;
+      };
+  
     return (
-        <div className='row'>
-            <div className='col-md-12'>
-
-                <h1>Users</h1>
-                {loading && <Loader />}
-                {users.length && <p style={{ fontSize: '20px' }}><b>Total: {users.length} Users</b></p>}
-                <table className='table table-bordered table-dark'>
-                {error && (<Error />)}
-                    <thead className='bs'>
-                        <tr>
-                            
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Password</th>
-                            <th>Is Admin</th>
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-                        {users.length && (users.map(user => {
-                            return <tr>
-                                <td>{user.name}</td>
-                                <td>{user.email}</td>
-                                <td>{user.password}</td>
-                                <td>{user.isAdmin}</td>
-                            </tr>
-                        }))}
-                    </tbody>
-                </table>
-
-
-            </div>
+      <div className='row'>
+        <div className='col-md-12'>
+          <h1>Users</h1>
+          {loading && <Loader />}
+          {users.length > 0 && (
+            <p style={{ fontSize: '20px' }}>
+              <b>Total: {users.length} Users</b>
+            </p>
+          )}
+          {isAdmin() && (
+          <table className='table table-bordered table-dark'>
+            {error && <Error />}
+            <thead className='bs'>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Is Admin</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user._id}>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>{user.password}</td>
+                  <td>{user.isAdmin ? 'Yes' : 'No'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          )}
+          {!isAdmin() && <p>You are not authorized to view this page.</p>}
         </div>
-    )
-}
+      </div>
+    );
+  }
+  
+  export default Adminscreen;
 
