@@ -50,7 +50,7 @@ export function FarmersData() {
 
     const fetchFarmers = async () => {
         try {
-            const response = await axios.get('/api/farmer/getallfarmers');
+            const response = await axios.get('/getallfarmers');
             const data = response.data;
             setFarmers(data);
             setloading(false);
@@ -162,7 +162,7 @@ export function Addfarmers() {
 
         try{
             setloading(true);
-            const response = await axios.post('/api/farmer/getallfarmers' , newfarmers)
+            const response = await axios.post('/getallfarmers' , newfarmers)
             const result = response.data;
             console.log(result);
             
@@ -264,7 +264,7 @@ export function Users() {
     const fetchUsers = async () => {
         
         try {
-            const response = await axios.get('/api/user/getallusers');
+            const response = await axios.get('/getallusers');
             const data = response.data;
             setusers(data);
             setloading(false);
