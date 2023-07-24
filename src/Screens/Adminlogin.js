@@ -67,7 +67,7 @@ function Adminlogin() {
                             value={email} onChange={(e) => { setemail(e.target.value) }} />
                         <input type="password" className="form-control" placeholder="password"
                             value={password} onChange={(e) => { setpassword(e.target.value) }} />
-                            <input type="password" className="form-control" placeholder="password"
+                            <input type="password" className="form-control" placeholder="admin code"
                             value={adminCode} onChange={(e) => { setadminCode(e.target.value) }} />
 
                         <button className="btn btn-primary mt-3" onClick={Login}>Login</button>
