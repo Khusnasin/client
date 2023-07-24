@@ -1,5 +1,33 @@
+/* Admindashboard.css */
 
-
+/* Styling for the Sider (Left Sidebar) */
+.ant-layout-sider {
+    width: 200px;
+    background-color: #001529;
+    color: #fff;
+  }
+  
+  /* Styling for the menu items in the Sider */
+  .ant-menu-item {
+    color: #fff;
+    border-radius: 4px; /* Adding rounded edges */
+    padding: 8px 16px; /* Adjust padding for tab buttons */
+    margin: 8px; /* Add margin to space out tab buttons */
+    transition: background-color 0.3s; /* Adding smooth transition */
+  }
+  
+  /* Styling for the menu item icons */
+  .anticon {
+    color: #fff;
+    font-size: 16px;
+  }
+  
+  /* Styling for the active tab button */
+  .ant-menu-item-selected {
+    background-color: #1890ff; /* Changing background color when the tab is active */
+  }
+  
+/*
 .site-layout-sub-header-background {
     background-color: #001529;
     color: #fff;
@@ -7,27 +35,28 @@
     text-align: center;
   }
   
-  /* Styling for the sider (left sidebar) */
+   Styling for the sider (left sidebar) 
   .ant-layout-sider {
     background-color: #001529;
     color: #fff;
   }
   
-  /* Styling for the menu items in the sider */
+  /* Styling for the menu items in the sider 
   .ant-menu-item {
-    color: #fff;
+    color: #0d0c0c;
   }
   
-  /* Styling for the menu item icons */
+  /* Styling for the menu item icons 
   .anticon {
     color: #fff;
   }
   
 
-/* Styling for the content area */
+/* Styling for the content area 
 .site-layout-content {
     margin: 20px;
-    width: calc(100% - 200px); /* Adjust the value based on the Sider width */
-  }
+    width: calc(100% - 200px);
+ } /* Adjust the value based on the Sider width */
+  
   
   
