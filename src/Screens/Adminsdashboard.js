@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Menu, notification } from 'antd';
-import axios from 'axios';
+//import axios from 'axios';
 import {
   UserOutlined,
   FileAddOutlined,
@@ -8,11 +8,11 @@ import {
 } from '@ant-design/icons';
 import Adminscreen from './Adminscreen';
 import { FarmersData, Addfarmers, Users } from './Adminscreen'; // Assuming these components are exported from AdminScreen.js
+import '../Admindashboardcss';
+//import Loader from "../components/Loader";
+//import Error from "../components/Error";
 
-import Loader from "../components/Loader";
-import Error from "../components/Error";
 
-import './Admindashboardcss';
 
 
 const { Header, Content, Sider } = Layout;

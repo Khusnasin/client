@@ -47,7 +47,7 @@ function Adminscreen() {
 
 export function FarmersData() {
 
-    const [farmers, setFarmers] = useState([]);
+    const [farmersData, setFarmers] = useState([]);
     const [loading, setloading] = useState(true);
     const [error, seterror] = useState();
     useEffect(() => {
@@ -74,7 +74,9 @@ export function FarmersData() {
 
                 <h1>Farmers Data</h1>
                 {loading && <Loader />}
-                {farmers.length && <p style={{ fontSize: '20px' }}><b>Total: {farmers.length} Farmer Data</b></p>}
+                {farmersData.length>0 && (
+                <p style={{ fontSize: '20px' }}><b>Total: {farmersData.length} Farmer Data</b></p>
+              )}
                 <table className='table table-bordered table-dark'>
                 {error && (<Error />)}
                     <thead className='bs'>
@@ -91,14 +93,14 @@ export function FarmersData() {
                             <th>Description</th>
                             <th>Challenges</th>
                             <th>Interest In Training</th>
-                            <th>Password</th>
+                            
                         </tr>
 
                     </thead>
 
                     <tbody>
-                        {farmers.length && (farmers.map(farmer => {
-                            return <tr>
+                        {farmersData.length && (farmersData.map(farmer => {
+                            <tr key={farmer._id}>
                                 <td>{farmer.Name}</td>
                                 <td>{farmer.location}</td>
                                 <td>{farmer.phoneNumber}</td>
@@ -111,7 +113,7 @@ export function FarmersData() {
                                 <td>{farmer.description}</td>
                                 <td>{farmer.challenges}</td>
                                 <td>{farmer.interestInTraining}</td>
-                                <td>{farmer.password}</td>
+                                
                                 
                             </tr>
                         }))}
