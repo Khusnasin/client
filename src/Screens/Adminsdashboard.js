@@ -90,7 +90,7 @@ function Admindashboard() {
     <Layout style={{ minHeight: '100vh' }}>
       <Sider theme="dark" width={200}>
       
-      <h1 style={{ fontSize: '30px' }}><b>Admin Dashboard</b></h1>
+      <h1 style={{ fontSize: '50px' }}><b>Admin Dashboard</b></h1>
       {loading && <Loader />}
       {error && <Error />}
       
