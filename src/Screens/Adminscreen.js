@@ -7,7 +7,8 @@ import { Tabs } from 'antd';
 import { TabPane } from 'react-bootstrap';
 
 function Adminscreen() {
-    const [isAdmin, setIsAdmin] = useState(false);
+  
+  const [isAdmin, setIsAdmin] = useState(false);
     useEffect(() => {
         const current_user = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -98,7 +99,7 @@ export function FarmersData() {
                     <tbody>
                         {farmers.length && (farmers.map(farmer => {
                             return <tr>
-                                <td>{farmer.name}</td>
+                                <td>{farmer.Name}</td>
                                 <td>{farmer.location}</td>
                                 <td>{farmer.phoneNumber}</td>
                                 <td>{farmer.areaOfNapier}</td>

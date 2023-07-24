@@ -112,7 +112,7 @@ function Admindashboard() {
       </Sider>      
       <Layout>
         <Header className="site-layout-sub-header-background" style={{ padding: 0 }} />
-        <Content style={{ margin: '20px' }}>
+        <Content style={{ margin: '16px' }}>
           {selectedTab === '1' && (
             <FarmersData farmersData={farmersData} loading={loading} />
           )}
@@ -133,3 +133,54 @@ export default Admindashboard;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
