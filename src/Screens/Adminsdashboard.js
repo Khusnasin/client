@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons';
 import Adminscreen from './Adminscreen';
 import { FarmersData, Addfarmers, Users } from './Adminscreen'; // Assuming these components are exported from AdminScreen.js
-import '../Admindashboardcss';
+import './Admindshbrd.css';
 //import Loader from "../components/Loader";
 //import Error from "../components/Error";
 
