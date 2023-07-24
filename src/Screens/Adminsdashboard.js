@@ -8,6 +8,7 @@ import {
 } from '@ant-design/icons';
 import Adminscreen from './Adminscreen';
 import { FarmersData, Addfarmers, Users } from './Adminscreen'; // Assuming these components are exported from AdminScreen.js
+import './Admindashboard.css';
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 const { Header, Content, Sider } = Layout;
@@ -112,7 +113,7 @@ function Admindashboard() {
       </Sider>      
       <Layout>
         <Header className="site-layout-sub-header-background" style={{ padding: 0 }} />
-        <Content style={{ margin: '16px' }}>
+        <Content style={{ margin: '20px' }}>
           {selectedTab === '1' && (
             <FarmersData farmersData={farmersData} loading={loading} />
           )}

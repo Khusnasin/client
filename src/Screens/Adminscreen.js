@@ -21,7 +21,7 @@ function Adminscreen() {
 
     return (
         <div className='mt-3 ml-3 mr-3 bs'>
-            <h1 style={{ fontSize: '30px' }}><b>Admin Panel</b></h1>
+            <h1 style={{ fontSize: '60px' }}><b>Admin Panel</b></h1>
             {isAdmin ? (
                 <Tabs defaultActiveKeys='1'>
                     <TabPane tab='FarmersData' key='1'>
@@ -207,13 +207,13 @@ export function Addfarmers() {
                 <input type='text' className='form-control' placeholder='use Of Napier' 
                 value={useOfNapier} onChange={(e) => {setuseOfNapier(e.target.value)}}
                 />
-                <input type='text' className='form-control' placeholder='use Of Napier' 
+                <input type='text' className='form-control' placeholder='number Of Cows' 
                 value={numberOfCows} onChange={(e) => {setnumberOfCows(e.target.value)}}
                 />
-                <input type='text' className='form-control' placeholder='use Of Napier' 
+                <input type='text' className='form-control' placeholder='dung produced in Kg' 
                 value={dungProduced_inKg} onChange={(e) => {setdungProduced_inKg(e.target.value)}}
                 />
-                <input type='text' className='form-control' placeholder='type' 
+                <input type='text' className='form-control' placeholder='amount of Milk in Litre' 
                 value={amountOfMilk_inLitre} onChange={(e) => {setamountOfMilk_inLitre(e.target.value)}}
                 />
                 
@@ -221,7 +221,7 @@ export function Addfarmers() {
             </div>
 
             <div className='col-md-5'>
-            <input type='text' className='form-control' placeholder='type' 
+            <input type='text' className='form-control' placeholder='description' 
                 value={description} onChange={(e) => {setdescription(e.target.value)}}
                 />
                 <input type='text' className='form-control' placeholder='image URL 1' 
@@ -233,13 +233,13 @@ export function Addfarmers() {
                 <input type='text' className='form-control' placeholder='image URL 3' 
                 value={imageurl3} onChange={(e) => {setimageur3(e.target.value)}}
                 />
-                <input type='text' className='form-control' placeholder='image URL 3' 
+                <input type='text' className='form-control' placeholder='challenges' 
                 value={challenges} onChange={(e) => {setchallenges(e.target.value)}}
                 />
-                <input type='text' className='form-control' placeholder='image URL 3' 
+                <input type='text' className='form-control' placeholder='interest in training' 
                 value={interestInTraining} onChange={(e) => {setinterestInTraining(e.target.value)}}
                 />
-                <input type='text' className='form-control' placeholder='image URL 3' 
+                <input type='text' className='form-control' placeholder='password' 
                 value={password} onChange={(e) => {setpassword(e.target.value)}}
                 />
 

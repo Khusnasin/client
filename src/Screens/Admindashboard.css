@@ -1,0 +1,29 @@
+
+.site-layout-sub-header-background {
+    background-color: #001529;
+    color: #fff;
+    padding: 16px;
+    text-align: center;
+  }
+  
+  /* Styling for the sider (left sidebar) */
+  .ant-layout-sider {
+    background-color: #001529;
+    color: #fff;
+  }
+  
+  /* Styling for the menu items in the sider */
+  .ant-menu-item {
+    color: #fff;
+  }
+  
+  /* Styling for the menu item icons */
+  .anticon {
+    color: #fff;
+  }
+  
+  /* Styling for the content area */
+  .site-layout-content {
+    margin: 20px;
+  }
+  
