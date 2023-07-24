@@ -1,4 +1,5 @@
 
+
 .site-layout-sub-header-background {
     background-color: #001529;
     color: #fff;
@@ -22,8 +23,11 @@
     color: #fff;
   }
   
-  /* Styling for the content area */
-  .site-layout-content {
+
+/* Styling for the content area */
+.site-layout-content {
     margin: 20px;
+    width: calc(100% - 200px); /* Adjust the value based on the Sider width */
   }
+  
   
