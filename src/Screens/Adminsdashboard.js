@@ -12,7 +12,7 @@ import { FarmersData, Addfarmers, Users } from './Adminscreen'; // Assuming thes
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 
-import "./Screens/Admindashboard.css";
+import './Admindashboardcss';
 
 
 const { Header, Content, Sider } = Layout;
