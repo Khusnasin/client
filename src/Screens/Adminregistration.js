@@ -1,14 +1,15 @@
-import React , {useState , useEffect} from "react";
+import React , {useState} from "react";
 import axios from "axios";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import Success from "../components/Success";
 
-function Usersregistration(){
+function Adminregistration(){
     const[name, setname] = useState('');
     const[email, setemail] = useState('');
     const[password, setpassword] = useState('');
     const[cpassword, setcpassword] = useState('');
+    const[adminCode, setadminCode] = useState('');
 
     const [loading, setloading] = useState(false);
     const [error, seterror] = useState();
@@ -20,12 +21,14 @@ function Usersregistration(){
                 name,
                 email,
                 password,
-                cpassword
+                cpassword,
+                adminCode
             }
             
             try{
                 setloading(true);
-                const result = await axios.post('/api/users/registeruser' , user).data;
+                const response = await axios.post('/api/users/registeruseradmin' , user).data;
+                console.log(response.data);
                 setloading(false);
                 setsuccess(true);
 
@@ -62,6 +65,8 @@ function Usersregistration(){
                             value={password} onChange={(e)=>{setpassword(e.target.value)}}/>
                         <input type="password" className="form-control" placeholder="confirm password"
                             value={cpassword} onChange={(e)=>{setcpassword(e.target.value)}}/>
+                        <input type="password" className="form-control" placeholder="admincode"
+                            value={adminCode} onChange={(e)=>{setadminCode(e.target.value)}}/>
 
                         <button className="btn btn-primary mt-3" onClick={register}>Register</button>
                     </div>
@@ -72,4 +77,4 @@ function Usersregistration(){
     )
 }
 
-export default Usersregistration;
+export default Adminregistration;
