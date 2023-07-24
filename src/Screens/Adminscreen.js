@@ -99,6 +99,7 @@ export function FarmersData() {
                     </thead>
 
                     <tbody>
+                      
                         {farmersData.length && (farmersData.map(farmer => {
                             <tr key={farmer._id}>
                                 <td>{farmer.Name}</td>
