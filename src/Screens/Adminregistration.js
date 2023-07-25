@@ -33,7 +33,7 @@ function Adminregistration() {
       if (response.status === 201) {
         setSuccess('Registration Successful!');
         setLoading(false);
-        navigate('/admin/loginadmin'); // Redirect to the login page after successful registration
+        navigate('/loginadmin'); // Redirect to the login page after successful registration
       
     } 
   }catch (error) {
