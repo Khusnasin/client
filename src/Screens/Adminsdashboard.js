@@ -1,25 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Menu, notification } from 'antd';
-//import axios from 'axios';
+import axios from 'axios';
 import {
   UserOutlined,
   FileAddOutlined,
   TeamOutlined,
 } from '@ant-design/icons';
 import Adminscreen from './Adminscreen';
-import { FarmersData, Addfarmers, Users } from './Adminscreen'; // Assuming these components are exported from AdminScreen.js
-import './Admindshbrd.css';
-//import Loader from "../components/Loader";
-//import Error from "../components/Error";
-
-
-
+import { FarmersData, Addfarmers, Users } from './Adminscreen'; 
+import "./Admindshbrd.css";
+import Loader from "../components/Loader";
+import Error from "../components/Error";
 
 const { Header, Content, Sider } = Layout;
 
 
 function Admindashboard() {
-  /*
+  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [farmersData, setFarmersData] = useState([]);
@@ -47,7 +44,7 @@ function Admindashboard() {
     fetchFarmersData();
   }, []); // Fetch data when the component mounts
 
-*/
+
 
   const [selectedTab, setSelectedTab] = useState('1');
 
@@ -55,7 +52,7 @@ function Admindashboard() {
     setSelectedTab(e.key);
   };
 
- /* const handleEditFarmer = (farmer) => {
+  const handleEditFarmer = (farmer) => {
     setSelectedFarmer(farmer);
   };
 
@@ -91,45 +88,10 @@ function Admindashboard() {
       // Show error message or perform any other action
     }
   };
- */ 
+ 
 
-  return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider theme="dark" width={200}>
-        <h1 style={{ fontSize: '50px' }}><b>Admin Dashboard</b></h1>
-        <Menu
-          mode="inline"
-          selectedKeys={[selectedTab]}
-          onClick={handleMenuClick}
-        >
-          <Menu.Item key="1" icon={<UserOutlined />}>
-            Farmers Data
-          </Menu.Item>
-          <Menu.Item key="2" icon={<FileAddOutlined />}>
-            Add Farmers
-          </Menu.Item>
-          <Menu.Item key="3" icon={<TeamOutlined />}>
-            Users
-          </Menu.Item>
-        </Menu>
-      </Sider>
-      <Layout>
-        <Header className="site-layout-sub-header-background" style={{ padding: 0 }} />
-        <Content className="site-layout-content">
-          {selectedTab === '1' && (
-            <FarmersData />
-          )}
-          {selectedTab === '2' && <Addfarmers />}
-          {selectedTab === '3' && <Users />}
-          {!selectedTab && <Adminscreen />}
-        </Content>
-      </Layout>
-    </Layout>
-  );
-}
+  
 
-export default Admindashboard;
-/*
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider theme="dark" width={150}>
@@ -163,7 +125,7 @@ export default Admindashboard;
           )}
           {selectedTab === '2' && <Addfarmers />}
           {selectedTab === '3' && <Users />}
-           {/* Import and display AdminScreen component when no tab is selected }
+           {/* Import and display AdminScreen component when no tab is selected */}
            {!selectedTab && <Adminscreen />}
         </Content>
       </Layout>
@@ -178,7 +140,7 @@ export default Admindashboard;
 
 
 
-*/
+
 
 
 
