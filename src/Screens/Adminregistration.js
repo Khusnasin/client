@@ -1,18 +1,23 @@
-import React , {useState} from "react";
-import axios from "axios";
-import { useHistory } from 'react-router';
-//import Loader from "../components/Loader";
-//import Error from "../components/Error";
-//import Success from "../components/Success";
+import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import { registerAdmin } from '../routes/adminRoute';
+import Loader from "../components/Loader";
+import Error from "../components/Error";
+import Success from "../components/Success";
 
-function Adminregistration(){
-    const history = useHistory();
+function Adminregistration() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
+
   const [formData, setFormData] = useState({
-    name: '',
+    username: '',
     email: '',
     password: '',
     adminCode: '',
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,10 +26,98 @@ function Adminregistration(){
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/admin/registeruseradmin', formData);
-      if (response.status === 201) {
-        alert('Admin registered successfully!');
-        history.push('/admin/loginadmin'); // Redirect to the login page after successful registration
+      setLoading(true);
+      await registerAdmin(formData);
+      navigate('/admin/loginadmin'); // Redirect to the login page after successful registration
+      setLoading(false);
+      setSuccess(true);
+    } catch (error) {
+      setLoading(false);
+      if (error.response && error.response.data && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError('An error occurred during admin registration. Please try again later.');
+      }
+    }
+  };
+
+  return (
+    <div>
+      <h1>Admin Registration</h1>
+      <form onSubmit={handleSubmit}>
+        {loading && <Loader />}
+        {error && <Error message={error} />}
+        {success && <Success message='Registration Successful!' />}
+        <div className="row justify-content-center mt-5">
+          <div className="col-md-5 mt-5">
+            <div className="bs">
+              <div>
+                <label>Name:</label>
+                <input type="text" className="form-control" placeholder="name"
+                  name="username" value={formData.username} onChange={handleChange} />
+              </div>
+              <div>
+                <label>Email:</label>
+                <input type="email" className="form-control" placeholder="email"
+                  name="email" value={formData.email} onChange={handleChange} />
+              </div>
+              <div>
+                <label>Password:</label>
+                <input type="password" className="form-control" placeholder="password"
+                  name="password" value={formData.password} onChange={handleChange} />
+              </div>
+              <div>
+                <label>Admin Code:</label>
+                <input type="password" className="form-control" placeholder="admincode"
+                  name="adminCode" value={formData.adminCode} onChange={handleChange} />
+              </div>
+              <div>
+                <button type="submit" className="btn btn-primary mt-3">Register</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+export default Adminregistration;
+
+/*import React , {useState} from "react";
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+import { registerAdmin } from '../routes/adminRoute'; // Import the registerAdmin function from adminRoute
+import Loader from "../components/Loader";
+import Error from "../components/Error";
+import Success from "../components/Success";
+
+function Adminregistration(){
+  const [loading, setloading] = useState(false);
+  const [error, seterror] = useState();
+  const [success , setsuccess] = useState();
+    
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    adminCode: '',
+  });
+
+  const navigate = useNavigate(); // Use useNavigate to get the navigation function
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      //const response = await axios.post('/api/admin/registeruseradmin', formData);
+      //if (response.status === 201) {
+        //alert('Admin registered successfully!');
+        await registerAdmin(formData); // Call the registerAdmin function with the form data
+        navigate('/admin/loginadmin'); // Redirect to the login page after successful registration
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
@@ -34,6 +127,51 @@ function Adminregistration(){
       }
     }
   };
+  return(
+    <div>
+      
+      <h1>Admin Registration</h1>
+      <form onSubmit={handleSubmit}></form>
+        {loading && (<Loader />)}
+        {error && (<Error />)}
+        
+        <div className="row justify-content-center mt-5">
+            <div className="col-md-5 mt-5">
+            {success && (<Success message='Registration Successful!' />)}
+                <div className="bs">
+                <div>
+                <label>Name:</label>
+                    <input type="text" className="form-control" placeholder="name" 
+                        value={formData.username} onChange={handleChange}/>
+                 </div>
+                 <div>
+                 <label>Email:</label>  
+                    <input type="email" className="form-control" placeholder="email" 
+                        value={formData.email} onChange={handleChange}/>
+                 </div>
+                 <div>
+                  <label>Password:</label>  
+                    <input type="password" className="form-control" placeholder="password" 
+                        value={formData.password} onChange={handleChange}/>
+                  </div>
+                  <div>
+                  <label>Admin Code:</label>  
+                    <input type="password" className="form-control" placeholder="admincode"
+                        value={formData.adminCode} onChange={handleChange}/>
+                  </div>
+                  <div>
+                    <button className="btn btn-primary mt-3" onClick={register}>Register</button>
+                  </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+);
+export default Adminregistration;
+
+
+  /*
 
   return (
     <div>
@@ -61,9 +199,10 @@ function Adminregistration(){
       </form>
     </div>
   );
-}
 
-export default Adminregistration;
+*/
+
+
 /*
     
     const[email, setemail] = useState('');
