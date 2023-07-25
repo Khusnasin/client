@@ -11,6 +11,7 @@ import { FarmersData, Addfarmers, Users } from './Adminscreen';
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import styled from 'styled-components';
+import { AdminContext, AdminContextProvider } from './AdminContext';
 
 
 const { Header, Content, Sider } = Layout;
@@ -129,7 +130,9 @@ function Admindashboard() {
   };
 
   return (
+    <AdminContextProvider>
     <Layout style={{ minHeight: '100vh' }}>
+      <AdminContext value={{ farmersData, loading }}>
       <Sidebar theme="dark" width={150}>
         <AdminHeader>Admin Dashboard</AdminHeader>
         {loading && <Loader />}
@@ -160,7 +163,9 @@ function Admindashboard() {
           </TabContent>
         </PageContent>
       </Layout>
+      </AdminContext>
     </Layout>
+    </AdminContextProvider>
   );
 }
 
