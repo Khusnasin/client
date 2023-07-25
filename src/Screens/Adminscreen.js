@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+/*import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Loader from "../components/Loader";
 import Error from "../components/Error";
@@ -323,4 +323,4 @@ export function Users() {
   }
   
   export default Adminscreen;
-
+*/

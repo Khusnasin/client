@@ -43,7 +43,7 @@ function Farmerlogin() {
         } catch (error) {
             console.log(error);
             setloading(false);
-            seterror(true);
+            seterror(true); 
         }
         console.log(user)
     }

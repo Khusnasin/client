@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+/*import React, { useState, useEffect } from 'react';
 import { Layout, Menu, notification } from 'antd';
 import axios from 'axios';
 import {
@@ -118,69 +118,15 @@ function Admindashboard() {
           )}
           {selectedTab === '2' && <Addfarmers />}
           {selectedTab === '3' && <Users />}
-           {/* Import and display AdminScreen component when no tab is selected */}
-           {!selectedTab && <Adminscreen />}
-        </Content>
-      </Layout>
-    </Layout>
-  );
+           {/* Import and display AdminScreen component when no tab is selected }*/
+           //{!selectedTab && <Adminscreen />}
+       // </Content>
+      //</Layout>
+   // </Layout>
+ // );
           
              
-}
+//}
 
 
-export default Admindashboard;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
+//export default Admindashboard;
