@@ -8,9 +8,10 @@ import {
 } from '@ant-design/icons';
 import Adminscreen from './Adminscreen';
 import { FarmersData, Addfarmers, Users } from './Adminscreen'; 
-import "./Admindshbrd.css";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import styled from 'styled-components';
+
 
 const { Header, Content, Sider } = Layout;
 
