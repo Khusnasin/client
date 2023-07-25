@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Layout, Menu, notification } from 'antd';
 import axios from 'axios';
 import {
@@ -15,6 +15,44 @@ import styled from 'styled-components';
 
 const { Header, Content, Sider } = Layout;
 
+// Styled Components
+const AdminHeader = styled.h1`
+  font-size: 50px;
+  color: #000;
+  text-align: center;
+`;
+
+const Sidebar = styled(Sider)`
+  background-color: #001529;
+  color: #fff;
+`;
+
+const MenuItem = styled(Menu.Item)`
+  color: #fff;
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin: 8px;
+  transition: background-color 0.3s;
+
+  &.ant-menu-item-selected {
+    background-color: #1890ff;
+  }
+`;
+
+const PageContent = styled(Content)`
+  margin: 20px;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const TabContent = styled.div`
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 
 function Admindashboard() {
   
@@ -89,10 +127,47 @@ function Admindashboard() {
       // Show error message or perform any other action
     }
   };
- 
+
+  return (
+    <Layout style={{ minHeight: '100vh' }}>
+      <Sidebar theme="dark" width={150}>
+        <AdminHeader>Admin Dashboard</AdminHeader>
+        {loading && <Loader />}
+        {error && <Error />}
+        <Menu mode="inline" selectedKeys={[selectedTab]} onClick={handleMenuClick}>
+          <MenuItem key="1" icon={<UserOutlined />}>
+            Farmers Data
+          </MenuItem>
+          <MenuItem key="2" icon={<FileAddOutlined />}>
+            Add Farmers
+          </MenuItem>
+          <MenuItem key="3" icon={<TeamOutlined />}>
+            Users
+          </MenuItem>
+        </Menu>
+      </Sidebar>
+      <Layout>
+        <Header className="site-layout-sub-header-background" style={{ padding: 0 }} />
+        <PageContent>
+          {selectedTab === '1' && <FarmersData farmersData={farmersData} loading={loading} />}
+          {selectedTab === '2' && <Addfarmers />}
+          {selectedTab === '3' && <Users />}
+          {!selectedTab && <Adminscreen />}
+          <TabContent>
+             {/* Your content for the TabContent goes here */}
+             <h2>Welcome to the Admin Dashboard!</h2>
+            <p>Here you can manage Farmers Data, Add New Farmers, and View User Information.</p>
+          </TabContent>
+        </PageContent>
+      </Layout>
+    </Layout>
+  );
+}
+
+export default Admindashboard;
 
   
-
+/*
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider theme="dark" width={150}>
@@ -126,7 +201,7 @@ function Admindashboard() {
           )}
           {selectedTab === '2' && <Addfarmers />}
           {selectedTab === '3' && <Users />}
-           {/* Import and display AdminScreen component when no tab is selected */}
+           {/* Import and display AdminScreen component when no tab is selected }
            {!selectedTab && <Adminscreen />}
         </Content>
       </Layout>
@@ -140,7 +215,7 @@ function Admindashboard() {
 export default Admindashboard;
 
 
-
+*/
 
 
 
