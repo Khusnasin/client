@@ -5,14 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AdminContextProvider } from './Screens/AdminContext';
 
-ReactDOM.render(
+const root = ReactDOM.render(document.getElementById('root'));
+root.render(
   <React.StrictMode>
     <AdminContextProvider>
-      <App />
+    <App />
     </AdminContextProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
+  , document.getElementById('root')
 );
+
   
 
 // If you want to start measuring performance in your app, pass a function
