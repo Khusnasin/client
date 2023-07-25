@@ -1,3 +1,53 @@
+<<<<<<< HEAD
+=======
+import React, { useState, useEffect } from 'react';
+//import axios from 'axios';
+//import Loader from "../components/Loader";
+//import Error from "../components/Error";
+//import Swal from 'sweetalert2';
+import { Tabs } from 'antd';
+import FarmersData from '../components/FarmersData'; // Import FarmersData component
+import AddFarmers from '../components/AddFarmers'; // Import AddFarmers component
+import Users from '../components/Users'; // Import Users component
+
+function AdminScreen() {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const current_user = JSON.parse(localStorage.getItem('currentUser'));
+
+    if (current_user && current_user.isAdmin) {
+      setIsAdmin(true);
+    } else {
+      window.location.href = '/admin';
+    }
+  }, []);
+
+  return (
+    <div className='mt-3 ml-3 mr-3 bs'>
+      <h1 style={{ fontSize: '60px' }}><b>Admin Panel</b></h1>
+      {isAdmin ? (
+        <Tabs defaultActiveKeys='1'>
+          <Tabs.TabPane tab='Farmers Data' key='1'>
+            <FarmersData />
+          </Tabs.TabPane>
+          <Tabs.TabPane tab='Add Farmers' key='2'>
+            <AddFarmers />
+          </Tabs.TabPane>
+          <Tabs.TabPane tab='Users' key='3'>
+            <Users />
+          </Tabs.TabPane>
+        </Tabs>
+      ) : (
+        <p>You are not authorized to view this page.</p>
+      )}
+    </div>
+  );
+}
+
+export default AdminScreen;
+
+>>>>>>> 59bdc6bd45360619252b7cd38d655802bb226612
 /*import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Loader from "../components/Loader";
@@ -21,7 +71,7 @@ function Adminscreen() {
 
     return (
         <div className='mt-3 ml-3 mr-3 bs'>
-            <h1 style={{ fontSize: '30px' }}><b>Admin Panel</b></h1>
+            <h1 style={{ fontSize: '60px' }}><b>Admin Panel</b></h1>
             {isAdmin ? (
                 <Tabs defaultActiveKeys='1'>
                     <TabPane tab='FarmersData' key='1'>
@@ -47,7 +97,7 @@ function Adminscreen() {
 
 export function FarmersData() {
 
-    const [farmers, setFarmers] = useState([]);
+    const [farmersData, setFarmers] = useState([]);
     const [loading, setloading] = useState(true);
     const [error, seterror] = useState();
     useEffect(() => {
@@ -74,7 +124,9 @@ export function FarmersData() {
 
                 <h1>Farmers Data</h1>
                 {loading && <Loader />}
-                {farmers.length && <p style={{ fontSize: '20px' }}><b>Total: {farmers.length} Farmer Data</b></p>}
+                {farmersData.length>0 && (
+                <p style={{ fontSize: '20px' }}><b>Total: {farmersData.length} Farmer Data</b></p>
+              )}
                 <table className='table table-bordered table-dark'>
                 {error && (<Error />)}
                     <thead className='bs'>
@@ -91,14 +143,15 @@ export function FarmersData() {
                             <th>Description</th>
                             <th>Challenges</th>
                             <th>Interest In Training</th>
-                            <th>Password</th>
+                            
                         </tr>
 
                     </thead>
 
                     <tbody>
-                        {farmers.length && (farmers.map(farmer => {
-                            return <tr>
+                      
+                        {farmersData.length && (farmersData.map(farmer => {
+                            <tr key={farmer._id}>
                                 <td>{farmer.Name}</td>
                                 <td>{farmer.location}</td>
                                 <td>{farmer.phoneNumber}</td>
@@ -111,7 +164,7 @@ export function FarmersData() {
                                 <td>{farmer.description}</td>
                                 <td>{farmer.challenges}</td>
                                 <td>{farmer.interestInTraining}</td>
-                                <td>{farmer.password}</td>
+                                
                                 
                             </tr>
                         }))}
@@ -207,13 +260,13 @@ export function Addfarmers() {
                 <input type='text' className='form-control' placeholder='use Of Napier' 
                 value={useOfNapier} onChange={(e) => {setuseOfNapier(e.target.value)}}
                 />
-                <input type='text' className='form-control' placeholder='use Of Napier' 
+                <input type='text' className='form-control' placeholder='number Of Cows' 
                 value={numberOfCows} onChange={(e) => {setnumberOfCows(e.target.value)}}
                 />
-                <input type='text' className='form-control' placeholder='use Of Napier' 
+                <input type='text' className='form-control' placeholder='dung produced in Kg' 
                 value={dungProduced_inKg} onChange={(e) => {setdungProduced_inKg(e.target.value)}}
                 />
-                <input type='text' className='form-control' placeholder='type' 
+                <input type='text' className='form-control' placeholder='amount of Milk in Litre' 
                 value={amountOfMilk_inLitre} onChange={(e) => {setamountOfMilk_inLitre(e.target.value)}}
                 />
                 
@@ -221,7 +274,7 @@ export function Addfarmers() {
             </div>
 
             <div className='col-md-5'>
-            <input type='text' className='form-control' placeholder='type' 
+            <input type='text' className='form-control' placeholder='description' 
                 value={description} onChange={(e) => {setdescription(e.target.value)}}
                 />
                 <input type='text' className='form-control' placeholder='image URL 1' 
@@ -233,13 +286,13 @@ export function Addfarmers() {
                 <input type='text' className='form-control' placeholder='image URL 3' 
                 value={imageurl3} onChange={(e) => {setimageur3(e.target.value)}}
                 />
-                <input type='text' className='form-control' placeholder='image URL 3' 
+                <input type='text' className='form-control' placeholder='challenges' 
                 value={challenges} onChange={(e) => {setchallenges(e.target.value)}}
                 />
-                <input type='text' className='form-control' placeholder='image URL 3' 
+                <input type='text' className='form-control' placeholder='interest in training' 
                 value={interestInTraining} onChange={(e) => {setinterestInTraining(e.target.value)}}
                 />
-                <input type='text' className='form-control' placeholder='image URL 3' 
+                <input type='text' className='form-control' placeholder='password' 
                 value={password} onChange={(e) => {setpassword(e.target.value)}}
                 />
 

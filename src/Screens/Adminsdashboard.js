@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /*import React, { useState, useEffect } from 'react';
+=======
+import React, { useState, useEffect, useContext } from 'react';
+>>>>>>> 59bdc6bd45360619252b7cd38d655802bb226612
 import { Layout, Menu, notification } from 'antd';
 import axios from 'axios';
 import {
@@ -7,13 +11,58 @@ import {
   TeamOutlined,
 } from '@ant-design/icons';
 import Adminscreen from './Adminscreen';
-import { FarmersData, Addfarmers, Users } from './Adminscreen'; // Assuming these components are exported from AdminScreen.js
+import FarmersData from '../components/FarmersData'; // Import FarmersData component
+import AddFarmers from '../components/AddFarmers'; // Import AddFarmers component
+import Users from '../components/Users'; // Import Users component
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import styled from 'styled-components';
+
+
+
 const { Header, Content, Sider } = Layout;
 
+// Styled Components
+const AdminHeader = styled.h1`
+  font-size: 50px;
+  color: #000;
+  text-align: center;
+`;
+
+const Sidebar = styled(Sider)`
+  background-color: #001529;
+  color: #fff;
+`;
+
+const MenuItem = styled(Menu.Item)`
+  color: #fff;
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin: 8px;
+  transition: background-color 0.3s;
+
+  &.ant-menu-item-selected {
+    background-color: #1890ff;
+  }
+`;
+
+const PageContent = styled(Content)`
+  margin: 20px;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const TabContent = styled.div`
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 
 function Admindashboard() {
+  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [farmersData, setFarmersData] = useState([]);
@@ -85,39 +134,34 @@ function Admindashboard() {
       // Show error message or perform any other action
     }
   };
-  
+
   return (
+    
     <Layout style={{ minHeight: '100vh' }}>
-      <Sider theme="dark" width={200}>
       
-      <h1 style={{ fontSize: '30px' }}><b>Admin Dashboard</b></h1>
-      {loading && <Loader />}
-      {error && <Error />}
-      
-        <Menu
-          mode="inline"
-          selectedKeys={[selectedTab]}
-          onClick={handleMenuClick}
-        >
-          <Menu.Item key="1" icon={<UserOutlined />}>
+      <Sidebar theme="dark" width={150}>
+        <AdminHeader>Admin Dashboard</AdminHeader>
+        {loading && <Loader />}
+        {error && <Error />}
+        <Menu mode="inline" selectedKeys={[selectedTab]} onClick={handleMenuClick}>
+          <MenuItem key="1" icon={<UserOutlined />}>
             Farmers Data
-          </Menu.Item>
-          <Menu.Item key="2" icon={<FileAddOutlined />}>
+          </MenuItem>
+          <MenuItem key="2" icon={<FileAddOutlined />}>
             Add Farmers
-          </Menu.Item>
-          <Menu.Item key="3" icon={<TeamOutlined />}>
+          </MenuItem>
+          <MenuItem key="3" icon={<TeamOutlined />}>
             Users
-          </Menu.Item>
+          </MenuItem>
         </Menu>
-      </Sider>      
+      </Sidebar>
       <Layout>
         <Header className="site-layout-sub-header-background" style={{ padding: 0 }} />
-        <Content style={{ margin: '16px' }}>
-          {selectedTab === '1' && (
-            <FarmersData farmersData={farmersData} loading={loading} />
-          )}
-          {selectedTab === '2' && <Addfarmers />}
+        <PageContent>
+          {selectedTab === '1' && <FarmersData farmersData={farmersData} loading={loading} />}
+          {selectedTab === '2' && <AddFarmers />}
           {selectedTab === '3' && <Users />}
+<<<<<<< HEAD
            {/* Import and display AdminScreen component when no tab is selected }*/
            //{!selectedTab && <Adminscreen />}
        // </Content>
@@ -130,3 +174,70 @@ function Admindashboard() {
 
 
 //export default Admindashboard;
+=======
+          {!selectedTab && <Adminscreen />}
+          <TabContent>
+             {/* Your content for the TabContent goes here */}
+             <h2>Welcome to the Admin Dashboard!</h2>
+            <p>Here you can manage Farmers Data, Add New Farmers, and View User Information.</p>
+          </TabContent>
+        </PageContent>
+      </Layout>      
+    </Layout>
+   );
+}
+
+export default Admindashboard;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+>>>>>>> 59bdc6bd45360619252b7cd38d655802bb226612
