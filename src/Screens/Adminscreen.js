@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 import React, { useState, useEffect } from 'react';
 //import axios from 'axios';
 //import Loader from "../components/Loader";
@@ -45,6 +47,7 @@ function AdminScreen() {
 
 export default AdminScreen;
 
+>>>>>>> 59bdc6bd45360619252b7cd38d655802bb226612
 /*import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Loader from "../components/Loader";

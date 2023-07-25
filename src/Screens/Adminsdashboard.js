@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+/*import React, { useState, useEffect } from 'react';
+=======
 import React, { useState, useEffect, useContext } from 'react';
+>>>>>>> 59bdc6bd45360619252b7cd38d655802bb226612
 import { Layout, Menu, notification } from 'antd';
 import axios from 'axios';
 import {
@@ -157,6 +161,20 @@ function Admindashboard() {
           {selectedTab === '1' && <FarmersData farmersData={farmersData} loading={loading} />}
           {selectedTab === '2' && <AddFarmers />}
           {selectedTab === '3' && <Users />}
+<<<<<<< HEAD
+           {/* Import and display AdminScreen component when no tab is selected }*/
+           //{!selectedTab && <Adminscreen />}
+       // </Content>
+      //</Layout>
+   // </Layout>
+ // );
+          
+             
+//}
+
+
+//export default Admindashboard;
+=======
           {!selectedTab && <Adminscreen />}
           <TabContent>
              {/* Your content for the TabContent goes here */}
@@ -222,3 +240,4 @@ export default Admindashboard;
 
 
   
+>>>>>>> 59bdc6bd45360619252b7cd38d655802bb226612

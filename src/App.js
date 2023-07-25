@@ -1,5 +1,6 @@
 
 import './App.css';
+import React, { useState, useEffect } from "react";
 import Navbar from './components/Navbar';
 import { BrowserRouter , Route, Routes} from 'react-router-dom';
 import Homescreen from './Screens/Homescreen';
@@ -8,10 +9,13 @@ import Adminregistration from './Screens/Adminregistration';
 import Farmerlogin from './Screens/Farmerlogin';
 import Adminlogin from './Screens/Adminlogin';
 import Admindashboard from './Screens/Adminsdashboard';
-import Farmerdashboard from './Screens/Farmersdashboard';
+//import Farmerdashboard from './Screens/Farmersdashboard';
 import Adminscreen from './Screens/Adminscreen';
+import Farmersdashboard from './Screens/Farmersdashboard';
+import Update from './components/Update';
 
 function App() {
+  
   return (
     <div className="App">
       <Navbar/>
@@ -23,7 +27,7 @@ function App() {
           <Route path = "/loginfarmer" exact Component={Farmerlogin}/>
           <Route path = "/loginadmin" exact Component={Adminlogin}/>
           <Route path= "/admin" exact Component={Adminscreen}/>
-          <Route path = "/update-farmer-details" exact Component={Farmerdashboard} />
+          <Route path = "/update-farmer-details" exact Component={Update}/>
           <Route path= "/admin-dashboard" exact Component={Admindashboard}/>
         </Routes>
       </BrowserRouter>
