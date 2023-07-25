@@ -171,56 +171,6 @@ function Admindashboard() {
 
 export default Admindashboard;
 
-  
-/*
-  return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider theme="dark" width={150}>
-      
-      <h1 style={{fontSize: '90px'}}>
-          <b>Admin Dashboard</b></h1>
-      {loading && <Loader />}
-      {error && <Error />}
-      
-        <Menu
-          mode="inline"
-          selectedKeys={[selectedTab]}
-          onClick={handleMenuClick}
-        >
-          <Menu.Item key="1" icon={<UserOutlined />}>
-            Farmers Data
-          </Menu.Item>
-          <Menu.Item key="2" icon={<FileAddOutlined />}>
-            Add Farmers
-          </Menu.Item>
-          <Menu.Item key="3" icon={<TeamOutlined />}>
-            Users
-          </Menu.Item>
-        </Menu>
-      </Sider>      
-      <Layout>
-        <Header className="site-layout-sub-header-background" style={{ padding: 0 }} />
-        <Content style={{ margin: '20px' }}>
-          {selectedTab === '1' && (
-            <FarmersData farmersData={farmersData} loading={loading} />
-          )}
-          {selectedTab === '2' && <Addfarmers />}
-          {selectedTab === '3' && <Users />}
-           {/* Import and display AdminScreen component when no tab is selected }
-           {!selectedTab && <Adminscreen />}
-        </Content>
-      </Layout>
-    </Layout>
-  );
-          
-             
-}
-
-
-export default Admindashboard;
-
-
-*/
 
 
 
