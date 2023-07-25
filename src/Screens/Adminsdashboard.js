@@ -7,7 +7,9 @@ import {
   TeamOutlined,
 } from '@ant-design/icons';
 import Adminscreen from './Adminscreen';
-import { FarmersData, Addfarmers, Users } from './Adminscreen'; 
+import FarmersData from '../components/FarmersData'; // Import FarmersData component
+import AddFarmers from '../components/AddFarmers'; // Import AddFarmers component
+import Users from '../components/Users'; // Import Users component
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import styled from 'styled-components';
@@ -153,7 +155,7 @@ function Admindashboard() {
         <Header className="site-layout-sub-header-background" style={{ padding: 0 }} />
         <PageContent>
           {selectedTab === '1' && <FarmersData farmersData={farmersData} loading={loading} />}
-          {selectedTab === '2' && <Addfarmers />}
+          {selectedTab === '2' && <AddFarmers />}
           {selectedTab === '3' && <Users />}
           {!selectedTab && <Adminscreen />}
           <TabContent>
