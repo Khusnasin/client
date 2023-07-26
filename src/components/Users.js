@@ -33,29 +33,29 @@ function Users() {
   return (
     <div className='row'>
       <div className='col-md-12'>
-        <h1>Users</h1>
+        <h2>Users</h2>
         {loading && <Loader />}
         {users.length > 0 && (
           <p style={{ fontSize: '20px' }}><b>Total: {users.length} Users</b></p>
         )}
         {isAdmin() && (
-          <table className='table table-bordered table-dark'>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px' }}>
             {error && <Error />}
-            <thead className='bs'>
+            <thead style={{ background: '#0d0d20', color: '#fff' }}>
               <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Password</th>
-                <th>Is Admin</th>
+                <th style={tableCellStyles}>Name</th>
+                <th style={tableCellStyles} >Email</th>
+                <th style={tableCellStyles}>Password</th>
+                <th style={tableCellStyles}>Is Admin</th>
               </tr>
             </thead>
             <tbody>
               {users.map((user) => (
                 <tr key={user._id}>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.password}</td>
-                  <td>{user.isAdmin ? 'Yes' : 'No'}</td>
+                  <td style={tableCellStyles}>{user.name}</td>
+                  <td style={tableCellStyles}>{user.email}</td>
+                  <td style={tableCellStyles}>{user.password}</td>
+                  <td style={tableCellStyles}>{user.isAdmin ? 'Yes' : 'No'}</td>
                 </tr>
               ))}
             </tbody>
@@ -66,5 +66,10 @@ function Users() {
     </div>
   );
 }
+const tableCellStyles = {
+  padding: '8px',
+  border: '3px solid #0d0d20',
+  //background: 'rgb(120, 120, 155)'
+};
 
 export default Users;

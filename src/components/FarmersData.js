@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useContext } from 'react';
 import axios from 'axios';
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import { AdminContext } from './AdminContext';
 
-function FarmersData() {
-  const [farmersData, setFarmersData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+ function FarmersData() {
+  //const [loading, setLoading] = useState(true);
+  //const [error, setError] = useState(false);
+  //const [farmersData, setFarmersData] = useState([]);
+  const {farmersData, loading, error, setFarmersData, setLoading, setError} = useContext(AdminContext);
 
   useEffect(() => {
     fetchFarmers();
@@ -24,48 +26,47 @@ function FarmersData() {
       setError(error);
     }
   };
-
   return (
     <div className='row'>
       <div className='col-md-12'>
-        <h1>Farmers Data</h1>
+        <h2>Farmers Data</h2>
         {loading && <Loader />}
         {farmersData.length > 0 && (
           <p style={{ fontSize: '20px' }}><b>Total: {farmersData.length} Farmer Data</b></p>
         )}
-        <table className='table table-bordered table-dark'>
+        <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px' }}>
           {error && (<Error />)}
-          <thead className='bs'>
+          <thead style={{ background: '#0d0d20', color: '#fff' }}>
             <tr>
-              <th>Name</th>
-              <th>Location</th>
-              <th>Phone Number</th>
-              <th>Area Of Napier</th>
-              <th>Use Of Napier</th>
-              <th>Number Of Cows</th>
-              <th>Dung Produced in Kg</th>
-              <th>Amount Of Milk in Litre</th>
-              <th>Image Urls</th>
-              <th>Description</th>
-              <th>Challenges</th>
-              <th>Interest In Training</th>
+              <th style={tableCellStyles}>Name</th>
+              <th style={tableCellStyles}>Location</th>
+              <th style={tableCellStyles}>Phone Number</th>
+              <th style={tableCellStyles}>Area Of Napier</th>
+              <th style={tableCellStyles}>Use Of Napier</th>
+              <th style={tableCellStyles}>Number Of Cows</th>
+              <th style={tableCellStyles}>Dung Produced in Kg</th>
+              <th style={tableCellStyles}>Amount Of Milk in Litre</th>
+              <th style={tableCellStyles}>Image Urls</th>
+              <th style={tableCellStyles}>Description</th>
+              <th style={tableCellStyles}>Challenges</th>
+              <th style={tableCellStyles}>Interest In Training</th>
             </tr>
           </thead>
           <tbody>
             {farmersData.map(farmer => (
               <tr key={farmer._id}>
-                <td>{farmer.Name}</td>
-                <td>{farmer.location}</td>
-                <td>{farmer.phoneNumber}</td>
-                <td>{farmer.areaOfNapier}</td>
-                <td>{farmer.useOfNapier}</td>
-                <td>{farmer.numberOfCows}</td>
-                <td>{farmer.dungProduced_inKg}</td>
-                <td>{farmer.amountOfMilk_inLitre}</td>
-                <td>{farmer.imageUrls}</td>
-                <td>{farmer.description}</td>
-                <td>{farmer.challenges}</td>
-                <td>{farmer.interestInTraining}</td>
+                <td style={tableCellStyles}>{farmer.Name}</td>
+                <td style={tableCellStyles}>{farmer.location}</td>
+                <td style={tableCellStyles}>{farmer.phoneNumber}</td>
+                <td style={tableCellStyles}>{farmer.areaOfNapier}</td>
+                <td style={tableCellStyles}>{farmer.useOfNapier}</td>
+                <td style={tableCellStyles}>{farmer.numberOfCows}</td>
+                <td style={tableCellStyles}>{farmer.dungProduced_inKg}</td>
+                <td style={tableCellStyles}>{farmer.amountOfMilk_inLitre}</td>
+                <td style={tableCellStyles}>{farmer.imageUrls}</td>
+                <td style={tableCellStyles}>{farmer.description}</td>
+                <td style={tableCellStyles}>{farmer.challenges}</td>
+                <td style={tableCellStyles}>{farmer.interestInTraining}</td>
               </tr>
             ))}
           </tbody>
@@ -74,5 +75,10 @@ function FarmersData() {
     </div>
   );
 }
+const tableCellStyles = {
+  padding: '8px',
+  border: '2px solid #0d0d20',
+  //background: 'rgb(120, 120, 155)'
+};
 
 export default FarmersData;
