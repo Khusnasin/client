@@ -17,7 +17,7 @@ function AdminScreen() {
     if (current_user && current_user.isAdmin) {
       setIsAdmin(true);
     } else {
-      window.location.href = '/admin-screen';
+      window.location.href = '/admin';
     }
   }, []);
 

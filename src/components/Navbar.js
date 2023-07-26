@@ -23,7 +23,7 @@ function Navbar() {
                                         <i class='fa fa-user'></i>{farmer.data.Name}
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="/update-farmer-details">Profile</a>
+                                        <a class="dropdown-item" href="/farmer-profile/:farmerid">Profile</a>
                                         <a class="dropdown-item" href="/home" onClick={logout}>Logout</a>
                                     </div>
                                 </div>
