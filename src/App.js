@@ -12,7 +12,7 @@ import Admindashboard from './Screens/Adminsdashboard';
 //import Farmerdashboard from './Screens/Farmersdashboard';
 import Adminscreen from './Screens/Adminscreen';
 //import Farmersdashboard from './Screens/Farmersdashboard';
-import Update from './components/Update';
+//import Update from './components/Update';
 
 function App() {
   
@@ -27,7 +27,7 @@ function App() {
           <Route path = "/loginfarmer" exact Component={Farmerlogin}/>
           <Route path = "/loginadmin" exact Component={Adminlogin}/>
           <Route path= "/admin-screen" exact Component={Adminscreen}/>
-          <Route path = "/update-farmer-details" exact Component={Update}/>
+          
           <Route path= "/admin-dashboard" exact Component={Admindashboard}/>
         </Routes>
       </BrowserRouter>

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+/*import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Farmersregistratration from "../Screens/Farmersregistration";
-import { ObjectId } from "mongodb";
+//import { ObjectId } from "mongodb";
 
 function Update() {
     const [farmerData, setFarmerData] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const objectIdFarmerId = ObjectId(farmerid);
+    //const objectIdFarmerId = ObjectId(farmerid);
     const userData = JSON.parse(localStorage.getItem('currentUser'));
     const farmerid = userData.data._id;
     const fetchFarmerData = async () => {
@@ -50,3 +50,4 @@ function Update() {
 }
 
 export default Update;
+*/
