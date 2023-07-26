@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 
-
 function LoginAdmin() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -29,6 +28,14 @@ function LoginAdmin() {
         const response = await axios.post("/api/admin/loginadmin", formData);
         if (response.status === 200) {
           setLoading(false);
+          const isAdmin = formData.adminCode === "your-secret-admin-code"; // Replace "your-admin-code" with the actual admin code
+          const currentUser = {
+          email: formData.email,
+          password: formData.password,
+          isAdmin
+          
+        };
+          localStorage.setItem("currentUser", JSON.stringify(currentUser));
           localStorage.setItem("token", response.data.token); // Save the token in local storage
           navigate("/admin-screen"); // Redirect to the admin-screen after successful login
         }
