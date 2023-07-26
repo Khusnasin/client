@@ -13,7 +13,7 @@ import Admindashboard from './Screens/Adminsdashboard';
 import Adminscreen from './Screens/Adminscreen';
 //import Farmersdashboard from './Screens/Farmersdashboard';
 //import Update from './components/Update';
-import { AdminProvider } from './Screens/AdminContext';
+import   AdminProvider  from './components/AdminContext';
 
 function App() {
   
@@ -22,22 +22,23 @@ function App() {
     <div className="App">
       
       <Navbar/>
-      <BrowserRouter>
       <AdminProvider>
+      <BrowserRouter>
+      
         <Routes>
           <Route path = "/home" exact Component = {Homescreen} />
           <Route path = "/registerfarmer" exact Component = {Farmersregistratration} /> 
           <Route path = "/registeruseradmin" exact Component = {Adminregistration} />          
           <Route path = "/loginfarmer" exact Component={Farmerlogin}/>
           <Route path = "/loginadmin" exact Component={Adminlogin}/>
-          <Route path= "/admin-screen" exact Component={Adminscreen}/>
-          
-            <Route path= "/admin-dashboard" exact Component={Admindashboard}/>
+          <Route path= "/admin-screen" exact Component={Adminscreen}/>          
+          <Route path= "/admin-dashboard" exact Component={Admindashboard}/>
          
           
         </Routes>
-        </AdminProvider>
+        
       </BrowserRouter>
+      </AdminProvider>
     </div>
     
   );

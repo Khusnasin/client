@@ -2,12 +2,14 @@ import React, {useEffect, useContext } from 'react';
 import axios from 'axios';
 import Loader from "../components/Loader";
 import Error from "../components/Error";
-import {AdminContext} from '../Screens/AdminContext';
+import { AdminContext } from './AdminContext';
 
  function FarmersData() {
- 
+  //const [loading, setLoading] = useState(true);
+  //const [error, setError] = useState(false);
+  //const [farmersData, setFarmersData] = useState([]);
   const {farmersData, loading, error, setFarmersData, setLoading, setError} = useContext(AdminContext);
-  //const { farmersData, loading } = useContext(AdminContext);
+
   useEffect(() => {
     fetchFarmers();
   }, []);
