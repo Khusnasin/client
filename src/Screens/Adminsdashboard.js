@@ -157,8 +157,9 @@ function Admindashboard() {
           {selectedTab === '1' && <FarmersData farmersData={farmersData} loading={loading} />}
           {selectedTab === '2' && <AddFarmers />}
           {selectedTab === '3' && <Users />}
-          {!selectedTab && <Adminscreen />}
-          <TabContent>
+           {/* Import and display AdminScreen component when no tab is selected*/ }
+           {!selectedTab && <Adminscreen />}
+           <TabContent>
              {/* Your content for the TabContent goes here */}
              <h2>Welcome to the Admin Dashboard!</h2>
             <p>Here you can manage Farmers Data, Add New Farmers, and View User Information.</p>
@@ -170,55 +171,3 @@ function Admindashboard() {
 }
 
 export default Admindashboard;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  

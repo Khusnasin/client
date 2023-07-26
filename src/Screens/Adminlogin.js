@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +30,7 @@ function LoginAdmin() {
         if (response.status === 200) {
           setLoading(false);
           localStorage.setItem("token", response.data.token); // Save the token in local storage
-          navigate("/admin"); // Redirect to the admin-dashboard after successful login
+          navigate("/admin-screen"); // Redirect to the admin-screen after successful login
         }
       } catch (error) {
         setLoading(false);
