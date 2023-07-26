@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useContext } from 'react';
 import axios from 'axios';
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import {AdminContext} from '../Screens/AdminContext';
 
-function FarmersData() {
-  const [farmersData, setFarmersData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
+ function FarmersData() {
+ 
+  const {farmersData, loading, error, setFarmersData, setLoading, setError} = useContext(AdminContext);
+  //const { farmersData, loading } = useContext(AdminContext);
   useEffect(() => {
     fetchFarmers();
   }, []);
@@ -24,7 +24,6 @@ function FarmersData() {
       setError(error);
     }
   };
-
   return (
     <div className='row'>
       <div className='col-md-12'>

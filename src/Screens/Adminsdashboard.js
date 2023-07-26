@@ -13,6 +13,7 @@ import Users from '../components/Users'; // Import Users component
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import styled from 'styled-components';
+import { AdminProvider } from './AdminContext';
 
 
 
@@ -132,7 +133,7 @@ function Admindashboard() {
   };
 
   return (
-    
+    <AdminProvider>
     <Layout style={{ minHeight: '100vh' }}>
       
       <Sidebar theme="dark" width={150}>
@@ -167,7 +168,9 @@ function Admindashboard() {
         </PageContent>
       </Layout>      
     </Layout>
+    </AdminProvider>
    );
 }
 
 export default Admindashboard;
+

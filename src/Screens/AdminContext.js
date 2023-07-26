@@ -1,35 +1,22 @@
-import { createContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import { createContext, useState} from 'react';
+
 
 // Create the AdminContext
-const AdminContext = createContext();
+export const AdminContext = createContext();
 
 // Create the AdminContextProvider component to wrap the application
-const AdminContextProvider = ({ children }) => {
+export const AdminProvider = ({ children }) => {
   const [farmersData, setFarmersData] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // Fetch farmers data from the backend
-  useEffect(() => {
-    const fetchFarmersData = async () => {
-      try {
-        const response = await axios.get('/api/farmers/getallfarmers');
-        setFarmersData(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching farmers data:', error);
-        setLoading(false);
-      }
-    };
-
-    fetchFarmersData();
-  }, []);
+  const [error, setError] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   return (
-    <AdminContext.Provider value={{ farmersData, loading }}>
+    <AdminContext.Provider value={{ farmersData, setFarmersData, loading, setLoading, error, setError, isAdmin, setIsAdmin }}>
       {children}
     </AdminContext.Provider>
   );
 };
 
-export { AdminContext, AdminContextProvider };
+
+ 

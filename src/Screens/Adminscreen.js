@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 //import axios from 'axios';
 //import Loader from "../components/Loader";
 //import Error from "../components/Error";
@@ -8,9 +8,12 @@ import { TabPane } from 'react-bootstrap';
 import FarmersData from '../components/FarmersData'; // Import FarmersData component
 import AddFarmers from '../components/AddFarmers'; // Import AddFarmers component
 import Users from '../components/Users'; // Import Users component
+import { AdminContext } from './AdminContext';
 
 function AdminScreen() {
-  const [isAdmin, setIsAdmin] = useState(false);
+  const { isAdmin, setIsAdmin } = useContext(AdminContext);
+  
+  
 
   useEffect(() => {
     const current_user = JSON.parse(localStorage.getItem('currentUser'));
@@ -50,6 +53,7 @@ function AdminScreen() {
 }
 
 export default AdminScreen;
+
 
 /*import React, { useState, useEffect } from 'react';
 import axios from 'axios';
