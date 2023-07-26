@@ -39,15 +39,9 @@ function Navbar() {
                                     {farmer.data?.Name /* Use optional chaining here */}
                                     
                                     </button>
-<<<<<<< HEAD
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item" href="/farmer-profile/:farmerid">Profile</a>
                                         <a class="dropdown-item" href="/home" onClick={logout}>Logout</a>
-=======
-                                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a className="dropdown-item" href="/update-farmer-details">Profile</a>
-                                        <a className="dropdown-item" href="/home" onClick={logout}>Logout</a>
->>>>>>> 77247e9b340f4990ddeaf54ab792675cc0e2d506
                                     </div>
                                 </div>
                             </>

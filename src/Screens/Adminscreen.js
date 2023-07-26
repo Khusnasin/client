@@ -17,11 +17,7 @@ function AdminScreen() {
     if (current_user && current_user.isAdmin) {
       setIsAdmin(true);
     } else {
-<<<<<<< HEAD
-      window.location.href = '/admin';
-=======
       window.location.href = '/loginadmin';
->>>>>>> 77247e9b340f4990ddeaf54ab792675cc0e2d506
     }
   }, []);
 
