@@ -39,17 +39,6 @@ const handleOptionSelect = (selectedOption) => {
   setFormData({ ...formData, location: selectedOption });
   setIsDropdownOpen(false); // Close the dropdown after selecting an option
 };
-useEffect(() => {
-  function handleClickOutside(event){
-      if(dropdownRef.current && !dropdownRef.current.contains(event.target)){
-          setIsDropdownOpen(false);
-      }
-  };
-  document.addEventListener('mousedown' , handleClickOutside);
-    return() => {
-        document.removeEventListener('mousedown', handleClickOutside);
-    };
-},[]);
 
 
   const handleChange = (e) => {
@@ -140,6 +129,18 @@ useEffect(() => {
       cpassword: '',
     });
   };
+  useEffect(() => {
+    function handleClickOutside(event){
+        if(dropdownRef.current && !dropdownRef.current.contains(event.target)){
+            setIsDropdownOpen(false);
+        }
+    };
+    document.addEventListener('mousedown' , handleClickOutside);
+      return() => {
+          document.removeEventListener('mousedown', handleClickOutside);
+      };
+  },[]);
+  
 
 
   return (
@@ -295,11 +296,13 @@ useEffect(() => {
             name='challenges' value={formData.challenges} onChange={handleChange}
             required />
         </div>
-        <div className="col-md-12">
+        
+          
           <div className="radio-container">
         
-        <label style={{ marginTop: '10px', marginLeft: '10px', fontSize:'15px' }}>Are you interested in any farm-related training or assistance?</label>
-        <div>
+        <label style={{ marginTop: '10px', marginLeft: '-100px', fontSize:'15px' }}>Are you interested in any farm-related training or assistance?</label>
+        
+        <label>
             <input
               type='radio'
               name='interestInTraining'
@@ -307,7 +310,8 @@ useEffect(() => {
               checked={formData.interestInTraining === 'Yes'}
               onChange={handleRadioChange}
             />
-            <label>Yes</label>
+            Yes</label>
+            <label>
             <input
               type='radio'
               name='interestInTraining'
@@ -315,9 +319,9 @@ useEffect(() => {
               checked={formData.interestInTraining === 'No'}
               onChange={handleRadioChange}
             />
-            <label>No</label>
+            No</label>
           </div>
-          </div>
+          
         <div>
         <label>Password:</label><input
             type="password"
@@ -338,7 +342,7 @@ useEffect(() => {
             onChange={handleChange}
             required />
               </div>
-              </div></div></div></div>
+              </div></div></div>
               <div className='text-center'>
           <button className="btn btn-primary mt-3" style={{ marginRight: '10px' }} onClick={addFarmers}>
             Add Farmer
