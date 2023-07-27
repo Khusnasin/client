@@ -9,7 +9,7 @@ import Farmerlogin from './Screens/Farmerlogin';
 import Adminlogin from './Screens/Adminlogin';
 import Admindashboard from './Screens/Adminsdashboard';
 import Adminscreen from './Screens/Adminscreen';
-import AdminContext from './components/AdminContext';
+import  AdminContext from './components/AdminContext';
 import Farmersdashboard from './Screens/Farmersdashboard';
 //import FarmerProfile from './components/Farmersprofile';
 
@@ -17,11 +17,11 @@ import Farmersdashboard from './Screens/Farmersdashboard';
 function App() {
   const initialAdminContext = {
     farmersData: [], 
-    setFarmersData: [] ,
+    setFarmersData: () => {} ,
     loading: [true], 
-    setLoading: [true],
+    setLoading: () => {},
     error: [false], 
-    setError: [false], 
+    setError: () => {}, 
   };
   return (
     

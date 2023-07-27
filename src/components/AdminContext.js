@@ -3,11 +3,11 @@ import { createContext} from 'react';
 
 const AdminContext = createContext({
   farmersData: [], 
-  setFarmersData: [] ,
+  setFarmersData: () => {} ,
   loading: [true], 
-  setLoading: [true],
+  setLoading: () => {},
   error: [false], 
-  setError: [false], 
+  setError: () => {}, 
   //const [isAdmin, setIsAdmin] = useState(false);
 });
  
