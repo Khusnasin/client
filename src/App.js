@@ -1,6 +1,5 @@
 
 import './App.css';
-import React from "react";
 import Navbar from './components/Navbar';
 import { BrowserRouter , Route, Routes} from 'react-router-dom';
 import Homescreen from './Screens/Homescreen';
@@ -9,11 +8,11 @@ import Adminregistration from './Screens/Adminregistration';
 import Farmerlogin from './Screens/Farmerlogin';
 import Adminlogin from './Screens/Adminlogin';
 import Admindashboard from './Screens/Adminsdashboard';
-//import Farmerdashboard from './Screens/Farmersdashboard';
 import Adminscreen from './Screens/Adminscreen';
-//import Farmersdashboard from './Screens/Farmersdashboard';
-//import Update from './components/Update';
-//import   AdminContext  from './components/AdminContext';
+
+import Farmersdashboard from './Screens/Farmersdashboard';
+//import FarmerProfile from './components/Farmersprofile';
+
 
 function App() {
   
@@ -32,7 +31,8 @@ function App() {
           <Route path = "/registeruseradmin" exact Component = {Adminregistration} />          
           <Route path = "/loginfarmer" exact Component={Farmerlogin}/>
           <Route path = "/loginadmin" exact Component={Adminlogin}/>
-          <Route path= "/admin-screen" exact Component={Adminscreen}/>          
+          <Route path= "/admin-screen" exact Component={Adminscreen}/>
+          <Route path = "/farmer-profile/:farmerid" exact Component={Farmersdashboard}/>
           <Route path= "/admin-dashboard" exact Component={Admindashboard}/>
       
         </Routes>

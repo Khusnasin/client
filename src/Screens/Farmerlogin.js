@@ -34,7 +34,7 @@ function Farmerlogin() {
             const delay = 2000;
             setTimeout(() => {
                 localStorage.setItem('currentUser', JSON.stringify(result));
-                window.location.href = '/update-farmer-details';
+                window.location.href = '/farmer-profile/:farmerid';
             },delay);
             
             console.log(result)
