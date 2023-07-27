@@ -56,19 +56,19 @@ function Adminregistration() {
           <div className="col-md-5 mt-5">
             <div className="bs">
               <div>
-                <label>Name:</label>
-                <input type="text" className="form-control" placeholder="name"
-                  name="username" value={formData.username} onChange={handleChange} required />
+                <label>UserName:</label>
+                <input type="text" className="form-control" placeholder="username"
+                  name="username" value={formData.username} onChange={handleChange} />
               </div>
               <div>
                 <label>Email:</label>
                 <input type="email" className="form-control" placeholder="email"
-                  name="email" value={formData.email} onChange={handleChange} required />
+                  name="email" value={formData.email} onChange={handleChange} />
               </div>
               <div>
                 <label>Password:</label>
                 <input type="password" className="form-control" placeholder="password"
-                  name="password" value={formData.password} onChange={handleChange} required/>
+                  name="password" value={formData.password} onChange={handleChange}/>
               </div>
               <div>
                 <label>Admin Code:</label>
