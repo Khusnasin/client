@@ -4,12 +4,12 @@ import axios from 'axios';
 import {
   UserOutlined,
   FileAddOutlined,
-  TeamOutlined,
+  TeamOutlined
 } from '@ant-design/icons';
 import Adminscreen from './Adminscreen';
-import FarmersData from '../components/FarmersData'; // Import FarmersData component
-import AddFarmers from '../components/AddFarmers'; // Import AddFarmers component
-import Users from '../components/Users'; 
+import { FarmersData, AddFarmers, Users}  from './Adminscreen';   //'../components/FarmersData'; // Import FarmersData component
+//import AddFarmers from '../components/AddFarmers'; // Import AddFarmers component
+//import Users from '../components/Users'; 
 //import { AdminContext } from '../components/AdminContext';
 import Loader from "../components/Loader";
 import Error from "../components/Error";
@@ -94,7 +94,15 @@ const [error, setError] = useState(false);
   const handleUpdateFarmer = async (updatedFarmer) => {
     try {
       setLoading(true);
-      await axios.put(`/api/farmers/update-farmer-details/${updatedFarmer._id}`, updatedFarmer, {
+      
+      // Convert empty string fields to null
+      const updatedFarmerWithNull = { ...updatedFarmer };
+      for (const key in updatedFarmerWithNull) {
+        if (updatedFarmerWithNull[key] === '') {
+          updatedFarmerWithNull[key] = null;
+        }
+      }
+      await axios.put(`/api/farmers/update-farmer-details/${updatedFarmer._id}`, updatedFarmerWithNull, {
         headers: {
           'Content-Type': 'application/json',
         },

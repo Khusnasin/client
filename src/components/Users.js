@@ -16,7 +16,15 @@ function Users() {
     try {
       const response = await axios.get('/api/users/getallusers');
       const data = response.data;
-      setUsers(data);
+
+      // Handling null values in the response data
+      const usersWithNullFields = data.map(user => ({
+        ...user,
+        name: user.name || null,
+        email: user.email || null,
+        password: user.password || null,
+      }));
+      setUsers(usersWithNullFields);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching users:', error);
