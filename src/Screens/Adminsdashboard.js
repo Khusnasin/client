@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Layout, Menu, notification } from 'antd';
 import axios from 'axios';
 import {
@@ -10,7 +10,7 @@ import Adminscreen from './Adminscreen';
 import { FarmersData, AddFarmers, Users}  from './Adminscreen';   //'../components/FarmersData'; // Import FarmersData component
 //import AddFarmers from '../components/AddFarmers'; // Import AddFarmers component
 //import Users from '../components/Users'; 
-//import { AdminContext } from '../components/AdminContext';
+import { AdminContext } from '../components/AdminContext';
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import styled from 'styled-components';
@@ -59,10 +59,10 @@ const TabContent = styled.div`
 
 
 function Admindashboard() {
-  //const {farmersData, loading, error, setFarmersData, setLoading, setError} = useContext(AdminContext);
-  const [loading, setLoading] = useState(true);
-const [error, setError] = useState(false);
-  const [farmersData, setFarmersData] = useState([]);
+  const {farmersData, loading, error, setFarmersData, setLoading, setError} = useContext(AdminContext);
+  //const [loading, setLoading] = useState(true);
+//const [error, setError] = useState(false);
+  //const [farmersData, setFarmersData] = useState([]);
   const [selectedFarmer, setSelectedFarmer] = useState(null);
   // Function to fetch farmers' data from the backend
   const fetchFarmersData = async () => {
