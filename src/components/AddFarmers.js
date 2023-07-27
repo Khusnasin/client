@@ -45,7 +45,7 @@ const handleOptionSelect = (selectedOption) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleRadioChange = (event) => {
-    const value = event.target.value === 'yes'; // Convert to boolean
+    const value = event.target.value === 'Yes'; // Convert to boolean
     setFormData({ ...formData, interestInTraining: value });
   };
   const handleOptionChange = (event) => {
@@ -82,8 +82,8 @@ const handleOptionSelect = (selectedOption) => {
       });
     }
   };
-
-  const addFarmers = async () => {
+// Controller function for adding farmer data
+  const addFarmers = async (req, res) => {
     try {
       setLoading(true);
       if (formData.password !== formData.cpassword) {
@@ -91,7 +91,13 @@ const handleOptionSelect = (selectedOption) => {
         setLoading(false);
         return;
       }
-      const response = await axios.post('/api/farmers/addfarmers', formData, {
+      const formDataWithNull = { ...formData };
+    for (const key in formDataWithNull) {
+      if (formDataWithNull[key] === '') {
+        formDataWithNull[key] = null;
+      }
+    }
+      const response = await axios.post('/api/farmers/addfarmers', formDataWithNull, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -307,7 +313,7 @@ const handleOptionSelect = (selectedOption) => {
               type='radio'
               name='interestInTraining'
               value='Yes'
-              checked={formData.interestInTraining === 'Yes'}
+              checked={formData.interestInTraining === true}
               onChange={handleRadioChange}
             />
             Yes</label>
@@ -316,7 +322,7 @@ const handleOptionSelect = (selectedOption) => {
               type='radio'
               name='interestInTraining'
               value='No'
-              checked={formData.interestInTraining === 'No'}
+              checked={formData.interestInTraining === false}
               onChange={handleRadioChange}
             />
             No</label>
