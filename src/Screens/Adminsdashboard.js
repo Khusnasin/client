@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout, Menu, notification } from 'antd';
 import axios from 'axios';
 import {
@@ -10,14 +10,14 @@ import Adminscreen from './Adminscreen';
 import { FarmersData, AddFarmers, Users}  from './Adminscreen';   //'../components/FarmersData'; // Import FarmersData component
 //import AddFarmers from '../components/AddFarmers'; // Import AddFarmers component
 //import Users from '../components/Users'; 
-import { AdminContext } from '../components/AdminContext';
+//import AdminContext from '../components/AdminContext';
 import Loader from "../components/Loader";
 import Error from "../components/Error";
-import styled from 'styled-components';
+//import styled from 'styled-components';
 
 const { Header, Content, Sider } = Layout;
 
-// Styled Components
+/* Styled Components
 const AdminHeader = styled.h1`
   font-size: 50px;
   color: #000;
@@ -55,18 +55,20 @@ const TabContent = styled.div`
   align-items: center;
   justify-content: center;
 `;
-
+*/
 
 
 function Admindashboard() {
-  const {farmersData, loading, error, setFarmersData, setLoading, setError} = useContext(AdminContext);
-  //const [loading, setLoading] = useState(true);
-//const [error, setError] = useState(false);
-  //const [farmersData, setFarmersData] = useState([]);
+ // const {farmersData, loading, error, setFarmersData, setLoading, setError} = useContext(AdminContext);
+  const [loading, setLoading] = useState(true);
+const [error, setError] = useState(false);
+  const [farmersData, setFarmersData] = useState([]);
   const [selectedFarmer, setSelectedFarmer] = useState(null);
   // Function to fetch farmers' data from the backend
   const fetchFarmersData = async () => {
+    
     try {
+
       setLoading(true);
       const response = await axios.get('/api/farmers/getallfarmers');
       setFarmersData(response.data);
@@ -134,8 +136,8 @@ function Admindashboard() {
   
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sidebar theme="dark" width={150}>
-         <AdminHeader>Admin Dashboard</AdminHeader>
+      <Sider theme="dark" width={150}>
+         
       {loading && <Loader />}
       {error && <Error />}
       
@@ -144,20 +146,24 @@ function Admindashboard() {
           selectedKeys={[selectedTab]}
           onClick={handleMenuClick}
         >
-          <MenuItem key="1" icon={<UserOutlined />}>
+          <Menu.Item key="1" icon={<UserOutlined />}>
             Farmers Data
-          </MenuItem>
-          <MenuItem key="2" icon={<FileAddOutlined />}>
+          </Menu.Item>
+          <Menu.Item key="2" icon={<FileAddOutlined />}>
             Add Farmers
-          </MenuItem>
-          <MenuItem key="3" icon={<TeamOutlined />}>
+          </Menu.Item>
+          <Menu.Item key="3" icon={<TeamOutlined />}>
             Users
-          </MenuItem>
+          </Menu.Item>
         </Menu>
-      </Sidebar>      
+      </Sider>      
       <Layout>
-        <Header className="site-layout-sub-header-background" style={{ padding: 0 }} />
-        <PageContent style={{ margin: '20px' }}>
+        <Header className="site-layout-sub-header-background" style={{ fontSize:'35px', color: 'white', padding: 0 }} >Admin Dashboard</Header>
+        <Content style={{ margin: '20px' }}>
+        <Content>                   
+            <h4>Welcome to the Admin Dashboard!</h4>
+            <p>(Here you can manage Farmers Data, Add New Farmers, and View User Information.)</p>
+          </Content>
           {selectedTab === '1' && (
             <FarmersData farmersData={farmersData} loading={loading} />
           )}
@@ -165,11 +171,8 @@ function Admindashboard() {
           {selectedTab === '3' && <Users />}
            {/* Import and display AdminScreen component when no tab is selected */}
            {!selectedTab && <Adminscreen />}
-           <TabContent>             
-            <h2>Welcome to the Admin Dashboard!</h2>
-            <p>Here you can manage Farmers Data, Add New Farmers, and View User Information.</p>
-          </TabContent>
-        </PageContent>
+           
+        </Content>
       </Layout>
     </Layout>
   );

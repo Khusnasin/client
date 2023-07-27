@@ -9,20 +9,20 @@ import Farmerlogin from './Screens/Farmerlogin';
 import Adminlogin from './Screens/Adminlogin';
 import Admindashboard from './Screens/Adminsdashboard';
 import Adminscreen from './Screens/Adminscreen';
-import  AdminContext from './components/AdminContext';
+//import  AdminContext from './components/AdminContext';
 import Farmersdashboard from './Screens/Farmersdashboard';
 //import FarmerProfile from './components/Farmersprofile';
 
 
 function App() {
-  const initialAdminContext = {
+ /* const initialAdminContext = {
     farmersData: [], 
     setFarmersData: () => {} ,
     loading: [true], 
     setLoading: () => {},
     error: [false], 
     setError: () => {}, 
-  };
+  };*/
   return (
     
     <div className="App">
@@ -30,7 +30,7 @@ function App() {
       <Navbar/>
      
       <BrowserRouter>
-      <AdminContext.Provider value={initialAdminContext}>
+     {/* <AdminContext.Provider value={initialAdminContext}>*/}
         <Routes>
         
           <Route path = "/home" exact Component = {Homescreen} />
@@ -43,7 +43,7 @@ function App() {
           <Route path= "/admin-dashboard" exact Component={Admindashboard}/>
       
         </Routes>
-        </AdminContext.Provider>
+        {/*</BrowserRouter>*</AdminContext.Provider>*/}
       </BrowserRouter>
       
     </div>
