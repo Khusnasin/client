@@ -58,22 +58,22 @@ function Adminregistration() {
               <div>
                 <label>Name:</label>
                 <input type="text" className="form-control" placeholder="name"
-                  name="username" value={formData.username} onChange={handleChange} />
+                  name="username" value={formData.username} onChange={handleChange} required />
               </div>
               <div>
                 <label>Email:</label>
                 <input type="email" className="form-control" placeholder="email"
-                  name="email" value={formData.email} onChange={handleChange} />
+                  name="email" value={formData.email} onChange={handleChange} required />
               </div>
               <div>
                 <label>Password:</label>
                 <input type="password" className="form-control" placeholder="password"
-                  name="password" value={formData.password} onChange={handleChange} />
+                  name="password" value={formData.password} onChange={handleChange} required/>
               </div>
               <div>
                 <label>Admin Code:</label>
                 <input type="password" className="form-control" placeholder="admincode"
-                  name="adminCode" value={formData.adminCode} onChange={handleChange} />
+                  name="adminCode" value={formData.adminCode} onChange={handleChange} required/>
               </div>
               <div>
                 <button type="submit" className="btn btn-primary mt-3">Register</button>
