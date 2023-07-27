@@ -1,14 +1,14 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tabs } from 'antd';
 import { TabPane } from 'react-bootstrap';
 import FarmersData from '../components/FarmersData'; // Import FarmersData component
 import AddFarmers from '../components/AddFarmers'; // Import AddFarmers component
 import Users from '../components/Users'; // Import Users component
-import  {AdminContext}  from '../components/AdminContext';
+//import  {AdminContext}  from '../components/AdminContext';
 
 function AdminScreen() {
-  const { isAdmin, setIsAdmin } = useContext(AdminContext);
-  
+  //const { isAdmin, setIsAdmin } = useContext(AdminContext);
+  const [isAdmin, setIsAdmin] = useState(false);
   
 
   useEffect(() => {
