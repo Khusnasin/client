@@ -13,51 +13,9 @@ import { FarmersData, AddFarmers, Users}  from './Adminscreen';   //'../componen
 //import AdminContext from '../components/AdminContext';
 import Loader from "../components/Loader";
 import Error from "../components/Error";
-//import styled from 'styled-components';
+import StatisticsTab from "../components/StatisticsTab";
 
 const { Header, Content, Sider } = Layout;
-
-/* Styled Components
-const AdminHeader = styled.h1`
-  font-size: 50px;
-  color: #000;
-  text-align: center;
-`;
-
-const Sidebar = styled(Sider)`
-  background-color: #001529;
-  color: #fff;
-`;
-
-const MenuItem = styled(Menu.Item)`
-  color: #fff;
-  border-radius: 4px;
-  padding: 8px 16px;
-  margin: 8px;
-  transition: background-color 0.3s;
-
-  &.ant-menu-item-selected {
-    background-color: #1890ff;
-  }
-`;
-
-const PageContent = styled(Content)`
-  margin: 20px;
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const TabContent = styled.div`
-  flex: 1;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-*/
-
-
 function Admindashboard() {
  // const {farmersData, loading, error, setFarmersData, setLoading, setError} = useContext(AdminContext);
   const [loading, setLoading] = useState(true);
@@ -146,13 +104,16 @@ const [error, setError] = useState(false);
           selectedKeys={[selectedTab]}
           onClick={handleMenuClick}
         >
-          <Menu.Item key="1" icon={<UserOutlined />}>
+          <Menu.Item key="1" icon={<TeamOutlined />}>
+            Statistics
+          </Menu.Item>
+          <Menu.Item key="2" icon={<UserOutlined />}>
             Farmers Data
           </Menu.Item>
-          <Menu.Item key="2" icon={<FileAddOutlined />}>
+          <Menu.Item key="3" icon={<FileAddOutlined />}>
             Add Farmers
           </Menu.Item>
-          <Menu.Item key="3" icon={<TeamOutlined />}>
+          <Menu.Item key="4" icon={<TeamOutlined />}>
             Users
           </Menu.Item>
         </Menu>
@@ -164,11 +125,12 @@ const [error, setError] = useState(false);
             <h4>Welcome to the Admin Dashboard!</h4>
             <p>(Here you can manage Farmers Data, Add New Farmers, and View User Information.)</p>
           </Content>
-          {selectedTab === '1' && (
+          {selectedTab === '1' && <StatisticsTab farmersData={farmersData} />}
+          {selectedTab === '2' && (
             <FarmersData farmersData={farmersData} loading={loading} />
           )}
-          {selectedTab === '2' && <AddFarmers />}
-          {selectedTab === '3' && <Users />}
+          {selectedTab === '3' && <AddFarmers />}
+          {selectedTab === '4' && <Users />}
            {/* Import and display AdminScreen component when no tab is selected */}
            {!selectedTab && <Adminscreen />}
            
