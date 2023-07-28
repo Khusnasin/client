@@ -14,9 +14,7 @@ function StatisticsTab({ farmersData }) {
       amountOfMilk_inLitre: false,
     });
     // Ensure farmersData is defined and not null before using useState
-   if (!farmersData) {
-    return <div>Loading...</div>; // Or show an appropriate loading/fallback UI
-  }
+   
   
     const handleOptionChange = (option) => {
       setSelectedOption(option);
@@ -46,7 +44,9 @@ function StatisticsTab({ farmersData }) {
         });
       }
     };
-  
+    if (!farmersData) {
+      return <div>Loading...</div>; // Or show an appropriate loading/fallback UI
+    }
     // Calculate statistical data based on the selected option
     const calculateStats = () => {
       if (!farmersData || farmersData.length === 0) {
