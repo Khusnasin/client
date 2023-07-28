@@ -1,9 +1,10 @@
-import React,{ useState} from 'react';
+import React, { useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 function StatisticsTab({ farmersData }) {
+   
     const [selectedOption, setSelectedOption] = useState('Napier Grass');
     const [formData, setFormData] = useState({
       areaOfNapier: true,
@@ -12,6 +13,10 @@ function StatisticsTab({ farmersData }) {
       dungProduced_inKg: false,
       amountOfMilk_inLitre: false,
     });
+    // Ensure farmersData is defined and not null before using useState
+   if (!farmersData) {
+    return <div>Loading...</div>; // Or show an appropriate loading/fallback UI
+  }
   
     const handleOptionChange = (option) => {
       setSelectedOption(option);
@@ -44,6 +49,9 @@ function StatisticsTab({ farmersData }) {
   
     // Calculate statistical data based on the selected option
     const calculateStats = () => {
+      if (!farmersData || farmersData.length === 0) {
+        return []; // Return empty array if farmersData is not available or empty
+      }
       if (selectedOption === 'Napier Grass') {
         // Calculate the number of farmers providing napier grass
         const napierGrassFarmersCount = farmersData.filter((farmer) => farmer.areaOfNapier).length;
