@@ -8,11 +8,9 @@ import {
 } from '@ant-design/icons';
 import Adminscreen from './Adminscreen';
 import { FarmersData, AddFarmers, Users}  from './Adminscreen';   //'../components/FarmersData'; // Import FarmersData component
-//import AddFarmers from '../components/AddFarmers'; // Import AddFarmers component
-//import Users from '../components/Users'; 
-//import AdminContext from '../components/AdminContext';
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import { Bar } from 'react-chartjs-2';
 //import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts';
 
 //const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
@@ -25,7 +23,7 @@ function Admindashboard() {
   const [loading, setLoading] = useState(true);
 const [error, setError] = useState(false);
   const [farmersData, setFarmersData] = useState([]);
-  const [selectedFarmer, setSelectedFarmer] = useState(null);
+  //const [selectedFarmer, setSelectedFarmer] = useState(null);
   // Function to fetch farmers' data from the backend
   const fetchFarmersData = async () => {
     
@@ -49,52 +47,50 @@ const [error, setError] = useState(false);
     fetchFarmersData();
   }, []); // Fetch data when the component mounts
   const [selectedTab, setSelectedTab] = useState('1');
+  
   const handleMenuClick = (e) => {
     setSelectedTab(e.key);
+    if (e.key === '1') {
+      fetchStatisticsData(selectedOption);
+    }
   };
-  const handleEditFarmer = (farmer) => {
-    setSelectedFarmer(farmer);
-  };
-  const handleUpdateFarmer = async (updatedFarmer) => {
+  const [selectedOption, setSelectedOption] = useState('Napier Grass');
+
+const handleOptionChange = (option) => {
+  setSelectedOption(option);
+};
+
+
+    // State for statistics data
+  const [statisticsData, setStatisticsData] = React.useState(null);
+
+  // Function to fetch statistics data from the backend
+  const fetchStatisticsData = async (selectedOption) => {
     try {
-      setLoading(true);
-      
-      // Convert empty string fields to null
-      const updatedFarmerWithNull = { ...updatedFarmer };
-      for (const key in updatedFarmerWithNull) {
-        if (updatedFarmerWithNull[key] === '') {
-          updatedFarmerWithNull[key] = null;
-        }
-      }
-      await axios.put(`/api/farmers/update-farmer-details/${updatedFarmer._id}`, updatedFarmerWithNull, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      const response = await axios.get(`/api/farmers/statistics/${selectedOption}`);
+      setStatisticsData(response.data);
+    } catch (error) {
+      console.error('Error fetching statistics data:', error);
+      setStatisticsData(null);
+      notification.error({
+        message: 'Error',
+        description: 'Failed to fetch statistics data. Please try again later.',
       });
-      setLoading(false);
-      setSelectedFarmer(null);
-      fetchFarmersData(); // Fetch updated data after successful update
-      // Show success message or perform any other action
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-      // Show error message or perform any other action
     }
   };
-  const handleRemoveFarmer = async (farmerId) => {
-    try {
-      setLoading(true);
-      await axios.delete(`/api/farmers/removefarmer/${farmerId}`);
-      setLoading(false);
-      fetchFarmersData(); // Fetch updated data after successful remove
-      // Show success message or perform any other action
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-      // Show error message or perform any other action
-    }
-  };
-   // State and functions for StatisticsTab
+
+  useEffect(() => {
+    fetchFarmersData();
+    fetchStatisticsData();
+  }, []); // Fetch data when the component mounts
+  
+  
+  // Helper function to get labels and data for the chart
+  const getChartLabelsAndData = () => {
+    const labels = statisticsData?.map((entry) => entry.name) || [];
+    const data = statisticsData?.map((entry) => entry.value) || [];
+    return { labels, data };
+  };  
  
 
   
@@ -110,14 +106,16 @@ const [error, setError] = useState(false);
           selectedKeys={[selectedTab]}
           onClick={handleMenuClick}
         >
-          
           <Menu.Item key="1" icon={<UserOutlined />}>
+            Statistical Data
+          </Menu.Item>
+          <Menu.Item key="2" icon={<UserOutlined />}>
             Farmers Data
           </Menu.Item>
-          <Menu.Item key="2" icon={<FileAddOutlined />}>
+          <Menu.Item key="3" icon={<FileAddOutlined />}>
             Add Farmers
           </Menu.Item>
-          <Menu.Item key="3" icon={<TeamOutlined />}>
+          <Menu.Item key="4" icon={<TeamOutlined />}>
             Users
           </Menu.Item>
         </Menu>
@@ -130,13 +128,49 @@ const [error, setError] = useState(false);
             <p>(Here you can manage Farmers Data, Add New Farmers, and View User Information.)</p>
           </Content>
          
-              
-
           {selectedTab === '1' && (
+            <>
+              <h2>Statistics</h2>
+              <div style={{ marginBottom: '20px' }}>
+            <label>
+              Select Option:
+              <select value={selectedOption} onChange={(e) => handleOptionChange(e.target.value)}>
+                <option value="Napier Grass">Napier Grass</option>
+                <option value="Cows">Cows</option>
+                <option value="both">Both</option>
+              </select>
+            </label>
+          </div>
+          {statisticsData ? (
+            <Bar
+              data={{
+                labels: getChartLabelsAndData().labels,
+                datasets: [
+                  {
+                    label: 'Farmers Distribution',
+                    data: getChartLabelsAndData().data,
+                    backgroundColor: 'rgba(75,192,192,0.6)',
+                  },
+                ],
+              }}
+              options={{
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                  },
+                },
+              }}
+            />
+          ) : (
+            <p>Loading statistics...</p>
+          )}
+        </>
+      )}
+          {selectedTab === '2' && (
             <FarmersData farmersData={farmersData} loading={loading} />
           )}
-          {selectedTab === '2' && <AddFarmers />}
-          {selectedTab === '3' && <Users />}
+          {selectedTab === '3' && <AddFarmers />}
+          {selectedTab === '4' && <Users />}
            {/* Import and display AdminScreen component when no tab is selected */}
            {!selectedTab && <Adminscreen />}
           </Content> 
@@ -148,4 +182,44 @@ const [error, setError] = useState(false);
 
 }
 
-export default Admindashboard;
+export default Admindashboard;// eslint-disable-next-line no-lone-blocks
+{/*
+  const handleEditFarmer = (farmer) => {
+    setSelectedFarmer(farmer);
+  };
+  const handleUpdateFarmer = async (updatedFarmer) => {
+    try {
+      setLoading(true);
+      
+      // Convert empty string fields to null
+     
+      await axios.put(`/api/farmers/update-farmer-details/${updatedFarmer._id}`, updatedFarmer, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      setLoading(false);
+      setSelectedFarmer(null);
+      fetchFarmersData(); // Fetch updated data after successful update
+      // Show success message or perform any other action
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      // Show error message or perform any other action
+    }
+  }; */}
+  // eslint-disable-next-line no-lone-blocks
+  {/*const handleRemoveFarmer = async (farmerId) => {
+    try {
+      setLoading(true);
+      await axios.delete(`/api/farmers/removefarmer/${farmerId}`);
+      setLoading(false);
+      fetchFarmersData(); // Fetch updated data after successful remove
+      // Show success message or perform any other action
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      // Show error message or perform any other action
+    }
+  };
+*/}
