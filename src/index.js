@@ -4,14 +4,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import AdminProvider from './components/AdminContext'; 
+//import AdminProvider from './components/AdminContext'; 
+
 
 ReactDOM.render(
 
   <React.StrictMode>   
-      <AdminProvider>
+      
         <App />
-        </AdminProvider>  
+        
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -39,24 +39,13 @@ const handleOptionSelect = (selectedOption) => {
   setFormData({ ...formData, location: selectedOption });
   setIsDropdownOpen(false); // Close the dropdown after selecting an option
 };
-useEffect(() => {
-  function handleClickOutside(event){
-      if(dropdownRef.current && !dropdownRef.current.contains(event.target)){
-          setIsDropdownOpen(false);
-      }
-  };
-  document.addEventListener('mousedown' , handleClickOutside);
-    return() => {
-        document.removeEventListener('mousedown', handleClickOutside);
-    };
-},[]);
 
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleRadioChange = (event) => {
-    const value = event.target.value === 'yes'; // Convert to boolean
+    const value = event.target.value === 'Yes'; // Convert to boolean
     setFormData({ ...formData, interestInTraining: value });
   };
   const handleOptionChange = (event) => {
@@ -93,8 +82,8 @@ useEffect(() => {
       });
     }
   };
-
-  const addFarmers = async () => {
+// Controller function for adding farmer data
+  const addFarmers = async (req, res) => {
     try {
       setLoading(true);
       if (formData.password !== formData.cpassword) {
@@ -102,7 +91,13 @@ useEffect(() => {
         setLoading(false);
         return;
       }
-      const response = await axios.post('/api/farmers/addfarmers', formData, {
+      const formDataWithNull = { ...formData };
+    for (const key in formDataWithNull) {
+      if (formDataWithNull[key] === '') {
+        formDataWithNull[key] = null;
+      }
+    }
+      const response = await axios.post('/api/farmers/addfarmers', formDataWithNull, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -140,6 +135,18 @@ useEffect(() => {
       cpassword: '',
     });
   };
+  useEffect(() => {
+    function handleClickOutside(event){
+        if(dropdownRef.current && !dropdownRef.current.contains(event.target)){
+            setIsDropdownOpen(false);
+        }
+    };
+    document.addEventListener('mousedown' , handleClickOutside);
+      return() => {
+          document.removeEventListener('mousedown', handleClickOutside);
+      };
+  },[]);
+  
 
 
   return (
@@ -295,29 +302,32 @@ useEffect(() => {
             name='challenges' value={formData.challenges} onChange={handleChange}
             required />
         </div>
-        <div className="col-md-12">
+        
+          
           <div className="radio-container">
         
-        <label style={{ marginTop: '10px', marginLeft: '10px', fontSize:'15px' }}>Are you interested in any farm-related training or assistance?</label>
-        <div>
+        <label style={{ marginTop: '10px', marginLeft: '-100px', fontSize:'15px' }}>Are you interested in any farm-related training or assistance?</label>
+        
+        <label>
             <input
               type='radio'
               name='interestInTraining'
               value='Yes'
-              checked={formData.interestInTraining === 'Yes'}
+              checked={formData.interestInTraining === true}
               onChange={handleRadioChange}
             />
-            <label>Yes</label>
+            Yes</label>
+            <label>
             <input
               type='radio'
               name='interestInTraining'
               value='No'
-              checked={formData.interestInTraining === 'No'}
+              checked={formData.interestInTraining === false}
               onChange={handleRadioChange}
             />
-            <label>No</label>
+            No</label>
           </div>
-          </div>
+          
         <div>
         <label>Password:</label><input
             type="password"
@@ -338,7 +348,7 @@ useEffect(() => {
             onChange={handleChange}
             required />
               </div>
-              </div></div></div></div>
+              </div></div></div>
               <div className='text-center'>
           <button className="btn btn-primary mt-3" style={{ marginRight: '10px' }} onClick={addFarmers}>
             Add Farmer

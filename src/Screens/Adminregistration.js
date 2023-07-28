@@ -56,8 +56,8 @@ function Adminregistration() {
           <div className="col-md-5 mt-5">
             <div className="bs">
               <div>
-                <label>Name:</label>
-                <input type="text" className="form-control" placeholder="name"
+                <label>UserName:</label>
+                <input type="text" className="form-control" placeholder="username"
                   name="username" value={formData.username} onChange={handleChange} />
               </div>
               <div>
@@ -68,12 +68,12 @@ function Adminregistration() {
               <div>
                 <label>Password:</label>
                 <input type="password" className="form-control" placeholder="password"
-                  name="password" value={formData.password} onChange={handleChange} />
+                  name="password" value={formData.password} onChange={handleChange}/>
               </div>
               <div>
                 <label>Admin Code:</label>
                 <input type="password" className="form-control" placeholder="admincode"
-                  name="adminCode" value={formData.adminCode} onChange={handleChange} />
+                  name="adminCode" value={formData.adminCode} onChange={handleChange} required/>
               </div>
               <div>
                 <button type="submit" className="btn btn-primary mt-3">Register</button>
