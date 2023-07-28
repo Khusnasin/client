@@ -10,19 +10,14 @@ import Adminlogin from './Screens/Adminlogin';
 import Admindashboard from './Screens/Adminsdashboard';
 import Adminscreen from './Screens/Adminscreen';
 //import  AdminContext from './components/AdminContext';
+import ErrorBoundary from './components/ErrorBoundary';
+import StatisticsTab from './components/StatisticsTab';
 import Farmersdashboard from './Screens/Farmersdashboard';
 //import FarmerProfile from './components/Farmersprofile';
 
 
 function App() {
- /* const initialAdminContext = {
-    farmersData: [], 
-    setFarmersData: () => {} ,
-    loading: [true], 
-    setLoading: () => {},
-    error: [false], 
-    setError: () => {}, 
-  };*/
+
   return (
     
     <div className="App">
@@ -30,20 +25,28 @@ function App() {
       <Navbar/>
      
       <BrowserRouter>
-     {/* <AdminContext.Provider value={initialAdminContext}>*/}
+    
         <Routes>
         
-          <Route path = "/home" exact Component = {Homescreen} />
-          <Route path = "/registerfarmer" exact Component = {Farmersregistratration} /> 
-          <Route path = "/registeruseradmin" exact Component = {Adminregistration} />          
-          <Route path = "/loginfarmer" exact Component={Farmerlogin}/>
-          <Route path = "/loginadmin" exact Component={Adminlogin}/>
-          <Route path= "/admin-screen" exact Component={Adminscreen}/>
-          <Route path = "/farmer-profile/:farmerid" exact Component={Farmersdashboard}/>
-          <Route path= "/admin-dashboard" exact Component={Admindashboard}/>
+          <Route path = "/home" element = {<Homescreen/>} />
+          <Route path = "/registerfarmer" element = {<Farmersregistratration/>} /> 
+          <Route path = "/registeruseradmin" element = {<Adminregistration/>} />          
+          <Route path = "/loginfarmer" element={<Farmerlogin/>}/>
+          <Route path = "/loginadmin" element={<Adminlogin/>}/>
+          <Route path= "/admin-screen" element={<Adminscreen/>}/>
+          <Route path = "/farmer-profile/:farmerid" element={<Farmersdashboard/>}/>
+          <Route path= "/admin-dashboard" element={<Admindashboard/>}/>
+          <Route
+            path="/statistics"
+            element={
+              <ErrorBoundary>
+                <StatisticsTab />
+              </ErrorBoundary>
+            }
+          />
       
         </Routes>
-        {/*</BrowserRouter>*</AdminContext.Provider>*/}
+      
       </BrowserRouter>
       
     </div>
