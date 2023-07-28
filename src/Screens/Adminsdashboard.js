@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout, Menu, notification } from 'antd';
 import axios from 'axios';
 import { UserOutlined, FileAddOutlined, TeamOutlined } from '@ant-design/icons';
@@ -6,7 +6,8 @@ import Adminscreen from './Adminscreen';
 import { FarmersData, AddFarmers, Users } from './Adminscreen';
 import Loader from "../components/Loader";
 import Error from "../components/Error";
-import { Bar } from 'react-chartjs-2';
+import StatisticsTab from "../components/StatisticsTab"
+//import { Bar } from 'react-chartjs-2';
 
 const { Header, Content, Sider } = Layout;
 
@@ -15,8 +16,8 @@ function Admindashboard() {
   const [error, setError] = useState(false);
   const [farmersData, setFarmersData] = useState([]);
   const [selectedTab, setSelectedTab] = useState('1');
-  const [selectedOption, setSelectedOption] = useState('Napier Grass');
-  const [statisticsData, setStatisticsData] = useState(null);
+  //const [selectedOption, setSelectedOption] = useState('Napier Grass');
+  //const [statisticsData, setStatisticsData] = useState(null);
 
   // Function to fetch farmers' data from the backend
   const fetchFarmersData = async () => {
@@ -36,56 +37,13 @@ function Admindashboard() {
     }
   };
 
-  // Function to fetch statistics data from the backend
-  const fetchStatisticsData = useCallback(async (option) => {
-    try {
-      const response = await axios.get(`/api/farmers/statistics/${option}`);
-      setStatisticsData(response.data);
-    } catch (error) {
-      console.error('Error fetching statistics data:', error);
-      setStatisticsData(null);
-      notification.error({
-        message: 'Error',
-        description: 'Failed to fetch statistics data. Please try again later.',
-      });
-    }
-  }, []);
-
-  // Fetch farmers' data and statistics data when the component mounts
+  
   useEffect(() => {
     fetchFarmersData();
-    fetchStatisticsData(selectedOption);
-  }, [selectedOption, fetchStatisticsData]); // Fetch data when the selectedOption changes
+    //handleOptionChange(selectedOption);
+  }, []); 
 
-  // Helper function to get labels and data for the chart
-  const getChartLabelsAndData = () => {
-    const counts = calculateCounts();
-    const labels = Object.keys(counts);
-    const data = Object.values(counts);
-    return { labels, data };
-  };
-
-  // Calculate statistics counts
-  const calculateCounts = () => {
-    const counts = {
-      areaOfNapier: 0,
-      numberOfCows: 0,
-      dungProduced_inKg: 0,
-      amountOfMilk_inLitre: 0,
-    };
-
-    statisticsData.forEach((data) => {
-      if (data.areaOfNapier) counts.areaOfNapier++;
-      if (data.numberOfCows) counts.numberOfCows++;
-      if (data.dungProduced_inKg) counts.dungProduced_inKg++;
-      if (data.amountOfMilk_inLitre) counts.amountOfMilk_inLitre++;
-    });
-
-    return counts;
-  };
-
-  // ...
-
+ 
   return (
     <Layout style={{ minHeight: '100vh' }}>
       {/* ... */}
@@ -96,18 +54,18 @@ function Admindashboard() {
         <Menu
           mode="inline"
           selectedKeys={[selectedTab]}
-          onClick={(e) => setSelectedTab(e.key)}
+         
         >
-          <Menu.Item key="1" icon={<UserOutlined />}>
+          <Menu.Item key="1" icon={<TeamOutlined />} onClick={() => setSelectedTab('1')}>
             Statistical Data
           </Menu.Item>
-          <Menu.Item key="2" icon={<UserOutlined />}>
+          <Menu.Item key="2" icon={<UserOutlined />} onClick={() => setSelectedTab('2')}>
             Farmers Data
           </Menu.Item>
-          <Menu.Item key="3" icon={<FileAddOutlined />}>
+          <Menu.Item key="3" icon={<FileAddOutlined />}onClick={() => setSelectedTab('3')}>
             Add Farmers
           </Menu.Item>
-          <Menu.Item key="4" icon={<TeamOutlined />}>
+          <Menu.Item key="4" icon={<TeamOutlined />}onClick={() => setSelectedTab('4')}>
             Users
           </Menu.Item>
         </Menu>
@@ -120,44 +78,7 @@ function Admindashboard() {
             <p>(Here you can manage Farmers Data, Add New Farmers, and View User Information.)</p>
           </Content>
 
-          {selectedTab === '1' && (
-            <>
-              <h2>Statistics</h2>
-              <div style={{ marginBottom: '20px' }}>
-                <label>
-                  Select Option:
-                  <select value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
-                    <option value="Napier Grass">Napier Grass</option>
-                    <option value="Cows">Cows</option>
-                    <option value="both">Both</option>
-                  </select>
-                </label>
-              </div>
-              {statisticsData !== null ? (
-                <Bar
-                  data={{
-                    labels: getChartLabelsAndData().labels,
-                    datasets: [
-                      {
-                        label: 'Farmers Distribution',
-                        data: getChartLabelsAndData().data,
-                        backgroundColor: 'rgba(75,192,192,0.6)',
-                      },
-                    ],
-                  }}
-                  options={{
-                    scales: {
-                      y: {
-                        beginAtZero: true,
-                      },
-                    },
-                  }}
-                />
-              ) : (
-                <p>No statistics data available for the selected option.</p>
-              )}
-            </>
-          )}
+          {selectedTab === '1' && <StatisticsTab/>}
           {selectedTab === '2' && (
             <FarmersData farmersData={farmersData} loading={loading} />
           )}
@@ -273,6 +194,30 @@ const calculateCounts = () => {
 
   return counts;
 };
+{/* const calculateCounts = () => {
+    const counts = {
+      areaOfNapier: 0,
+      numberOfCows: 0,
+      dungProduced_inKg: 0,
+      amountOfMilk_inLitre: 0,
+    };
+
+    statisticsData.forEach((data) => {
+      if (data.areaOfNapier) counts.areaOfNapier++;
+      if (data.numberOfCows) counts.numberOfCows++;
+      if (data.dungProduced_inKg) counts.dungProduced_inKg++;
+      if (data.amountOfMilk_inLitre) counts.amountOfMilk_inLitre++;
+    });
+
+    return counts;
+  };
+  // Helper function to get labels and data for the chart
+  const getChartLabelsAndData = () => {
+    const counts = calculateCounts();
+    const labels = Object.keys(counts);
+    const data = Object.values(counts);
+    return { labels, data };
+  };
 
 // Helper function to get labels and data for the chart
 const getChartLabelsAndData = () => {
@@ -368,8 +313,23 @@ const getChartLabelsAndData = () => {
              
 
 }
+ {/*const handleOptionChange = useCallback(async (option) => {
+    setSelectedOption(option);
+    try {
+      const response = await axios.get(`/api/farmers/statistics/${option}`);
+      console.log('Statistics Data Response:', response.data); // Add this line for debugging
+      setStatisticsData(response.data);
+    } catch (error) {
+      console.error('Error fetching statistics data:', error);
+      setStatisticsData(null);
+      notification.error({
+        message: 'Error',
+        description: 'Failed to fetch statistics data. Please try again later.',
+      });
+    }
+  }, []); */
 
-export default Admindashboard;// eslint-disable-next-line no-lone-blocks
+// eslint-disable-next-line no-lone-blocks
 {/*
   const handleEditFarmer = (farmer) => {
     setSelectedFarmer(farmer);
@@ -409,4 +369,4 @@ export default Admindashboard;// eslint-disable-next-line no-lone-blocks
       // Show error message or perform any other action
     }
   };
-*/
+*/ }
