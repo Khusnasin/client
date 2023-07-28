@@ -6,6 +6,7 @@ import { Tabs } from 'antd';
 import { TabPane } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import DashboardLink from '../components/DashboardLink';
+
 //import FarmersData from '../components/FarmersData'; // Import FarmersData component
 //import AddFarmers from '../components/AddFarmers'; // Import AddFarmers component
 //import Users from '../components/Users'; // Import Users component
@@ -130,7 +131,8 @@ const tableCellStyles = {
   border: '2px solid #0d0d20',
   //background: 'rgb(120, 120, 155)'
 };
-export function AddFarmers() {
+export 
+function AddFarmers() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
@@ -217,13 +219,8 @@ const handleOptionSelect = (selectedOption) => {
         setLoading(false);
         return;
       }
-      const formDataWithNull = { ...formData };
-    for (const key in formDataWithNull) {
-      if (formDataWithNull[key] === '') {
-        formDataWithNull[key] = null;
-      }
-    }
-      const response = await axios.post('/api/farmers/addfarmers', formDataWithNull, {
+      
+      const response = await axios.post('/api/farmers/addfarmers', formData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -491,6 +488,8 @@ const handleOptionSelect = (selectedOption) => {
   );
 
   }
+
+ 
   export function Users() {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);

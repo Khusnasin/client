@@ -11,19 +11,20 @@ import Error from "../components/Error";
   //const {farmersData, loading, error, setFarmersData, setLoading, setError} = useContext(AdminContext);
 
   useEffect(() => {
-    fetchFarmers();
+    fetchFarmersData();
   }, []);
 
-  const fetchFarmers = async () => {
+  const fetchFarmersData = async () => {
     try {
+      setLoading(true);
       const response = await axios.get('/api/farmers/getallfarmers');
-      const data = response.data;
-      setFarmersData(data);
+      
+      setFarmersData(response.data);
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      console.error('Error fetching farmers data:',error);
       setLoading(false);
-      setError(error);
+      setError(true);
     }
   };
   return (
