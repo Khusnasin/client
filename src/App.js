@@ -10,8 +10,8 @@ import Adminlogin from './Screens/Adminlogin';
 import Admindashboard from './Screens/Adminsdashboard';
 import Adminscreen from './Screens/Adminscreen';
 //import  AdminContext from './components/AdminContext';
-import ErrorBoundary from './components/ErrorBoundary';
-import StatisticsTab from './components/StatisticsTab';
+//import ErrorBoundary from './components/ErrorBoundary';
+//import StatisticsTab from './components/StatisticsTab';
 import Farmersdashboard from './Screens/Farmersdashboard';
 //import FarmerProfile from './components/Farmersprofile';
 
@@ -36,14 +36,7 @@ function App() {
           <Route path= "/admin-screen" element={<Adminscreen/>}/>
           <Route path = "/farmer-profile/:farmerid" element={<Farmersdashboard/>}/>
           <Route path= "/admin-dashboard" element={<Admindashboard/>}/>
-          <Route
-            path="/statistics"
-            element={
-              <ErrorBoundary>
-                <StatisticsTab />
-              </ErrorBoundary>
-            }
-          />
+          
       
         </Routes>
       
