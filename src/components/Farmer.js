@@ -17,7 +17,7 @@ function Farmer({ farmer}) {
                  <div className="row bs2">
                 <img src={farmer.imageUrls[0]} className="smallimg" />
                 <hr className="line" style={{marginTop:'10px'}}></hr>
-                <h1>{farmer.Name}</h1>
+                <h3>{farmer.Name}</h3>
                 <b>
                     <p>Location  : {farmer.location}</p>
                     <p>Phone Number : {farmer.phoneNumber}</p>

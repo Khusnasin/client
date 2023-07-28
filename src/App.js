@@ -18,8 +18,8 @@ function App() {
     
     <div className="App">
       
-      <Navbar/>
-      <AdminProvider>
+      <Navbar />
+      
       <BrowserRouter>
       
         <Routes>
@@ -36,7 +36,7 @@ function App() {
         </Routes>
         
       </BrowserRouter>
-      </AdminProvider>
+      
     </div>
     
   );
