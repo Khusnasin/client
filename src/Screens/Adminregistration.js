@@ -14,6 +14,7 @@ function Adminregistration() {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
+    role: '',
     password: '',
     adminCode: '',
   });
@@ -64,6 +65,11 @@ function Adminregistration() {
                 <label>Email:</label>
                 <input type="email" className="form-control" placeholder="email"
                   name="email" value={formData.email} onChange={handleChange} />
+              </div>
+              <div>
+                <label>Role:</label>
+                <input type="text" className="form-control" placeholder="role"
+                  name="role" value={formData.role} onChange={handleChange} />
               </div>
               <div>
                 <label>Password:</label>
