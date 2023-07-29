@@ -3,6 +3,168 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
+const StatisticsTab = ({ farmersData }) => {
+  const [selectedOption, setSelectedOption] = useState('Napier Grass');
+
+  // Helper function to calculate counts
+  const calculateCounts = () => {
+    if (!farmersData || farmersData.length === 0) {
+      return {}; // Return an empty object if farmersData is not available or empty
+    }
+
+    // Implement your logic to calculate statistics counts here
+    const counts = {
+      areaOfNapierCount: 0,
+      numberOfCowsCount: 0,
+      dungProducedCount: 0,
+      milkProducedCount: 0,
+    };
+
+    farmersData.forEach((farmer) => {
+      if (farmer.areaOfNapier) counts.areaOfNapierCount++;
+      if (farmer.numberOfCows) counts.numberOfCowsCount++;
+      if (farmer.dungProduced_inKg) counts.dungProducedCount += farmer.dungProduced_inKg;
+      if (farmer.amountOfMilk_inLitre) counts.milkProducedCount += farmer.amountOfMilk_inLitre;
+    });
+
+    return counts;
+  };
+
+  // Helper function to get data for the chart
+  const getChartData = () => {
+    const counts = calculateCounts();
+    const data = [
+      { title: 'Area of Napier Grass', value: counts.areaOfNapierCount, color: COLORS[0] },
+      { title: 'Number of Cows', value: counts.numberOfCowsCount, color: COLORS[1] },
+      { title: 'Total Dung Produced (in Kg)', value: counts.dungProducedCount, color: COLORS[2] },
+      { title: 'Total Milk Produced (in Litre)', value: counts.milkProducedCount, color: COLORS[3] },
+    ];
+
+    return data;
+  };
+
+  return (
+    <div>
+      <h2>Statistics</h2>
+      <div style={{ marginBottom: '20px' }}>
+        <label>
+          Select Option:
+          <select value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
+          <option value="" disabled>Select an option</option>
+            <option value="Napier Grass">Napier Grass</option>
+            <option value="Cows">Cows</option>
+            {/* Add more options for other statistics */}
+          </select>
+        </label>
+      </div>
+      <div>
+        <h3>Pie Chart</h3>
+        <ResponsiveContainer width="100%" height={400}>
+          <PieChart>
+            <Pie
+              data={getChartData()}
+              dataKey="count"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              outerRadius={80}
+              fill="#8884d8"
+              label
+            >
+              {getChartData().map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.color} />
+              ))}
+            </Pie>
+            <Legend />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
+};
+
+export default StatisticsTab;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*import React, { useState } from 'react';
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts';
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
 function StatisticsTab({ farmersData }) {
   const [selectedOption, setSelectedOption] = useState('Napier Grass');
   const [formData, setFormData] = useState({
