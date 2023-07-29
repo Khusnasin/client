@@ -1,11 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from 'react-router-dom';
 import axios from "axios";
+//import mongoose from "mongoose";
+
+
+import { Types } from "mongoose";
 import Loader from "./Loader";
 import Error from "./Error";
 
-function FarmerProfile() {
-  const [farmer, setFarmer] = useState({});
+const mongoose = require('mongoose');
+
+function Farmersprofile() {
+  const farmer = JSON.parse(localStorage.getItem("currentUser"))
+  const [farmer1, setFarmer] = useState(farmer.data);
   const [editMode, setEditMode] = useState(false);
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState();
@@ -14,15 +21,18 @@ function FarmerProfile() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownOptions = ['Sonapur', 'Khanapara', 'Byrnihut', 'Jorabaat'];
   const dropdownRef = useRef(null);
-
-  const { farmerid } = useParams();
- 
+  
+  //const { farmerid = farmer.data._id } = useParams();
+  const farmerid = farmer.data._id;
   const fetchFarmerDetails = async () => {
     if (!localStorage.getItem('currentUser')) {
       window.location.href = '/login';
-    }
+    } 
+    const farmer = JSON.parse(localStorage.getItem("currentUser"))
     try {
       setloading(true);
+      console.log("farmerid:", farmerid);
+      //const objectIdFarmerId = Types.ObjectId(farmerid);
       const response = await axios.get(`/api/farmers/getfarmerbyid?farmerid=${farmerid}`);
       setFarmer(response.data);
       setloading(false);
@@ -70,7 +80,8 @@ function FarmerProfile() {
   };
   const handleSaveChanges = async () => {
     try {
-      await axios.put(`/api/farmers/updatefarmer/${farmerid}`, farmer);
+      const objectIdFarmerId = Types.ObjectId(farmerid);
+      await axios.put(`/api/farmers/updatefarmer/${objectIdFarmerId}`, farmer);
       setEditMode(false);
       alert("Changes saved successfully!");
     } catch (error) {
@@ -87,6 +98,7 @@ function FarmerProfile() {
       setIsDropdownOpen: true
     }));
   };
+  
   const handleOptionSelect = (selectedOption) => {
     setFarmer((prevFarmer) => ({
       ...prevFarmer,
@@ -94,6 +106,7 @@ function FarmerProfile() {
       setIsDropdownOpen: false
     }));
   };
+  console.log(farmer)
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -108,13 +121,13 @@ function FarmerProfile() {
   }, []);
 
   return (
-    <div>
-      <h2>Farmer Profile</h2>
+    <div >
+      <h2>{farmer.data.Name}'s Profile</h2>
       {loading ? (<Loader />) : (farmer ? (<div>
-        <div className="row justify-content-center mt-5 bs">
-          <div className="col-md-5">
-            <h1>{farmer.Name}</h1>
-            {farmer.imageUrls?.[0] && <img src={farmer.imageUrls[0]} className="bigimg" />}
+        <div className="row bs2">
+          <div className="col-md-3">
+            
+            
 
           </div>
           <div className="col-md-5">
@@ -127,7 +140,7 @@ function FarmerProfile() {
               <p>Location : {editMode ? (
                 <div>
                   <input type="text" className="form-control" placeholder="location"
-                    value={farmer.location} onChange={handleInputChange2} onClick={() => setIsDropdownOpen(true)} />
+                    value={farmer.data.location} onChange={handleInputChange2} onClick={() => setIsDropdownOpen(true)} />
                   {isDropdownOpen && (
                     <ul ref={dropdownRef}>
                       {dropdownOptions.map((option) => (
@@ -139,24 +152,24 @@ function FarmerProfile() {
                   )}
                 </div>
               ) : (
-                <span>{farmer.location}</span>
+                <span>{farmer.data.location}</span>
               )} </p>
               <p>Phone-Number : {editMode ? (
                 <input type="text" className="form-control" placeholder="Phone Number"
                   value={farmer.phoneNumber} onChange={handleInputChange} />) : (
-                <span>{farmer.phoneNumber} </span>
+                <span>{farmer.data.phoneNumber} </span>
               )}</p>
               <p>Password : {editMode ? (
                 <input type="password" className="form-control" placeholder="password"
                 value={farmer.password} onChange={handleInputChange} />) : (
-                <span>{farmer.password} </span>
+                <span>{farmer1.password} </span>
               )}</p>
               <h1>Napier Info</h1>
               <hr className="line"></hr>
               <p>Area Of Napier : {editMode ? (
                 <input type="number" className="form-control" placeholder="Total Area of Napier Grass Cultivation (in acres/hectares/bigha)"
                   value={farmer.areaOfNapier} onChange={handleInputChange} />) : (
-                <span>{farmer.areaOfNapier}</span>
+                <span>{farmer1.areaOfNapier}</span>
               )
               }</p>
             </b>
@@ -164,7 +177,7 @@ function FarmerProfile() {
               <p>Use Of Napier : {editMode ? (
                 <input type="text" className="form-control" placeholder="How do you use Napier grass on your farm? (e.g., feed for cows, selling, other purposes)"
                   value={farmer.useOfNapier} onChange={handleInputChange} />) : (
-                <span>{farmer.useOfNapier}</span>
+                <span>{farmer1.useOfNapier}</span>
               )
               }</p>
             </b>
@@ -174,19 +187,19 @@ function FarmerProfile() {
               <p>Number Of Cows : {editMode ? (
                 <input type="number" className="form-control" placeholder="Number Of Cows"
                   value={farmer.numberOfCows} onChange={handleInputChange} />) : (
-                <span>{farmer.numberOfCows}</span>
+                <span>{farmer1.numberOfCows}</span>
               )
               }</p>
               <p>Amount of Dung Produced : {editMode ? (
                 <input type="number" className="form-control" placeholder="Dung Produced (in kg)"
                   value={farmer.dungProduced_inKg} onChange={handleInputChange} />) : (
-                <span>{farmer.useOfNapier}</span>
+                <span>{farmer1.dungProduced_inKg}</span>
               )
               } kg</p>
-              <p>Amount Of Milk :{editMode ? (
+              <p>Amount Of Milk : {editMode ? (
                 <input type="number" className="form-control" placeholder="Amount of Milk (in Litres)"
                   value={farmer.amountOfMilk_inLitre} onChange={handleInputChange} />) : (
-                <span>{farmer.amountOfMilk_inLitre} Litre</span>
+                <span>{farmer1.amountOfMilk_inLitre} Litre</span>
               )
               } </p>
             </b>
@@ -198,14 +211,14 @@ function FarmerProfile() {
                   <input type='text' className='form-control' placeholder='description'
                     value={farmer.description} onChange={handleInputChange}
                   />) : (
-                  <span>{farmer.description}</span>
+                  <span>{farmer1.description}</span>
                 )
                 }  </p>
                 <p>Challenges : {editMode ? (
                   <input type='text' className='form-control' placeholder='Any specific challenges you face in your farming practices:'
                     value={farmer.challenges} onChange={handleInputChange}
                   />) : (
-                  <span>{farmer.challenges}</span>
+                  <span>{farmer1.challenges}</span>
                 )
                 }</p>
                 <p>interest In Training : {editMode ? (
@@ -230,7 +243,7 @@ function FarmerProfile() {
                       No
                     </label>
                   </div>) : (
-                  <span>{farmer.interestInTraining}</span>
+                  <span>{farmer1.interestInTraining ? "Yes" : "No"}</span>
                 )
                 }</p>
               </b>
@@ -244,14 +257,47 @@ function FarmerProfile() {
 
       {editMode ? (
         <>
-          <button onClick={handleSaveChanges}>Save</button>
-          <button onClick={handleEditButtonClick}>Cancel</button>
+          <button className="btn btn-primary" style={{marginTop:'20px'}} onClick={handleSaveChanges}>Save</button>
+          <button className="btn btn-primary" style={{marginTop:'20px'}} onClick={handleEditButtonClick}>Cancel</button>
         </>
       ) : (
-        <button onClick={handleEditButtonClick}>Edit</button>
+        <button className="btn btn-primary" style={{marginTop:'20px'}} onClick={handleEditButtonClick}>Edit</button>
       )}
     </div>
   );
 }
+/*function Farmersprofile() {
 
-export default FarmerProfile;
+  const farmer = JSON.parse(localStorage.getItem("currentUser"))
+
+  useEffect(() => {
+
+      if (!farmer) {
+          window.location.href = '/login'
+      }
+  }, [])
+
+  return (
+      <div className='ml-3 mt-3'>
+          
+              <div className='row'>
+              <div className='col-md-6'>
+                  <div className='bs'>
+                      <h1>My Profile</h1>
+                      <br />
+                      <h1>Name: {farmer.data.Name} </h1>
+                      <h1>Loacation: {farmer.data.location} </h1>
+                      <h1>Area of Napier: {farmer.data.areaOfNapier} </h1>
+                  </div>
+              </div>
+              </div>
+
+              
+
+
+
+      </div>
+  );
+}*/
+
+export default Farmersprofile;

@@ -217,19 +217,9 @@ function Farmersregistratration(props) {
         document.removeEventListener('mousedown', handleClickOutside);
     };
 },[]);
-const [selectedFile, setSelectedFile] = useState(null);
-const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedFile(file);
-  };
-  const handleUpload = () => {
-    // Handle the image upload logic here (e.g., send the file to the server).
-    // You can use Fetch API or any other method to upload the image.
-    if (selectedFile) {
-      // Implement your upload logic here
-      console.log('Uploading...', selectedFile);
-    }
-  };
+
+
+ 
 
     return (
         <div>
@@ -267,12 +257,9 @@ const handleFileChange = (event) => {
                         <input type='text' className='form-control' placeholder='image URL 2'
                             value={imageurl2} onChange={(e) => { setimageurl2(e.target.value) }}
                         />
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <input type='file' className='form-control' placeholder='image URL 3'
-                            value={imageurl3} onChange={handleFileChange} accept = "image/*"
+                        <input type='text' className='form-control' placeholder='image URL 3'
+                            value={imageurl3} onChange={(e) => { setimageurl3(e.target.value) }}
                         />
-                        <button onClick={handleUpload} style={{marginTop:'0px', marginLeft:'10px'}} className="btn btn-primary mt-3">Upload</button>
-                        </div>
                         <input type='text' className='form-control' placeholder='description'
                             value={description} onChange={(e) => { setdescription(e.target.value) }}
                         />
