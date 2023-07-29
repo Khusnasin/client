@@ -19,7 +19,9 @@
     "react-spinners": "^0.13.8",
     "recharts": "^2.7.2",
     "sweetalert2": "^11.7.19",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "@restart/hooks": "0.4.11"
+
   },
   "scripts": {
     "start": "react-scripts start",
