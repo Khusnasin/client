@@ -93,7 +93,7 @@ function Farmersprofile() {
       console.error('Error updating user:', error);
     }
   };
-  const [editedFarmer, setEditedFarmer] = useState(null);
+  const [editedFarmer, setEditedFarmer] = useState();
   const handleSaveChanges = async () => {
     try {
       const editedData = {
@@ -111,6 +111,7 @@ function Farmersprofile() {
         interestInTraining: editedFarmer.interestInTraining,
       };
       await axios.put(`/api/farmers/updatefarmer/${farmerid}`, editedData);
+      console.log(editedData)
       setEditMode(false);
       setFarmer(editedData);
       alert("Changes saved successfully!");

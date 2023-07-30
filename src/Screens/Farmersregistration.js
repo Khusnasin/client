@@ -9,6 +9,9 @@ function Farmersregistratration(props) {
     const [Name, setname] = useState('');
     //const[email, setemail] = useState('');
     const [location, setlocation] = useState('');
+    const [latitude, setLatitude] = useState(null);
+    const [longitude, setLongitude] = useState(null);
+
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -36,7 +39,7 @@ function Farmersregistratration(props) {
     const [success, setsuccess] = useState();
 
     const dropdownOptions = ['Sonapur', 'Khanapara', 'Byrnihut', 'Jorabaat'];
- 
+
     useEffect(() => {
         console.log("Props.farmer data: ", props.farmer);
         if (props.farmer) {
@@ -98,12 +101,32 @@ function Farmersregistratration(props) {
         setcpassword('')
 
     };
+
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    setLatitude(latitude);
+                    setLongitude(longitude);
+                },
+                (error) => {
+                    console.error('Error getting user location:', error.message);
+                }
+            );
+        } else {
+            console.error('Geolocation is not supported by this browser.');
+        }
+    }, []);
+
     async function register() {
 
         if (password === cpassword) {
             const farmer = {
                 Name,
                 location,
+                latitude,
+                longitude,
                 phoneNumber,
                 areaOfNapier,
                 useOfNapier,
@@ -206,20 +229,20 @@ function Farmersregistratration(props) {
         setIsDropdownOpen(false); // Close the dropdown after selecting an option
     };
     useEffect(() => {
-        function handleClickOutside(event){
-            if(dropdownRef.current && !dropdownRef.current.contains(event.target)){
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setIsDropdownOpen(false);
             }
         };
-    
-    document.addEventListener('mousedown' , handleClickOutside);
-    return() => {
-        document.removeEventListener('mousedown', handleClickOutside);
-    };
-},[]);
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
 
- 
+
 
     return (
         <div>
@@ -240,25 +263,34 @@ function Farmersregistratration(props) {
                             value={Name} onChange={(e) => { setname(e.target.value) }} />
                         <input type="text" className="form-control" placeholder="location"
                             value={location} onChange={handleInputChange} onClick={() => setIsDropdownOpen(true)} />
-                            {isDropdownOpen && (
-                                <ul ref={dropdownRef}>
-                                    {dropdownOptions.map((option) => (
-                                        <li key={option} onClick={() => handleOptionSelect(option)}>
-                                            {option}
-                                        </li>
-                                    ))}
-                                </ul>
-                            )}
+                        {isDropdownOpen && (
+                            <ul ref={dropdownRef}>
+                                {dropdownOptions.map((option) => (
+                                    <li key={option} onClick={() => handleOptionSelect(option)}>
+                                        {option}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                        
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Latitude"
+                            value={latitude || ''}
+                            onChange={(e) => setLatitude(e.target.value)}
+                        />
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Longitude"
+                            value={longitude || ''}
+                            onChange={(e) => setLongitude(e.target.value)}
+                        />
                         <input type="text" className="form-control" placeholder="Phone Number"
                             value={phoneNumber} onChange={(e) => { setphoneNumber(e.target.value) }} />
                         <input type='text' className='form-control' placeholder='image URL 1'
                             value={imageurl1} onChange={(e) => { setimageurl1(e.target.value) }}
-                        />
-                        <input type='text' className='form-control' placeholder='image URL 2'
-                            value={imageurl2} onChange={(e) => { setimageurl2(e.target.value) }}
-                        />
-                        <input type='text' className='form-control' placeholder='image URL 3'
-                            value={imageurl3} onChange={(e) => { setimageurl3(e.target.value) }}
                         />
                         <input type='text' className='form-control' placeholder='description'
                             value={description} onChange={(e) => { setdescription(e.target.value) }}
