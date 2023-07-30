@@ -46,6 +46,8 @@ function Farmersregistratration(props) {
             const {
                 Name,
                 location,
+                latitude,
+                longitude,
                 phoneNumber,
                 areaOfNapier,
                 useOfNapier,
