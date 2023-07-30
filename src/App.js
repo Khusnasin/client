@@ -14,6 +14,8 @@ import Adminscreen from './Screens/Adminscreen';
 //import StatisticsTab from './components/StatisticsTab';
 import Farmersdashboard from './Screens/Farmersdashboard';
 //import FarmerProfile from './components/Farmersprofile';
+import Landingscreen from './screens/Landingscreen';
+
 
 
 function App() {
@@ -36,6 +38,7 @@ function App() {
           <Route path= "/admin-screen" element={<Adminscreen/>}/>
           <Route path = "/farmer-profile/:farmerid" element={<Farmersdashboard/>}/>
           <Route path= "/admin-dashboard" element={<Admindashboard/>}/>
+          <Route path="/" exact Component={Landingscreen} />
           
       
         </Routes>
