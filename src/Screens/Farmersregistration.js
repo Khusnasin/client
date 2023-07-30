@@ -67,8 +67,8 @@ function Farmersregistratration(props) {
             setdungProduced_inKg(dungProduced_inKg);
             setamountOfMilk_inLitre(amountOfMilk_inLitre);
             setimageurl1(imageUrls[0]);
-            setimageurl2(imageUrls[1]);
-            setimageurl3(imageUrls[2]);
+            setLatitude(latitude);
+            setLongitude(longitude);
             setdescription(description);
             setchallenges(challenges);
             setinterestInTraining(interestInTraining);
@@ -91,8 +91,8 @@ function Farmersregistratration(props) {
         setdungProduced_inKg('')
         setamountOfMilk_inLitre('')
         setimageurl1('')
-        setimageurl2('')
-        setimageurl3('')
+        setLatitude('')
+        setLongitude('')
         setdescription('')
         setchallenges('')
         setinterestInTraining('')
@@ -161,8 +161,8 @@ function Farmersregistratration(props) {
                 setdungProduced_inKg()
                 setamountOfMilk_inLitre()
                 setimageurl1()
-                setimageurl2()
-                setimageurl3()
+                setLatitude()
+                setLongitude()
                 setdescription()
                 setchallenges()
                 setinterestInTraining()
