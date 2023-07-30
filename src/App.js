@@ -14,7 +14,7 @@ import Adminscreen from './Screens/Adminscreen';
 //import StatisticsTab from './components/StatisticsTab';
 import Farmersdashboard from './Screens/Farmersdashboard';
 //import FarmerProfile from './components/Farmersprofile';
-import Landingscreen from './screens/Landingscreen';
+import Landingscreen from './Screens/Landingscreen';
 
 
 

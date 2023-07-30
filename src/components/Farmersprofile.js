@@ -51,8 +51,23 @@ function Farmersprofile() {
     console.log("farmer state:", farmer);
   }, [farmer]);
 
-  const handleEditButtonClick = () => {
-    setEditMode(!editMode);
+  const handleEditButtonClick = async() => {
+    if (editMode) {
+      // If in edit mode, cancel and reset to server data
+      try {
+        setloading(true);
+        const response = await axios.get(`/api/farmers/getfarmerbyid?farmerid=${farmerid}`);
+        setFarmer(response.data);
+        setloading(false);
+        setEditMode(false);
+      } catch (error) {
+        console.log("Error fetching farmer details:", error);
+        seterror(true);
+        setloading(false);
+      }
+    } else {
+      setEditMode(true);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -78,11 +93,13 @@ function Farmersprofile() {
       console.error('Error updating user:', error);
     }
   };
+  const [editedFarmer, setEditedFarmer] = useState(null);
   const handleSaveChanges = async () => {
     try {
-      const objectIdFarmerId = Types.ObjectId(farmerid);
-      await axios.put(`/api/farmers/updatefarmer/${objectIdFarmerId}`, farmer);
+      //const objectIdFarmerId = Types.ObjectId(farmerid);
+      await axios.put(`/api/farmers/updatefarmer/${farmerid}`, editedFarmer);
       setEditMode(false);
+      setFarmer(farmer1);
       alert("Changes saved successfully!");
     } catch (error) {
       console.log("Error updating farmer details:", error);
@@ -136,11 +153,15 @@ function Farmersprofile() {
             <b>
               <h1>Personal Info</h1>
               <hr className="line"></hr>
-              <p>Name : {JSON.parse(localStorage.getItem('currentUser')).data.Name} </p>
+              <p>Name : {editMode ? (
+                <input type="text" className="form-control" placeholder="Phone Number"
+                  value={farmer.phoneNumber} onChange={handleInputChange} />) : (
+                <span>{JSON.parse(localStorage.getItem('currentUser')).data.Name}  </span>
+              )}</p>
               <p>Location : {editMode ? (
                 <div>
                   <input type="text" className="form-control" placeholder="location"
-                    value={farmer.data.location} onChange={handleInputChange2} onClick={() => setIsDropdownOpen(true)} />
+                    value={farmer.location} onChange={handleInputChange2} onClick={() => setIsDropdownOpen(true)} />
                   {isDropdownOpen && (
                     <ul ref={dropdownRef}>
                       {dropdownOptions.map((option) => (
@@ -266,38 +287,6 @@ function Farmersprofile() {
     </div>
   );
 }
-/*function Farmersprofile() {
 
-  const farmer = JSON.parse(localStorage.getItem("currentUser"))
-
-  useEffect(() => {
-
-      if (!farmer) {
-          window.location.href = '/login'
-      }
-  }, [])
-
-  return (
-      <div className='ml-3 mt-3'>
-          
-              <div className='row'>
-              <div className='col-md-6'>
-                  <div className='bs'>
-                      <h1>My Profile</h1>
-                      <br />
-                      <h1>Name: {farmer.data.Name} </h1>
-                      <h1>Loacation: {farmer.data.location} </h1>
-                      <h1>Area of Napier: {farmer.data.areaOfNapier} </h1>
-                  </div>
-              </div>
-              </div>
-
-              
-
-
-
-      </div>
-  );
-}*/
 
 export default Farmersprofile;
