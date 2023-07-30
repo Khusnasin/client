@@ -11,6 +11,7 @@ import StatisticsTab from "../components/StatisticsTab"
 //import MenuItem from 'antd/es/menu/MenuItem';
 //import { Bar } from 'react-chartjs-2';
 
+
 const { Header, Content, Sider } = Layout;
 
 function Admindashboard() {
@@ -155,4 +156,60 @@ useEffect(() => {
 }
 
 export default Admindashboard;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
