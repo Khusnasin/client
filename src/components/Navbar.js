@@ -20,7 +20,7 @@ function Navbar() {
                 aria-expanded="false" 
                 aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon" >
-                    <i className="fa fa-bars" style={{color : 'white'}}></i>
+                    <i className="fa fa-bars" style={{color: "white", marginTop: '5px'}}></i>
                 </span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
@@ -35,8 +35,8 @@ function Navbar() {
                                     data-toggle="dropdown" 
                                     aria-haspopup="true" 
                                     aria-expanded="false">
-                                    <i class='fa fa-user'></i>
-                                    {farmer.data?.Name /* Use optional chaining here */}
+                                    <i class='fa fa-user' style={{marginRight:'5px'}}></i>
+                                     {farmer.data?.Name }
                                     
                                     </button>
                                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">

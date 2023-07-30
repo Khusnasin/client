@@ -21,13 +21,13 @@ function Farmersprofile() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownOptions = ['Sonapur', 'Khanapara', 'Byrnihut', 'Jorabaat'];
   const dropdownRef = useRef(null);
-  
+
   //const { farmerid = farmer.data._id } = useParams();
   const farmerid = farmer.data._id;
   const fetchFarmerDetails = async () => {
     if (!localStorage.getItem('currentUser')) {
       window.location.href = '/login';
-    } 
+    }
     const farmer = JSON.parse(localStorage.getItem("currentUser"))
     try {
       setloading(true);
@@ -51,7 +51,7 @@ function Farmersprofile() {
     console.log("farmer state:", farmer);
   }, [farmer]);
 
-  const handleEditButtonClick = async() => {
+  const handleEditButtonClick = async () => {
     if (editMode) {
       // If in edit mode, cancel and reset to server data
       try {
@@ -81,13 +81,13 @@ function Farmersprofile() {
   console.log(farmer);
 
   const handleRadioChange = async (event) => {
-    const value = event.target.value === 'yes'; 
+    const value = event.target.value === 'yes';
 
     try {
 
       setFarmer((prevFarmer) => ({
         ...prevFarmer,
-        interestInTraining: value, 
+        interestInTraining: value,
       }));
     } catch (error) {
       console.error('Error updating user:', error);
@@ -96,10 +96,23 @@ function Farmersprofile() {
   const [editedFarmer, setEditedFarmer] = useState(null);
   const handleSaveChanges = async () => {
     try {
-      //const objectIdFarmerId = Types.ObjectId(farmerid);
-      await axios.put(`/api/farmers/updatefarmer/${farmerid}`, editedFarmer);
+      const editedData = {
+        Name: editedFarmer.Name,
+        location: editedFarmer.location,
+        phoneNumber: editedFarmer.phoneNumber,
+        password: editedFarmer.password,
+        areaOfNapier: editedFarmer.areaOfNapier,
+        useOfNapier: editedFarmer.useOfNapier,
+        numberOfCows: editedFarmer.numberOfCows,
+        dungProduced_inKg: editedFarmer.dungProduced_inKg,
+        amountOfMilk_inLitre: editedFarmer.amountOfMilk_inLitre,
+        description: editedFarmer.description,
+        challenges: editedFarmer.challenges,
+        interestInTraining: editedFarmer.interestInTraining,
+      };
+      await axios.put(`/api/farmers/updatefarmer/${farmerid}`, editedData);
       setEditMode(false);
-      setFarmer(farmer1);
+      setFarmer(editedData);
       alert("Changes saved successfully!");
     } catch (error) {
       console.log("Error updating farmer details:", error);
@@ -115,7 +128,7 @@ function Farmersprofile() {
       setIsDropdownOpen: true
     }));
   };
-  
+
   const handleOptionSelect = (selectedOption) => {
     setFarmer((prevFarmer) => ({
       ...prevFarmer,
@@ -143,8 +156,8 @@ function Farmersprofile() {
       {loading ? (<Loader />) : (farmer ? (<div>
         <div className="row bs2">
           <div className="col-md-3">
-            
-            
+
+
 
           </div>
           <div className="col-md-5">
@@ -182,7 +195,7 @@ function Farmersprofile() {
               )}</p>
               <p>Password : {editMode ? (
                 <input type="password" className="form-control" placeholder="password"
-                value={farmer.password} onChange={handleInputChange} />) : (
+                  value={farmer.password} onChange={handleInputChange} />) : (
                 <span>{farmer1.password} </span>
               )}</p>
               <h1>Napier Info</h1>
@@ -278,11 +291,11 @@ function Farmersprofile() {
 
       {editMode ? (
         <>
-          <button className="btn btn-primary" style={{marginTop:'20px'}} onClick={handleSaveChanges}>Save</button>
-          <button className="btn btn-primary" style={{marginTop:'20px'}} onClick={handleEditButtonClick}>Cancel</button>
+          <button className="btn btn-primary" style={{ marginTop: '20px' }} onClick={handleSaveChanges}>Save</button>
+          <button className="btn btn-primary" style={{ marginTop: '20px' }} onClick={handleEditButtonClick}>Cancel</button>
         </>
       ) : (
-        <button className="btn btn-primary" style={{marginTop:'20px'}} onClick={handleEditButtonClick}>Edit</button>
+        <button className="btn btn-primary" style={{ marginTop: '20px' }} onClick={handleEditButtonClick}>Edit</button>
       )}
     </div>
   );

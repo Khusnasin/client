@@ -81,8 +81,8 @@ function Homescreen() {
             <div className='row mt-10 bs'>
                 {loading ? (<Loader />) :
                     <MapContainer
-                        center={[51.505, -0.09]}
-                        zoom={13}
+                        center={[26.1158, 91.7086]}
+                        zoom={10}
                         style={{ height: '400px', width: '100%', marginTop: '25px' }}
                     >
                         <TileLayer
