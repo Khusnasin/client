@@ -4,7 +4,7 @@ import Loader from "../components/Loader";
 import Error from "../components/Error";
 import Success from "../components/Success";
 
-function Farmersregistratration() {
+function Farmersregistratration(props) {
     const formRef = useRef(null);
     const [Name, setname] = useState('');
     //const[email, setemail] = useState('');
@@ -36,6 +36,41 @@ function Farmersregistratration() {
     const [success, setsuccess] = useState();
 
     const dropdownOptions = ['Sonapur', 'Khanapara', 'Byrnihut', 'Jorabaat'];
+ 
+    useEffect(() => {
+        console.log("Props.farmer data: ", props.farmer);
+        if (props.farmer) {
+            const {
+                Name,
+                location,
+                phoneNumber,
+                areaOfNapier,
+                useOfNapier,
+                numberOfCows,
+                dungProduced_inKg,
+                amountOfMilk_inLitre,
+                imageUrls,
+                description,
+                challenges,
+                interestInTraining,
+            } = props.farmer;
+
+            setname(props.farmer.Name);
+            setlocation(props.farmer.location);
+            setphoneNumber(phoneNumber);
+            setareaOfNapier(areaOfNapier);
+            setuseOfNapier(useOfNapier);
+            setnumberOfCows(numberOfCows);
+            setdungProduced_inKg(dungProduced_inKg);
+            setamountOfMilk_inLitre(amountOfMilk_inLitre);
+            setimageurl1(imageUrls[0]);
+            setimageurl2(imageUrls[1]);
+            setimageurl3(imageUrls[2]);
+            setdescription(description);
+            setchallenges(challenges);
+            setinterestInTraining(interestInTraining);
+        }
+    }, [props.farmer]);
 
     useEffect(() => {
         if (success) {
@@ -182,6 +217,9 @@ function Farmersregistratration() {
         document.removeEventListener('mousedown', handleClickOutside);
     };
 },[]);
+
+
+ 
 
     return (
         <div>

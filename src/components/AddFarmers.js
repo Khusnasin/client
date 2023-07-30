@@ -1,137 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState,useEffect, useRef } from 'react';
 import axios from 'axios';
 import Loader from "../components/Loader";
 import Error from "../components/Error";
-import { Tabs } from 'antd';
-import { TabPane } from 'react-bootstrap';
 import Swal from 'sweetalert2';
-import DashboardLink from '../components/DashboardLink';
 
-//import FarmersData from '../components/FarmersData'; // Import FarmersData component
-//import AddFarmers from '../components/AddFarmers'; // Import AddFarmers component
-//import Users from '../components/Users'; // Import Users component
-//import  {AdminContext}  from '../components/AdminContext';
-
-function AdminScreen() {
-  //const { isAdmin, setIsAdmin } = useContext(AdminContext);
-  const [isAdmin, setIsAdmin] = useState(false);
-  
-
-  useEffect(() => {
-    const current_user = JSON.parse(localStorage.getItem('currentUser'));
-
-    if (current_user && current_user.isAdmin) {
-      setIsAdmin(true);
-    } else {
-      window.location.href = '/loginadmin';
-    }
-  }, []);
-
-  return (
-    <div className="container mt-4">
-      <div className="row">
-        <div className="col-md-12 text-center">
-          <h1 style={{ fontWeight: 'bold', fontSize: '40px' }}>Welcome to Admin Panel</h1>
-          <DashboardLink />
-        </div>
-      </div>
-    
-        {isAdmin ? (
-            <Tabs defaultActiveKeys='1'>
-                <TabPane tab='FarmersData' key='1'>
-                    <FarmersData />
-                </TabPane>
-                <TabPane tab='AddFarmers' key='2'>
-                    <AddFarmers />
-                </TabPane>
-                <TabPane tab='Users' key='3'>
-                    <Users />
-                </TabPane>
-            </Tabs>
-        ) : (
-            <p>You are not authorized to view this page.</p>
-          )}
-    </div>
-)
-}
-
-export function FarmersData() {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [farmersData, setFarmersData] = useState([]);
-  //const {farmersData, loading, error, setFarmersData, setLoading, setError} = useContext(AdminContext);
-
-  useEffect(() => {
-    fetchFarmers();
-  }, []);
-
-  const fetchFarmers = async () => {
-    try {
-      const response = await axios.get('/api/farmers/getallfarmers');
-      const data = response.data;
-      setFarmersData(data);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-      setError(error);
-    }
-  };
-  return (
-    <div className='row'>
-      <div className='col-md-12'>
-        <h2>Farmers Data</h2>
-        {loading && <Loader />}
-        {farmersData.length > 0 && (
-          <p style={{ fontSize: '20px' }}><b>Total: {farmersData.length} Farmer Data</b></p>
-        )}
-        <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px' }}>
-          {error && (<Error />)}
-          <thead style={{ background: '#0d0d20', color: '#fff' }}>
-            <tr>
-              <th style={tableCellStyles}>Name</th>
-              <th style={tableCellStyles}>Location</th>
-              <th style={tableCellStyles}>Phone Number</th>
-              <th style={tableCellStyles}>Area Of Napier</th>
-              <th style={tableCellStyles}>Use Of Napier</th>
-              <th style={tableCellStyles}>Number Of Cows</th>
-              <th style={tableCellStyles}>Dung Produced in Kg</th>
-              <th style={tableCellStyles}>Amount Of Milk in Litre</th>
-              <th style={tableCellStyles}>Image Urls</th>
-              <th style={tableCellStyles}>Description</th>
-              <th style={tableCellStyles}>Challenges</th>
-              <th style={tableCellStyles}>Interest In Training</th>
-            </tr>
-          </thead>
-          <tbody>
-            {farmersData.map(farmer => (
-              <tr key={farmer._id}>
-                <td style={tableCellStyles}>{farmer.Name}</td>
-                <td style={tableCellStyles}>{farmer.location}</td>
-                <td style={tableCellStyles}>{farmer.phoneNumber}</td>
-                <td style={tableCellStyles}>{farmer.areaOfNapier}</td>
-                <td style={tableCellStyles}>{farmer.useOfNapier}</td>
-                <td style={tableCellStyles}>{farmer.numberOfCows}</td>
-                <td style={tableCellStyles}>{farmer.dungProduced_inKg}</td>
-                <td style={tableCellStyles}>{farmer.amountOfMilk_inLitre}</td>
-                <td style={tableCellStyles}>{farmer.imageUrls}</td>
-                <td style={tableCellStyles}>{farmer.description}</td>
-                <td style={tableCellStyles}>{farmer.challenges}</td>
-                <td style={tableCellStyles}>{farmer.interestInTraining}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-}
-const tableCellStyles = {
-  padding: '8px',
-  border: '2px solid #0d0d20',
-  //background: 'rgb(120, 120, 155)'
-};
-export 
 function AddFarmers() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -219,8 +91,13 @@ const handleOptionSelect = (selectedOption) => {
         setLoading(false);
         return;
       }
-      
-      const response = await axios.post('/api/farmers/addfarmers', formData, {
+      const formDataWithNull = { ...formData };
+    for (const key in formDataWithNull) {
+      if (formDataWithNull[key] === '') {
+        formDataWithNull[key] = null;
+      }
+    }
+      const response = await axios.post('/api/farmers/addfarmers', formDataWithNull, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -488,81 +365,4 @@ const handleOptionSelect = (selectedOption) => {
   );
 
   }
-
- 
-  export function Users() {
-    const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-  
-    useEffect(() => {
-      fetchUsers();
-    }, []);
-  
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get('/api/users/getallusers');
-        const data = response.data;
-  
-        // Handling null values in the response data
-        const usersWithNullFields = data.map(user => ({
-          ...user,
-          name: user.name || null,
-          email: user.email || null,
-          password: user.password || null,
-        }));
-        setUsers(usersWithNullFields);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching users:', error);
-        setLoading(false);
-        setError(error);
-      }
-    };
-  
-    const isAdmin = () => {
-      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      return currentUser && currentUser.isAdmin;
-    };
-  
-    return (
-      <div className='row'>
-        <div className='col-md-12'>
-          <h2>Users</h2>
-          {loading && <Loader />}
-          {users.length > 0 && (
-            <p style={{ fontSize: '20px' }}><b>Total: {users.length} Users</b></p>
-          )}
-          {isAdmin() && (
-            <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px' }}>
-              {error && <Error />}
-              <thead style={{ background: '#0d0d20', color: '#fff' }}>
-                <tr>
-                  <th style={tableCellStyles}>Name</th>
-                  <th style={tableCellStyles} >Email</th>
-                  <th style={tableCellStyles}>Password</th>
-                  <th style={tableCellStyles}>Is Admin</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((user) => (
-                  <tr key={user._id}>
-                    <td style={tableCellStyles}>{user.name}</td>
-                    <td style={tableCellStyles}>{user.email}</td>
-                    <td style={tableCellStyles}>{user.password}</td>
-                    <td style={tableCellStyles}>{user.isAdmin ? 'Yes' : 'No'}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-          {!isAdmin() && <p>You are not authorized to view this page.</p>}
-        </div>
-      </div>
-    );
-  }
- 
-
-
-export default AdminScreen;
-
+export default AddFarmers;
