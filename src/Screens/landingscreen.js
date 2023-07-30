@@ -11,7 +11,7 @@ const LandingScreen = () => {
         </div>
         <div className="admins-buttons">
         <button className="Adminregistration">Admin Register</button>
-          <button className="Adminregistration">Admin Login</button>
+          <button className="Adminlogin">Admin Login</button>
         </div>
       </div>
       <div className="separator-line"></div>
