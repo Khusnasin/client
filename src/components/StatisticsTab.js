@@ -40,11 +40,15 @@ function StatisticalTab() {
 
         {!loading && !error && (
           <div className="bs">
-            <div className="col-md-12 justify-content-center">
+            <div className="col-md-12 justify-content-center" style={{border: '2px solid white', background:'#b6c5e3'}} >
               <h3>Total Area of Napier: {totalAreaOfNapier}</h3>
+              {                           }
               <h3>Total Number of Cows: {totalNumberOfCows}</h3>
+              {                          }
               <h3>Total Dung Produced (in kg): {totalDungProduced_inKg}</h3>
+              {                               }
               <h3>Total Amount of Milk (in Litres): {totalAmountOfMilk_inLitre}</h3>
+              {                                   }
             </div>
           </div>
         )}
