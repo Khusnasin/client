@@ -21,13 +21,13 @@ function Farmersprofile() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownOptions = ['Sonapur', 'Khanapara', 'Byrnihut', 'Jorabaat'];
   const dropdownRef = useRef(null);
-  
+
   //const { farmerid = farmer.data._id } = useParams();
   const farmerid = farmer.data._id;
   const fetchFarmerDetails = async () => {
     if (!localStorage.getItem('currentUser')) {
       window.location.href = '/login';
-    } 
+    }
     const farmer = JSON.parse(localStorage.getItem("currentUser"))
     try {
       setloading(true);
@@ -51,8 +51,23 @@ function Farmersprofile() {
     console.log("farmer state:", farmer);
   }, [farmer]);
 
-  const handleEditButtonClick = () => {
-    setEditMode(!editMode);
+  const handleEditButtonClick = async () => {
+    if (editMode) {
+      // If in edit mode, cancel and reset to server data
+      try {
+        setloading(true);
+        const response = await axios.get(`/api/farmers/getfarmerbyid?farmerid=${farmerid}`);
+        setFarmer(response.data);
+        setloading(false);
+        setEditMode(false);
+      } catch (error) {
+        console.log("Error fetching farmer details:", error);
+        seterror(true);
+        setloading(false);
+      }
+    } else {
+      setEditMode(true);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -66,23 +81,39 @@ function Farmersprofile() {
   console.log(farmer);
 
   const handleRadioChange = async (event) => {
-    const value = event.target.value === 'yes'; 
+    const value = event.target.value === 'yes';
 
     try {
 
       setFarmer((prevFarmer) => ({
         ...prevFarmer,
-        interestInTraining: value, 
+        interestInTraining: value,
       }));
     } catch (error) {
       console.error('Error updating user:', error);
     }
   };
+  const [editedFarmer, setEditedFarmer] = useState();
   const handleSaveChanges = async () => {
     try {
-      const objectIdFarmerId = Types.ObjectId(farmerid);
-      await axios.put(`/api/farmers/updatefarmer/${objectIdFarmerId}`, farmer);
+      const editedData = {
+        Name: editedFarmer.Name,
+        location: editedFarmer.location,
+        phoneNumber: editedFarmer.phoneNumber,
+        password: editedFarmer.password,
+        areaOfNapier: editedFarmer.areaOfNapier,
+        useOfNapier: editedFarmer.useOfNapier,
+        numberOfCows: editedFarmer.numberOfCows,
+        dungProduced_inKg: editedFarmer.dungProduced_inKg,
+        amountOfMilk_inLitre: editedFarmer.amountOfMilk_inLitre,
+        description: editedFarmer.description,
+        challenges: editedFarmer.challenges,
+        interestInTraining: editedFarmer.interestInTraining,
+      };
+      await axios.put(`/api/farmers/updatefarmer/${farmerid}`, editedData);
+      console.log(editedData)
       setEditMode(false);
+      setFarmer(editedData);
       alert("Changes saved successfully!");
     } catch (error) {
       console.log("Error updating farmer details:", error);
@@ -98,7 +129,7 @@ function Farmersprofile() {
       setIsDropdownOpen: true
     }));
   };
-  
+
   const handleOptionSelect = (selectedOption) => {
     setFarmer((prevFarmer) => ({
       ...prevFarmer,
@@ -126,8 +157,8 @@ function Farmersprofile() {
       {loading ? (<Loader />) : (farmer ? (<div>
         <div className="row bs2">
           <div className="col-md-3">
-            
-            
+
+
 
           </div>
           <div className="col-md-5">
@@ -136,11 +167,15 @@ function Farmersprofile() {
             <b>
               <h1>Personal Info</h1>
               <hr className="line"></hr>
-              <p>Name : {JSON.parse(localStorage.getItem('currentUser')).data.Name} </p>
+              <p>Name : {editMode ? (
+                <input type="text" className="form-control" placeholder="Phone Number"
+                  value={farmer.phoneNumber} onChange={handleInputChange} />) : (
+                <span>{JSON.parse(localStorage.getItem('currentUser')).data.Name}  </span>
+              )}</p>
               <p>Location : {editMode ? (
                 <div>
                   <input type="text" className="form-control" placeholder="location"
-                    value={farmer.data.location} onChange={handleInputChange2} onClick={() => setIsDropdownOpen(true)} />
+                    value={farmer.location} onChange={handleInputChange2} onClick={() => setIsDropdownOpen(true)} />
                   {isDropdownOpen && (
                     <ul ref={dropdownRef}>
                       {dropdownOptions.map((option) => (
@@ -161,7 +196,7 @@ function Farmersprofile() {
               )}</p>
               <p>Password : {editMode ? (
                 <input type="password" className="form-control" placeholder="password"
-                value={farmer.password} onChange={handleInputChange} />) : (
+                  value={farmer.password} onChange={handleInputChange} />) : (
                 <span>{farmer1.password} </span>
               )}</p>
               <h1>Napier Info</h1>
@@ -257,47 +292,15 @@ function Farmersprofile() {
 
       {editMode ? (
         <>
-          <button className="btn btn-primary" style={{marginTop:'20px'}} onClick={handleSaveChanges}>Save</button>
-          <button className="btn btn-primary" style={{marginTop:'20px'}} onClick={handleEditButtonClick}>Cancel</button>
+          <button className="btn btn-primary" style={{ marginTop: '20px' }} onClick={handleSaveChanges}>Save</button>
+          <button className="btn btn-primary" style={{ marginTop: '20px' }} onClick={handleEditButtonClick}>Cancel</button>
         </>
       ) : (
-        <button className="btn btn-primary" style={{marginTop:'20px'}} onClick={handleEditButtonClick}>Edit</button>
+        <button className="btn btn-primary" style={{ marginTop: '20px' }} onClick={handleEditButtonClick}>Edit</button>
       )}
     </div>
   );
 }
-/*function Farmersprofile() {
 
-  const farmer = JSON.parse(localStorage.getItem("currentUser"))
-
-  useEffect(() => {
-
-      if (!farmer) {
-          window.location.href = '/login'
-      }
-  }, [])
-
-  return (
-      <div className='ml-3 mt-3'>
-          
-              <div className='row'>
-              <div className='col-md-6'>
-                  <div className='bs'>
-                      <h1>My Profile</h1>
-                      <br />
-                      <h1>Name: {farmer.data.Name} </h1>
-                      <h1>Loacation: {farmer.data.location} </h1>
-                      <h1>Area of Napier: {farmer.data.areaOfNapier} </h1>
-                  </div>
-              </div>
-              </div>
-
-              
-
-
-
-      </div>
-  );
-}*/
 
 export default Farmersprofile;

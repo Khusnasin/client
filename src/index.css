@@ -13,7 +13,7 @@ code {
     monospace;
 }
 .navbar{
-  background-color: black !important;
+  background-color: darkblue !important;
 }
 .nav-link{
   color: white !important;
@@ -36,8 +36,8 @@ h1{
   text-align: center;
 }
 .btn{
-  background-color: black !important;
-  color: white !important;
+  background-color: darkblue !important;
+  color: rgb(255, 255, 255) !important;
   box-shadow: none !important;
 }
 .bs{
@@ -86,7 +86,7 @@ h2{
 }
 
 .landing{
-  background-color: black !important;
+  background-color: darkblue !important;
   height: 100vh;
 }
 

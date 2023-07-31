@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
-import { MapContainer, TileLayer } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 
 import Room from "../components/Farmer";
 import Loader from "../components/Loader";
@@ -59,6 +60,19 @@ function Homescreen() {
 
     }
 
+    const calculateAverageLocation = () => {
+        if (farmers.length === 0) {
+          return [26.1158, 91.7086];
+        }
+    
+        const sumLat = farmers.reduce((total, farmer) => total + farmer.latitude, 0);
+        const sumLng = farmers.reduce((total, farmer) => total + farmer.longitude, 0);
+        const avgLat = sumLat / farmers.length;
+        const avgLng = sumLng / farmers.length;
+    
+        return [avgLat, avgLng];
+      };
+
     return (
 
         <div className='container'>
@@ -81,14 +95,30 @@ function Homescreen() {
             <div className='row mt-10 bs'>
                 {loading ? (<Loader />) :
                     <MapContainer
-                        center={[51.505, -0.09]}
-                        zoom={13}
-                        style={{ height: '400px', width: '100%', marginTop: '25px' }}
+                    center={calculateAverageLocation()}
+                    zoom={10}
+                    style={{ height: '400px', width: '100%', marginTop: '25px' }}
                     >
                         <TileLayer
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             attribution=""
                         />
+                        {farmers.map(farmer => (
+                            <Marker key={farmer._id} 
+                            position={[farmer.latitude, farmer.longitude]}
+                            icon={new L.Icon({ 
+                                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                                iconSize: [25, 41],
+                                iconAnchor: [12, 41],
+                                popupAnchor: [1, -34],
+                              })}
+                            >
+                                <Popup>
+                                {console.log(farmer)}
+                                    <Room farmer={farmer} />
+                                </Popup>
+                            </Marker>
+                        ))}
                     </MapContainer>}
 
             </div>
