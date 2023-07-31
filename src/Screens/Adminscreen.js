@@ -1,15 +1,15 @@
-import React, { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
-import Loader from "../components/Loader";
-import Error from "../components/Error";
+import React, { useEffect, useState } from 'react';
+//import axios from 'axios';
+//import Loader from "../components/Loader";
+//import Error from "../components/Error";
 import { Tabs } from 'antd';
 import { TabPane } from 'react-bootstrap';
-import Swal from 'sweetalert2';
+//import Swal from 'sweetalert2';
 import DashboardLink from '../components/DashboardLink';
 
-//import FarmersData from '../components/FarmersData'; // Import FarmersData component
-//import AddFarmers from '../components/AddFarmers'; // Import AddFarmers component
-//import Users from '../components/Users'; // Import Users component
+import FarmersData from '../components/FarmersData'; // Import FarmersData component
+import AddFarmers from '../components/AddFarmers'; // Import AddFarmers component
+import Users from '../components/Users'; // Import Users component
 //import  {AdminContext}  from '../components/AdminContext';
 
 function AdminScreen() {
@@ -54,7 +54,8 @@ function AdminScreen() {
     </div>
 )
 }
-
+export default AdminScreen;
+/*
 export function FarmersData() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -563,6 +564,6 @@ const handleOptionSelect = (selectedOption) => {
   }
  
 
+*/
 
-export default AdminScreen;
 

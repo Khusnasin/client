@@ -3,7 +3,7 @@ import axios from 'axios';
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import Success from "../components/Success";
-//import Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 
 function AddFarmers(props) {
   const formRef = useRef(null);
@@ -85,23 +85,23 @@ function AddFarmers(props) {
   }, [success]);
 
   const resetForm = () => {
-      setname('')
-      setlocation('')
-      setphoneNumber('')
-      setareaOfNapier('')
-      setuseOfNapier('')
-      setnumberOfCows('')
-      setdungProduced_inKg('')
-      setamountOfMilk_inLitre('')
-      setimageurl1('')
-      setLatitude('')
-      setLongitude('')
-      setdescription('')
-      setchallenges('')
-      setinterestInTraining('')
+      setname('');
+      setlocation('');
+      setphoneNumber('');
+      setareaOfNapier('');
+      setuseOfNapier('');
+      setnumberOfCows('');
+      setdungProduced_inKg('');
+      setamountOfMilk_inLitre('');
+      setimageurl1('');
+      setLatitude(null);
+      setLongitude(null);
+      setdescription('');
+      setchallenges('');
+      setinterestInTraining(false);
 
-      setpassword('')
-      setcpassword('')
+      setpassword('');
+      setcpassword('');
 
   };
 
@@ -121,70 +121,61 @@ function AddFarmers(props) {
           console.error('Geolocation is not supported by this browser.');
       }
   }, []);
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevent the default form submission behavior
 
-  async function register() {
+    // Validate the password and cpassword fields
+    if (password !== cpassword) {
+      alert('Passwords do not match!');
+      return;
+    }
 
-      if (password === cpassword) {
-          const farmer = {
-              Name,
-              location,
-              latitude,
-              longitude,
-              phoneNumber,
-              areaOfNapier,
-              useOfNapier,
-              numberOfCows,
-              dungProduced_inKg,
-              amountOfMilk_inLitre,
-              imageUrls: [imageurl1, imageurl2, imageurl3],
-              description,
-              challenges,
-              interestInTraining,
-              password,
-              cpassword
-          }
+    const farmer = {
+      Name,
+      location,
+      latitude,
+      longitude,
+      phoneNumber,
+      areaOfNapier,
+      useOfNapier,
+      numberOfCows,
+      dungProduced_inKg,
+      amountOfMilk_inLitre,
+      imageUrls: [imageurl1, imageurl2, imageurl3],
+      description,
+      challenges,
+      interestInTraining,
+      password,
+      cpassword,
+    };
 
-          try {
-              setloading(true);
-              const response = await axios.post('/api/farmers/addfarmers', farmer, {
-                  headers: {
-                      'Content-Type': 'application/json',
-                  },
-              });
-              const result = response.data;
-              setloading(false);
-              setsuccess(true);
+    try {
+      setloading(true);
+      const response = await axios.post('/api/farmers/addfarmers', farmer, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      setloading(false);
 
-              setname('')
-              setlocation('')
-              setphoneNumber()
-              setareaOfNapier()
-              setuseOfNapier()
-              setnumberOfCows()
-              setdungProduced_inKg()
-              setamountOfMilk_inLitre()
-              setimageurl1()
-              setLatitude()
-              setLongitude()
-              setdescription()
-              setchallenges()
-              setinterestInTraining()
-
-              setpassword('')
-              setcpassword('')
-
-              resetForm();
-
-          } catch (error) {
-              console.log(error);
-              setloading(false);
-              seterror(true);
-          }
+      if (response.status === 200) {
+        // Farmer added successfully
+        Swal.fire('Congrats', 'Your new farmer is added successfully!', 'success').then((result) => {
+          window.location.href = '/admin-dashboard';
+        });
+        resetForm();
+      } else {
+        // Handle other response statuses, if needed
+        console.log('Unexpected server response:', response);
       }
-      else {
-          alert('Please check the password again!')
-      }
-  }
+    } catch (error) {
+      console.log('Error adding farmer:', error);
+      setloading(false);
+      seterror(true);
+    }
+  };
+
+ 
   const handleReset = () => {
       resetForm();
   }
@@ -254,9 +245,11 @@ function AddFarmers(props) {
           {loading && (<Loader />)}
         {success && (<Success message='Registration Successful!' />)}              
           {error && (<Error />)}
+          <form onSubmit={handleSubmit}>  
               <div className="bs">
+              
               <div className="col-md-12 justify-content-center" style={{ marginRight: '100px', marginTop: '10px' }}>
-                  
+               
                      <input type="text" className="form-control" placeholder="Name"
                           value={Name} onChange={(e) => { setname(e.target.value) }} />
                       <input type="text" className="form-control" placeholder="location"
@@ -381,16 +374,17 @@ function AddFarmers(props) {
                   <div className='text-center'>
 
 
-                      <button className="btn btn-primary mt-3" style={{ marginRight: '10px' }} onClick={register}>Add Farmer</button>
+                      <button className="btn btn-primary mt-3" type='submit' style={{ marginRight: '10px' }} >Add Farmer</button>
                       <button className="btn btn-primary mt-3" type="button" onClick={handleReset}>Reset</button>
                   </div>
               </div>
 
-
+              </form>
           </div>
       </div>
   )
 }
+export default AddFarmers;
 /*const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
@@ -761,4 +755,4 @@ const handleOptionSelect = (selectedOption) => {
   );
 
   }*/
-export default AddFarmers;
+

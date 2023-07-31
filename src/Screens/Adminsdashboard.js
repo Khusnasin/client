@@ -7,7 +7,7 @@ import { UserOutlined, BarChartOutlined, FileAddOutlined, PlusOutlined } from '@
 import FarmersData from "../components/FarmersData";
 import AddFarmers from "../components/AddFarmers";
 import AdminDetails from "../components/AdminDetails";
-//import StatisticsTab from "../components/StatisticsTab"
+import StatisticsTab from "../components/StatisticsTab"
 //import MenuItem from 'antd/es/menu/MenuItem';
 //import { Bar } from 'react-chartjs-2';
 
@@ -88,8 +88,8 @@ useEffect(() => {
       case 'admin-details':
         return <AdminDetails/>;
         
-      //case 'statistics':
-      //  return <StatisticsTab farmersData={farmersData} selectedOption={selectedOption} />;
+      case 'statistics':
+        return <StatisticsTab farmersData={farmersData}  />;
       case 'farmers-data':
         return <FarmersData farmersData={farmersData} />;
       case 'add-farmers':
@@ -112,9 +112,9 @@ useEffect(() => {
         <Menu
           mode="inline"
           selectedKeys={[selectedTab]} >
-       {/* <Menu.Item key="statistics" icon={<BarChartOutlined />} onClick={() => handleTabChange('statistics')}>
+        <Menu.Item key="statistics" icon={<BarChartOutlined />} onClick={() => handleTabChange('statistics')}>
             Statistical Data
-  </Menu.Item>*/}
+  </Menu.Item>
           <Menu.Item key="farmers-data" icon={<FileAddOutlined />} onClick={() => handleTabChange('farmers-data')}>
             Farmers Data
           </Menu.Item>

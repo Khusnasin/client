@@ -1,4 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Loader from '../components/Loader';
+import Error from '../components/Error';
+
+function StatisticalTab() {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [farmersData, setFarmersData] = useState([]);
+
+  useEffect(() => {
+    fetchFarmersData();
+  }, []);
+
+  const fetchFarmersData = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get('/api/farmers'); // Assuming you have an API endpoint to fetch farmers data
+      setFarmersData(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      setError(true);
+    }
+  };
+
+  // Calculate the total values using the reduce method
+  const totalAreaOfNapier = farmersData.reduce((total, farmer) => total + (farmer.areaOfNapier || 0), 0);
+  const totalNumberOfCows = farmersData.reduce((total, farmer) => total + (farmer.numberOfCows || 0), 0);
+  const totalDungProduced_inKg = farmersData.reduce((total, farmer) => total + (farmer.dungProduced_inKg || 0), 0);
+  const totalAmountOfMilk_inLitre = farmersData.reduce((total, farmer) => total + (farmer.amountOfMilk_inLitre || 0), 0);
+
+  return (
+    <div className="row justify-content-center mt-2">
+      <div className="col-md-10">
+        <h2>Statistical Tab</h2>
+        {loading && <Loader />}
+        {error && <Error />}
+
+        {!loading && !error && (
+          <div className="bs">
+            <div className="col-md-12 justify-content-center">
+              <h3>Total Area of Napier: {totalAreaOfNapier}</h3>
+              <h3>Total Number of Cows: {totalNumberOfCows}</h3>
+              <h3>Total Dung Produced (in kg): {totalDungProduced_inKg}</h3>
+              <h3>Total Amount of Milk (in Litres): {totalAmountOfMilk_inLitre}</h3>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default StatisticalTab;
+
+
+/*import React, { useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
@@ -53,7 +111,7 @@ const StatisticsTab = ({ farmersData }) => {
           <option value="" disabled>Select an option</option>
             <option value="Napier Grass">Napier Grass</option>
             <option value="Cows">Cows</option>
-            {/* Add more options for other statistics */}
+            {/* Add more options for other statistics }
           </select>
         </label>
       </div>
