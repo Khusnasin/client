@@ -108,7 +108,7 @@ function Farmersprofile() {
         amountOfMilk_inLitre: editedFarmer.amountOfMilk_inLitre,
         description: editedFarmer.description,
         challenges: editedFarmer.challenges,
-        interestInTraining: editedFarmer.interestInTraining,
+        interestInTraining: editedFarmer.interestInTraining
       };
       await axios.put(`/api/farmers/updatefarmer/${farmerid}`, editedData);
       console.log(editedData)

@@ -4,7 +4,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-import Room from "../components/Farmer";
+import Room from "../components/Mappopup";
 import Loader from "../components/Loader";
 import Error from '../components/Error';
 
@@ -96,14 +96,14 @@ function Homescreen() {
                 {loading ? (<Loader />) :
                     <MapContainer
                     center={calculateAverageLocation()}
-                    zoom={10}
+                    zoom={8}
                     style={{ height: '400px', width: '100%', marginTop: '25px' }}
                     >
                         <TileLayer
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             attribution=""
                         />
-                        {farmers.map(farmer => (
+                        {duplicatefarmers.map(farmer => (
                             <Marker key={farmer._id} 
                             position={[farmer.latitude, farmer.longitude]}
                             icon={new L.Icon({ 
@@ -114,7 +114,6 @@ function Homescreen() {
                               })}
                             >
                                 <Popup>
-                                {console.log(farmer)}
                                     <Room farmer={farmer} />
                                 </Popup>
                             </Marker>
