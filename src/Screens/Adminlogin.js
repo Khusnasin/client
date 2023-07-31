@@ -25,7 +25,7 @@ function LoginAdmin() {
       e.preventDefault();
       try {
         setLoading(true);
-        const response = await axios.post("/api/admin/loginadmin", formData);
+        const response = await axios.post("/api/admins/loginadmin", formData);
         if (response.status === 200) {
           setLoading(false);
           const isAdmin = formData.adminCode === "your-secret-admin-code"; // Replace "your-admin-code" with the actual admin code

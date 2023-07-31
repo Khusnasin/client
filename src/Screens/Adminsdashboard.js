@@ -7,7 +7,7 @@ import { UserOutlined, BarChartOutlined, FileAddOutlined, PlusOutlined } from '@
 import FarmersData from "../components/FarmersData";
 import AddFarmers from "../components/AddFarmers";
 import AdminDetails from "../components/AdminDetails";
-import StatisticsTab from "../components/StatisticsTab"
+//import StatisticsTab from "../components/StatisticsTab"
 //import MenuItem from 'antd/es/menu/MenuItem';
 //import { Bar } from 'react-chartjs-2';
 
@@ -17,11 +17,11 @@ function Admindashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [farmersData, setFarmersData] = useState([]);
-  const [selectedTab, setSelectedTab] = useState('statistics');
-  const [selectedOption, setSelectedOption] = useState('Napier Grass');
+  const [selectedTab, setSelectedTab] = useState('farmers-data');
   //const [selectedOption, setSelectedOption] = useState('Napier Grass');
-  const [statisticsData, setStatisticsData] = useState(null);
-  const [admins, setAdmins] = useState([]);
+  //const [selectedOption, setSelectedOption] = useState('Napier Grass');
+  //const [statisticsData, setStatisticsData] = useState(null);
+  //const [admins, setAdmins] = useState([]);
 
   // Function to fetch farmers' data from the backend
   const fetchFarmersData = async () => {
@@ -41,7 +41,7 @@ function Admindashboard() {
     }
   };
   // Function to fetch statistics data from the backend based on the selected option
-const fetchStatisticsData = async (option) => {
+{/*const fetchStatisticsData = async (option) => {
   try {
     setLoading(true);
     const response = await axios.get(`/api/farmers/statistics?option=${option}`);
@@ -73,37 +73,27 @@ const fetchAdminsData = async () => {
       description: 'Failed to fetch admin data. Please try again later.',
     });
   }
-};
+}; */
 
 // Fetch farmers' data and statistics data when the component mounts
 useEffect(() => {
   fetchFarmersData();
-  fetchStatisticsData(selectedOption);
-  fetchAdminsData(); // Fetch statistics data for the initial selected option
-}, [selectedOption]);
+  //fetchStatisticsData(selectedOption);
+  
+}, []);
   
 
   const renderTabContent = () => {
     switch (selectedTab) {
       case 'admin-details':
-        return (<div>
-          <h2>Admin Details</h2>
-          {admins.map((admin) => (
-            <div key={admin._id}>
-              <h4>Name: {admin.name}</h4>
-              <p>Email: {admin.email}</p>
-              <p>Role: {admin.role}</p>
-              {                }
-            </div>
-          ))}
-        </div>)
+        return <AdminDetails/>;
         
-      case 'statistics':
-        return <StatisticsTab farmersData={farmersData} selectedOption={selectedOption} />;
+      //case 'statistics':
+      //  return <StatisticsTab farmersData={farmersData} selectedOption={selectedOption} />;
       case 'farmers-data':
         return <FarmersData farmersData={farmersData} />;
       case 'add-farmers':
-        return <AddFarmers />;
+        return <AddFarmers/>;
       default:
         return null;
     }
@@ -111,9 +101,7 @@ useEffect(() => {
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
   };
-  const handleOptionChange = (option) => {
-    setSelectedOption(option);
-  };
+  
   return (
     <Layout style={{ minHeight: '100vh' }}>
       {/* ... */}
@@ -124,9 +112,9 @@ useEffect(() => {
         <Menu
           mode="inline"
           selectedKeys={[selectedTab]} >
-          <Menu.Item key="statistics" icon={<BarChartOutlined />} onClick={() => handleTabChange('statistics')}>
+       {/* <Menu.Item key="statistics" icon={<BarChartOutlined />} onClick={() => handleTabChange('statistics')}>
             Statistical Data
-          </Menu.Item>
+  </Menu.Item>*/}
           <Menu.Item key="farmers-data" icon={<FileAddOutlined />} onClick={() => handleTabChange('farmers-data')}>
             Farmers Data
           </Menu.Item>
@@ -153,6 +141,5 @@ useEffect(() => {
     </Layout>
   );
 }
-
+}
 export default Admindashboard;
-

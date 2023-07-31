@@ -29,7 +29,7 @@ function Adminregistration() {
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await axios.post('/api/admin/registeruseradmin', formData);
+      const response = await axios.post('/api/admins/registeruseradmin', formData);
       if (response.status === 201) {
         setSuccess('Registration Successful!');
         setLoading(false);
