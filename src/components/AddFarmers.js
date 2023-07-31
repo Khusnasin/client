@@ -161,7 +161,7 @@ function AddFarmers(props) {
       if (response.status === 200) {
         // Farmer added successfully
         Swal.fire('Congrats', 'Your new farmer is added successfully!', 'success').then((result) => {
-          window.location.href = '/admin-dashboard';
+          window.location.href = '/admin-screen';
         });
         resetForm();
       } else {
