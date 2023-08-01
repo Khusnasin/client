@@ -6,7 +6,7 @@ import { Tabs } from 'antd';
 import { TabPane } from 'react-bootstrap';
 //import Swal from 'sweetalert2';
 import DashboardLink from '../components/DashboardLink';
-
+import { Link } from "react-router-dom";
 import FarmersData from '../components/FarmersData'; // Import FarmersData component
 import AddFarmers from '../components/AddFarmers'; // Import AddFarmers component
 import Users from '../components/Users'; // Import Users component
@@ -33,6 +33,9 @@ function AdminScreen() {
         <div className="col-md-12 text-center">
           <h1 style={{ fontWeight: 'bold', fontSize: '40px' }}>Welcome to Admin Panel</h1>
           <DashboardLink />
+          <Link to='/home'>
+        <h3 style={{ fontWeight: "lighter", fontSize: '14px' }}>"Return to Home Page."</h3>
+      </Link>
         </div>
       </div>
     
@@ -51,6 +54,8 @@ function AdminScreen() {
         ) : (
             <p>You are not authorized to view this page.</p>
           )}
+
+
     </div>
 )
 }

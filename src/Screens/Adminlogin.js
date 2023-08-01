@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import { Link } from "react-router-dom";
 
 function LoginAdmin() {
     const [loading, setLoading] = useState(false);
@@ -95,6 +96,11 @@ function LoginAdmin() {
                   <button type="submit" className="btn btn-primary mt-3">
                     Login
                   </button>
+                  <Link to='/registeruseradmin'>
+          <div className="admins-buttons">
+            <button className="btn landingbtn">Don't have an account? Register as Admin first</button>
+          </div>
+        </Link>
                 </div>
               </div>
             </div>
