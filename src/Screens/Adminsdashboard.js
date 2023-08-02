@@ -7,7 +7,8 @@ import { UserOutlined, BarChartOutlined, FileAddOutlined, PlusOutlined } from '@
 import FarmersData from "../components/FarmersData";
 import AddFarmers from "../components/AddFarmers";
 import AdminDetails from "../components/AdminDetails";
-import StatisticsTab from "../components/StatisticsTab"
+import StatisticsTab from "../components/StatisticsTab";
+import { Link } from "react-router-dom";
 //import MenuItem from 'antd/es/menu/MenuItem';
 //import { Bar } from 'react-chartjs-2';
 
@@ -133,9 +134,18 @@ useEffect(() => {
           <div>
             <h4>Welcome to the Admin Dashboard!</h4>
             <p>(Here you can manage Statistical Data, Farmers Data, Add New Farmers, and View Admin Information.)</p>
+            
           </div>
           {renderTabContent()}
-          
+          {/*  */}
+          <div className="col-md-12 text-center" style={{padding: '15px'}}>
+            <Link to='/admin-screen'>
+            <h5 style={{ fontWeight: "bold", fontSize: '16px' }}>Visit Admin Panel.</h5>
+                 </Link>
+                 <Link to='/home'>
+        <h5 style={{ fontWeight: "lighter", fontSize: '12px' }}>(Return to Home Page.)</h5>
+      </Link>
+                 </div>
         </Content>
       </Layout>
     </Layout>

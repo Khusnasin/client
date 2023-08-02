@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import Success from "../components/Success";
+import { Link } from "react-router-dom";
 
 function Adminregistration() {
   const [loading, setLoading] = useState(false);
@@ -55,7 +56,7 @@ function Adminregistration() {
         {success && <Success message='Registration Successful!' />}
         <div className="row justify-content-center mt-5">
           <div className="col-md-5 mt-5">
-            <div className="bs">
+            < div className="bs">
               <div>
                 <label>UserName:</label>
                 <input type="text" className="form-control" placeholder="username"
@@ -83,7 +84,14 @@ function Adminregistration() {
               </div>
               <div>
                 <button type="submit" className="btn btn-primary mt-3">Register</button>
+                <Link to='/loginadmin'>
+          <div className="admins-buttons">
+            <button className="btn landingbtn">Already Registered as Admin, Login here!</button>
+          </div>
+        </Link>
               </div>
+              
+      
             </div>
           </div>
         </div>
