@@ -15,6 +15,7 @@ import Adminscreen from './Screens/Adminscreen';
 import Farmersdashboard from './Screens/Farmersdashboard';
 //import FarmerProfile from './components/Farmersprofile';
 import Landingscreen from './Screens/Landingscreen';
+import FarmerDetails from './Screens/Farmersdetails';
 
 
 
@@ -31,6 +32,7 @@ function App() {
         <Routes>
         
           <Route path = "/home" element = {<Homescreen/>} />
+          <Route path= "/farmer-details/:farmerId" element = {<FarmerDetails />} />
           <Route path = "/registerfarmer" element = {<Farmersregistratration/>} /> 
           <Route path = "/registeruseradmin" element = {<Adminregistration/>} />          
           <Route path = "/loginfarmer" element={<Farmerlogin/>}/>

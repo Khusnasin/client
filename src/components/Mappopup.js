@@ -4,32 +4,33 @@ import { Link } from "react-router-dom";
 
 
 
-function Farmer({ farmer}) {
+function Farmer({ farmer }) {
     const [show, setShow] = useState(false);
     const { Name, location, phoneNumber, imageUrls } = farmer;
     //const handleShow = () => setShow(true);
 
     return (
 
-       
-            
-            <div className="col-md-10">
-                 
-                
-                
-                <h3>{farmer.Name}</h3>
-                <b>
-                    <p>Location  : {farmer.location}</p>
-                    <p>Phone Number : {farmer.phoneNumber}</p>
+
+
+        <div className="col-md-10">
+
+
+
+            <h3>{farmer.Name}</h3>
+            <b>
+                <p>Location  : {farmer.location}</p>
+                <p>Phone Number : {farmer.phoneNumber}</p>
+                <Link to={`/farmer-details/${farmer._id}`}>
                     <button className="btn btn-primary" >View Details</button>
-                    
-                </b>
-                
-            
+                </Link>
+            </b>
+
+
 
 
         </div>
-        
+
     )
 }
 
