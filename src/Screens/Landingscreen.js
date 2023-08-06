@@ -35,12 +35,12 @@ const LandingScreen = () => {
         </Link>
       </div>
       
-
+      </div>
       <Link to='/home'>
         <button className="btn landingbtn" style={{ color: 'black' }}>Get Started</button>
       </Link>
 
-    </div>
+    
     </div>
   );
 };

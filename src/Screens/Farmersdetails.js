@@ -45,26 +45,25 @@ if (!farmer) {
                         <b>
                             <h2>Personal Info</h2>
                             <hr className="line"></hr>
-                            <p>Name :
-                                {farmer.Name}
+                            <p>Name : {farmer.Name}
                             </p>
                             <p>Location : 
-                                <span>{farmer.location}</span>
+                                <span> {farmer.location}</span>
                             </p>
                             <p>Phone-Number : 
-                                <span>{farmer.phoneNumber} </span>
+                                <span> {farmer.phoneNumber} </span>
                             </p>
                             
                             <h2>Napier Info</h2>
                             <hr className="line"></hr>
                             <p>Area Of Napier : 
-                                <span>{farmer.areaOfNapier}</span>
+                                <span> {farmer.areaOfNapier}</span>
                             
                             </p>
                         </b>
                         <b>
                             <p>Use Of Napier : 
-                                <span>{farmer.useOfNapier}</span>
+                                <span> {farmer.useOfNapier}</span>
                             
                             </p>
                         </b>
@@ -72,15 +71,15 @@ if (!farmer) {
                             <h2>Cows Info</h2>
                             <hr className="line"></hr>
                             <p>Number Of Cows : 
-                                <span>{farmer.numberOfCows}</span>
+                                <span> {farmer.numberOfCows}</span>
                             
                             </p>
                             <p>Amount of Dung Produced : 
-                                <span>{farmer.dungProduced_inKg} kg</span>
+                                <span> {farmer.dungProduced_inKg} kg</span>
                             
                              </p>
                             <p>Amount Of Milk : 
-                                <span>{farmer.amountOfMilk_inLitre} Litre</span>
+                                <span> {farmer.amountOfMilk_inLitre} Litre</span>
                             
                             </p>
                         </b>
@@ -93,7 +92,7 @@ if (!farmer) {
                                 
                                  </p>
                                 <p>Challenges : 
-                                    <span>{farmer.challenges}</span>
+                                    <span> {farmer.challenges}</span>
                                 
                                 </p>
                                 <p>interest In Training : 
