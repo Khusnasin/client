@@ -274,7 +274,7 @@ function Farmersregistratration(props) {
                                 ))}
                             </ul>
                         )}
-                        
+
                         <input
                             type="text"
                             className="form-control"
@@ -301,9 +301,10 @@ function Farmersregistratration(props) {
                             value={challenges} onChange={(e) => { setchallenges(e.target.value) }}
                         />
 
-                        <div className="radio-container">
+                        <div className="radio-container" >
                             <label style={{ marginTop: '15px', marginLeft: '-100px', fontSize: '18px' }}>Are you interested in any farm-related training or <br></br>assistance?</label>
-                            <label>
+                            <div className="radio-button-group">
+                            <label className="radio-label">
                                 <input
                                     type="radio"
                                     value="yes"
@@ -312,7 +313,7 @@ function Farmersregistratration(props) {
                                 />
                                 Yes
                             </label>
-                            <label>
+                            <label className="radio-label">
                                 <input
                                     type="radio"
                                     value="no"
@@ -323,13 +324,14 @@ function Farmersregistratration(props) {
                             </label>
                         </div>
                     </div>
-
+                    </div>
 
                     <div className="col-md-8" >
 
                         <div className="radio-container">
                             <label style={{ marginTop: '15px', marginLeft: '-100px', fontSize: '18px' }}>Select your preference: </label>
-                            <label>
+                            <div className="radio-button-group">
+                            <label className="radio-label">
                                 <input
                                     type="radio"
                                     name="options"
@@ -337,10 +339,10 @@ function Farmersregistratration(props) {
                                     checked={option === 'Napier Grass'}
                                     onChange={handleOptionChange}
                                 />
-                                Napier Grass
+                                Napier
                             </label>
 
-                            <label>
+                            <label className="radio-label">
                                 <input
                                     type="radio"
                                     name="options"
@@ -352,7 +354,7 @@ function Farmersregistratration(props) {
                             </label>
 
 
-                            <label>
+                            <label className="radio-label">
                                 <input
                                     type="radio"
                                     name="options"
@@ -363,7 +365,7 @@ function Farmersregistratration(props) {
                                 Both
                             </label>
                         </div>
-
+                        </div>
 
                         <br />
                         <input type="number" disabled={option !== 'Napier Grass' && option !== 'both'} className="form-control" placeholder="Total Area of Napier Grass Cultivation (in acres/hectares)"
@@ -381,16 +383,17 @@ function Farmersregistratration(props) {
                             value={password} onChange={(e) => { setpassword(e.target.value) }} />
                         <input type="password" className="form-control" placeholder="confirm password"
                             value={cpassword} onChange={(e) => { setcpassword(e.target.value) }} />
-                    </div>
-                    <div className='text-center'>
 
-
-                        <button className="btn btn-primary mt-3" style={{ marginRight: '10px' }} onClick={register}>Register</button>
-                        <button className="btn btn-primary mt-3" type="button" onClick={handleReset}>Reset</button>
                     </div>
+
                 </div>
 
+                <div className='text-center'>
 
+
+                    <button className="btn btn-primary mt-3" style={{ marginRight: '10px',marginBottom:'15px' }} onClick={register}>Register</button>
+                    <button className="btn btn-primary mt-3" style={{marginBottom:'15px'}} type="button" onClick={handleReset}>Reset</button>
+                </div>
             </div>
         </div>
     )
